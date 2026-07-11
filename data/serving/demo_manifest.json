@@ -1,0 +1,20 @@
+{
+  "generated_files": [
+    "data/raw/demo/epidemic_daily_demo.csv",
+    "data/raw/demo/weather_daily_demo.csv",
+    "data/raw/demo/population_yearly_demo.csv",
+    "data/serving/metadata.json",
+    "data/serving/overview.json",
+    "data/serving/trend.json",
+    "data/serving/risk_map.json",
+    "data/serving/rankings.json",
+    "data/serving/model_metrics.json",
+    "data/serving/model_comparison.json",
+    "data/serving/predictions.json",
+    "data/serving/data_quality_report.json",
+    "data/serving/options.json",
+    "data/serving/source_status.json",
+    "data/serving/weather_correlation.json",
+    "data/serving/disease_share.json"
+  ]
+}

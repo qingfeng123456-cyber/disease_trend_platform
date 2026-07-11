@@ -1,0 +1,15 @@
+{
+  "run_id": "20260711T002020Z",
+  "started_at": "2026-07-11T00:20:20.097684+00:00",
+  "finished_at": "2026-07-11T00:20:20.097684+00:00",
+  "remote_host": null,
+  "remote_project_dir": null,
+  "steps": [],
+  "uploaded_files": 0,
+  "downloaded_files": [],
+  "hdfs_raw_status": null,
+  "hdfs_silver_status": null,
+  "spark_job_status": null,
+  "status": "failed",
+  "error": "远程配置文件不存在: D:\\大学学习\\计算机专业课\\专业实习\\程序\\disease_trend_platform_starter\\disease_trend_platform\\config\\remote_cluster.yaml. 请复制 config/remote_cluster.example.yaml 为 config/remote_cluster.yaml 后填写。"
+}

@@ -1,0 +1,303 @@
+{
+  "epidemic": {
+    "path": "data/raw/kaggle/epidemic/novel-corona-virus-2019-dataset/archive (2)/covid_19_data.csv",
+    "country_count": 228,
+    "date_range": [
+      "2020-01-22",
+      "2021-05-29"
+    ],
+    "date_count": 494,
+    "date_parse_errors": 0,
+    "full_duplicate_rows": 0,
+    "duplicate_country_date_province_key_count": 5,
+    "duplicate_country_date_province_examples": [
+      {
+        "country": "Mainland China",
+        "date": "2020-01-23",
+        "province": "Hubei",
+        "count": 2
+      },
+      {
+        "country": "Mainland China",
+        "date": "2020-03-11",
+        "province": "Hebei",
+        "count": 2
+      },
+      {
+        "country": "Mainland China",
+        "date": "2020-03-11",
+        "province": "Gansu",
+        "count": 2
+      },
+      {
+        "country": "Mainland China",
+        "date": "2020-03-12",
+        "province": "Hebei",
+        "count": 2
+      },
+      {
+        "country": "Mainland China",
+        "date": "2020-03-12",
+        "province": "Gansu",
+        "count": 2
+      }
+    ],
+    "country_date_with_multiple_province_rows": 9099,
+    "country_date_with_blank_and_province_rows": 1065,
+    "blank_plus_province_examples": [
+      {
+        "country": "Denmark",
+        "date": "2020-03-22",
+        "rows": 3,
+        "blank_province": 1,
+        "nonblank_province": 2
+      },
+      {
+        "country": "France",
+        "date": "2020-03-22",
+        "rows": 10,
+        "blank_province": 1,
+        "nonblank_province": 9
+      },
+      {
+        "country": "Netherlands",
+        "date": "2020-03-22",
+        "rows": 4,
+        "blank_province": 1,
+        "nonblank_province": 3
+      },
+      {
+        "country": "UK",
+        "date": "2020-03-22",
+        "rows": 8,
+        "blank_province": 1,
+        "nonblank_province": 7
+      },
+      {
+        "country": "Denmark",
+        "date": "2020-03-23",
+        "rows": 3,
+        "blank_province": 1,
+        "nonblank_province": 2
+      },
+      {
+        "country": "Netherlands",
+        "date": "2020-03-23",
+        "rows": 4,
+        "blank_province": 1,
+        "nonblank_province": 3
+      },
+      {
+        "country": "UK",
+        "date": "2020-03-23",
+        "rows": 8,
+        "blank_province": 1,
+        "nonblank_province": 7
+      },
+      {
+        "country": "Denmark",
+        "date": "2020-03-24",
+        "rows": 3,
+        "blank_province": 1,
+        "nonblank_province": 2
+      },
+      {
+        "country": "France",
+        "date": "2020-03-24",
+        "rows": 10,
+        "blank_province": 1,
+        "nonblank_province": 9
+      },
+      {
+        "country": "Netherlands",
+        "date": "2020-03-24",
+        "rows": 4,
+        "blank_province": 1,
+        "nonblank_province": 3
+      }
+    ],
+    "requires_province_dedup_before_country_aggregation": true
+  },
+  "population": {
+    "path": "data/raw/kaggle/population/world-population-dataset/world_population.csv",
+    "country_code_count": 234,
+    "duplicate_codes": []
+  },
+  "weather": {
+    "root": "data/raw/open_meteo",
+    "files": [
+      "data/raw/open_meteo/CHN/open_meteo_CHN_2020.csv",
+      "data/raw/open_meteo/CHN/open_meteo_CHN_2021.csv",
+      "data/raw/open_meteo/GBR/open_meteo_GBR_2020.csv",
+      "data/raw/open_meteo/GBR/open_meteo_GBR_2021.csv",
+      "data/raw/open_meteo/USA/open_meteo_USA_2020.csv",
+      "data/raw/open_meteo/USA/open_meteo_USA_2021.csv"
+    ],
+    "country_code_count": 3,
+    "country_codes": [
+      "CHN",
+      "GBR",
+      "USA"
+    ],
+    "fields_by_code": {
+      "CHN": [
+        "date",
+        "location",
+        "location_code",
+        "representative_city",
+        "latitude",
+        "longitude",
+        "temperature_mean",
+        "temperature_max",
+        "temperature_min",
+        "precipitation_sum",
+        "relative_humidity_mean",
+        "wind_speed_max",
+        "source",
+        "source_timezone",
+        "downloaded_at"
+      ],
+      "GBR": [
+        "date",
+        "location",
+        "location_code",
+        "representative_city",
+        "latitude",
+        "longitude",
+        "temperature_mean",
+        "temperature_max",
+        "temperature_min",
+        "precipitation_sum",
+        "relative_humidity_mean",
+        "wind_speed_max",
+        "source",
+        "source_timezone",
+        "downloaded_at"
+      ],
+      "USA": [
+        "date",
+        "location",
+        "location_code",
+        "representative_city",
+        "latitude",
+        "longitude",
+        "temperature_mean",
+        "temperature_max",
+        "temperature_min",
+        "precipitation_sum",
+        "relative_humidity_mean",
+        "wind_speed_max",
+        "source",
+        "source_timezone",
+        "downloaded_at"
+      ]
+    },
+    "rows_by_code": {
+      "CHN": 494,
+      "GBR": 494,
+      "USA": 494
+    },
+    "ranges_by_code": {
+      "CHN": [
+        "2020-01-22",
+        "2021-05-29"
+      ],
+      "GBR": [
+        "2020-01-22",
+        "2021-05-29"
+      ],
+      "USA": [
+        "2020-01-22",
+        "2021-05-29"
+      ]
+    },
+    "duplicate_location_date_key_count": 0,
+    "date_parse_errors": 0
+  },
+  "overlap": {
+    "epidemic_population_country_intersection_count": 209,
+    "epidemic_weather_country_intersection_count": 3,
+    "epidemic_weather_country_codes": [
+      "CHN",
+      "GBR",
+      "USA"
+    ],
+    "epidemic_weather_date_intersection_range": [
+      "2020-01-22",
+      "2021-05-29"
+    ],
+    "max_common_date_count": 494,
+    "per_country_common_dates": {
+      "CHN": {
+        "common_date_count": 494,
+        "common_date_range": [
+          "2020-01-22",
+          "2021-05-29"
+        ],
+        "weather_rows": 494,
+        "weather_date_range": [
+          "2020-01-22",
+          "2021-05-29"
+        ]
+      },
+      "GBR": {
+        "common_date_count": 494,
+        "common_date_range": [
+          "2020-01-22",
+          "2021-05-29"
+        ],
+        "weather_rows": 494,
+        "weather_date_range": [
+          "2020-01-22",
+          "2021-05-29"
+        ]
+      },
+      "USA": {
+        "common_date_count": 494,
+        "common_date_range": [
+          "2020-01-22",
+          "2021-05-29"
+        ],
+        "weather_rows": 494,
+        "weather_date_range": [
+          "2020-01-22",
+          "2021-05-29"
+        ]
+      }
+    },
+    "missing_weather_country_codes": [
+      "AUS",
+      "BRA",
+      "CAN",
+      "DEU",
+      "ESP",
+      "FRA",
+      "IND",
+      "ITA",
+      "JPN",
+      "KOR",
+      "RUS"
+    ]
+  },
+  "mapping": {
+    "mapping_rows_for_epidemic_countries": 228,
+    "mapped_population_country_count": 223,
+    "mapping_success_rate": 0.97807,
+    "unmapped_or_disabled_countries": [
+      "Channel Islands",
+      "Diamond Princess",
+      "Kosovo",
+      "MS Zaandam",
+      "Others"
+    ]
+  },
+  "quality_gate": {
+    "at_least_3_weather_countries": true,
+    "at_least_300_common_dates": true,
+    "weather_population_mapping_ok": true,
+    "date_fields_parse_ok": true,
+    "weather_and_population_primary_keys_ok": true,
+    "raw_epidemic_requires_dedup_before_cleaning": true,
+    "can_enter_spark_cleaning_stage": true
+  }
+}

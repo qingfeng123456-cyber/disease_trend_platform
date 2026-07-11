@@ -33,11 +33,13 @@ COVID_HOSPITAL_DISEASE = "COVID-19 Hospital Admissions"
 INFLUENZA_DISEASE = "Influenza"
 RSV_DISEASE = "RSV"
 TUBERCULOSIS_DISEASE = "Tuberculosis"
+HIV_DISEASE = "HIV/AIDS"
 DISEASE_ORDER = [
     COVID_DISEASE,
     INFLUENZA_DISEASE,
     RSV_DISEASE,
     TUBERCULOSIS_DISEASE,
+    HIV_DISEASE,
     COVID_HOSPITAL_DISEASE,
 ]
 
@@ -47,6 +49,13 @@ MOVING_AVERAGE_MODEL = "moving_average"
 BASELINE_MODEL = MOVING_AVERAGE_MODEL
 MODEL_OPTIONS = ["naive_last_value", MOVING_AVERAGE_MODEL, MODEL_NAME]
 ISO3_PATTERN = re.compile(r"^[A-Z]{3}$")
+WHO_HIV_PRIMARY_INDICATOR = "HIV_0000000026"
+WHO_HIV_PREVALENCE_INDICATOR = "MDG_0000000029"
+WHO_TB_AUXILIARY_INDICATORS = {
+    "MDG_0000000017": "who_tb_deaths_rate_per_100k",
+    "TB_1": "who_tb_treatment_coverage_percent",
+    "TB_c_newinc": "who_tb_new_relapse_cases",
+}
 
 warnings.filterwarnings("ignore", message="Could not find the number of physical cores.*", category=UserWarning)
 
@@ -953,6 +962,428 @@ def clean_china_cdc_metadata(cdc_root: Path) -> tuple[pd.DataFrame, dict[str, An
     return cleaned, quality
 
 
+def _who_file_descriptor(path: Path) -> tuple[str, str, str]:
+    match = re.match(
+        r"^who_(covid|influenza|tuberculosis|hiv)_(.+)_(\d{8}T\d{6}Z)\.csv$",
+        path.name,
+        flags=re.IGNORECASE,
+    )
+    if not match:
+        return "unknown", path.stem, ""
+    return match.group(1).lower(), match.group(2), match.group(3)
+
+
+def _parse_who_raw_dimensions(value: Any) -> dict[str, Any]:
+    result = {
+        "who_record_id": None,
+        "parent_location_code": None,
+        "parent_location_name": None,
+        "dimension_1_type": None,
+        "dimension_1_value": None,
+        "dimension_2_type": None,
+        "dimension_2_value": None,
+        "dimension_3_type": None,
+        "dimension_3_value": None,
+        "data_source_dimension_type": None,
+        "data_source_dimension_value": None,
+        "who_record_updated_at": None,
+        "who_comments": None,
+        "raw_json_valid": False,
+    }
+    if value is None or pd.isna(value):
+        return result
+    try:
+        payload = json.loads(str(value))
+    except (TypeError, json.JSONDecodeError):
+        return result
+    if not isinstance(payload, dict):
+        return result
+    result.update(
+        {
+            "who_record_id": payload.get("Id"),
+            "parent_location_code": payload.get("ParentLocationCode"),
+            "parent_location_name": payload.get("ParentLocation"),
+            "dimension_1_type": payload.get("Dim1Type"),
+            "dimension_1_value": payload.get("Dim1"),
+            "dimension_2_type": payload.get("Dim2Type"),
+            "dimension_2_value": payload.get("Dim2"),
+            "dimension_3_type": payload.get("Dim3Type"),
+            "dimension_3_value": payload.get("Dim3"),
+            "data_source_dimension_type": payload.get("DataSourceDimType"),
+            "data_source_dimension_value": payload.get("DataSourceDim"),
+            "who_record_updated_at": payload.get("Date"),
+            "who_comments": payload.get("Comments"),
+            "raw_json_valid": True,
+        }
+    )
+    return result
+
+
+def _infer_who_unit(indicator_name: str) -> str:
+    name = indicator_name.lower()
+    if "per 100 000" in name or "per 100,000" in name:
+        return "per_100k"
+    if "percent" in name or "percentage" in name or "(%)" in name:
+        return "percent"
+    if "number" in name or "number of" in name or "cases" in name or "diagnosis" in name:
+        return "count"
+    if "rate" in name:
+        return "rate"
+    return "unspecified"
+
+
+def _who_topic_matches(topic: str, indicator_name: str, indicator_code: str = "") -> bool:
+    normalized_code = indicator_code.upper()
+    if topic == "hiv" and normalized_code.startswith("HIV_"):
+        return True
+    if topic == "tuberculosis" and normalized_code.startswith("TB_"):
+        return True
+    patterns = {
+        "covid": r"\bcovid(?:-19)?\b|\bcoronavirus\b|\bsars-cov-2\b",
+        "influenza": r"\binfluenza\b|\bseasonal flu\b",
+        "tuberculosis": r"\btuberculosis\b|\btb\b",
+        "hiv": r"\bhiv\b|\baids\b",
+    }
+    pattern = patterns.get(topic)
+    return bool(pattern and re.search(pattern, indicator_name.lower()))
+
+
+def _who_usage_class(topic: str, indicator_code: str, indicator_name: str) -> str:
+    if indicator_code == WHO_HIV_PRIMARY_INDICATOR:
+        return "primary_hiv_observation"
+    if indicator_code == WHO_HIV_PREVALENCE_INDICATOR or indicator_code in WHO_TB_AUXILIARY_INDICATORS:
+        return "auxiliary_feature"
+    if indicator_code.upper().startswith("PRISON_"):
+        return "special_population_reference"
+    if topic != "unknown" and not _who_topic_matches(topic, indicator_name, indicator_code):
+        return "keyword_false_positive"
+    return "catalog_only"
+
+
+def clean_who(
+    who_root: Path,
+    selected_codes: set[str],
+    location_catalog: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    all_files = sorted(who_root.rglob("*.csv")) if who_root.exists() else []
+    if not all_files:
+        quality = {
+            "status": "missing",
+            "input_root": safe_relative(who_root),
+            "input_files": 0,
+            "input_rows": 0,
+            "output_rows": 0,
+            "hiv_observation_rows": 0,
+            "tb_auxiliary_rows": 0,
+        }
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), quality
+
+    latest_files: dict[tuple[str, str], tuple[str, Path]] = {}
+    unmatched_files: list[Path] = []
+    for path in all_files:
+        topic, indicator_from_name, stamp = _who_file_descriptor(path)
+        if topic == "unknown":
+            unmatched_files.append(path)
+            continue
+        key = (topic, indicator_from_name)
+        current = latest_files.get(key)
+        if current is None or stamp >= current[0]:
+            latest_files[key] = (stamp, path)
+    files = sorted([item[1] for item in latest_files.values()] + unmatched_files)
+
+    expected_columns = [
+        "source",
+        "endpoint",
+        "indicator_code",
+        "indicator_name",
+        "location_code",
+        "location_name",
+        "location_type",
+        "year",
+        "value",
+        "numeric_value",
+        "low",
+        "high",
+        "unit",
+        "sex",
+        "age",
+        "publish_state",
+        "raw_json",
+    ]
+    frames: list[pd.DataFrame] = []
+    file_rows_by_topic: dict[str, int] = {}
+    empty_files: list[str] = []
+    schema_error_files: list[str] = []
+    false_keyword_files: set[str] = set()
+    invalid_raw_json_rows = 0
+
+    for path in files:
+        topic, indicator_from_name, _ = _who_file_descriptor(path)
+        available = pd.read_csv(path, nrows=0).columns.tolist()
+        missing_columns = [column for column in expected_columns if column not in available]
+        if missing_columns:
+            schema_error_files.append(path.name)
+            continue
+        frame = pd.read_csv(path, usecols=expected_columns, low_memory=False)
+        file_rows_by_topic[topic] = file_rows_by_topic.get(topic, 0) + len(frame)
+        if frame.empty:
+            empty_files.append(path.name)
+            continue
+
+        frame["source_file"] = safe_relative(path)
+        frame["collector_topic"] = topic
+        frame["indicator_code"] = frame["indicator_code"].fillna(indicator_from_name).astype(str).str.strip()
+        frame["indicator_name"] = frame["indicator_name"].fillna("").astype(str).str.strip()
+        raw_details = pd.DataFrame(
+            frame["raw_json"].map(_parse_who_raw_dimensions).tolist(),
+            index=frame.index,
+        )
+        invalid_raw_json_rows += int((~raw_details["raw_json_valid"]).sum())
+        frame = pd.concat([frame.drop(columns="raw_json"), raw_details], axis=1)
+        frame["location_code"] = frame["location_code"].astype("string").str.upper().str.strip()
+        frame["location_type"] = frame["location_type"].astype("string").str.upper().str.strip()
+        frame["year"] = pd.to_numeric(frame["year"], errors="coerce").astype("Int64")
+        frame["date"] = pd.to_datetime(frame["year"].astype("string") + "-12-31", errors="coerce")
+        frame["numeric_value_clean"] = pd.to_numeric(frame["numeric_value"], errors="coerce").combine_first(
+            pd.to_numeric(frame["value"], errors="coerce")
+        )
+        frame["low"] = pd.to_numeric(frame["low"], errors="coerce")
+        frame["high"] = pd.to_numeric(frame["high"], errors="coerce")
+        inferred_units = frame["indicator_name"].map(_infer_who_unit)
+        frame["unit"] = frame["unit"].where(frame["unit"].notna(), inferred_units)
+        explicit_units = {
+            WHO_HIV_PRIMARY_INDICATOR: "count",
+            WHO_HIV_PREVALENCE_INDICATOR: "percent",
+            "MDG_0000000017": "per_100k",
+            "TB_1": "percent",
+            "TB_c_newinc": "count",
+        }
+        explicit_unit_values = frame["indicator_code"].map(explicit_units)
+        frame["unit"] = frame["unit"].where(explicit_unit_values.isna(), explicit_unit_values)
+        for column in [
+            "sex",
+            "age",
+            "dimension_1_type",
+            "dimension_1_value",
+            "dimension_2_type",
+            "dimension_2_value",
+            "dimension_3_type",
+            "dimension_3_value",
+        ]:
+            frame[column] = frame[column].astype("string")
+
+        for index in range(1, 4):
+            type_column = f"dimension_{index}_type"
+            value_column = f"dimension_{index}_value"
+            sex_mask = frame["sex"].isna() & frame[type_column].astype("string").str.upper().eq("SEX")
+            age_mask = frame["age"].isna() & frame[type_column].astype("string").str.upper().eq("AGEGROUP")
+            frame.loc[sex_mask, "sex"] = frame.loc[sex_mask, value_column]
+            frame.loc[age_mask, "age"] = frame.loc[age_mask, value_column]
+
+        frame["is_selected_country"] = frame["location_type"].eq("COUNTRY") & frame["location_code"].isin(
+            selected_codes
+        )
+        frame["collector_topic_match"] = [
+            _who_topic_matches(topic, name, code)
+            for code, name in zip(frame["indicator_code"].astype(str), frame["indicator_name"].astype(str))
+        ]
+        frame["usage_class"] = [
+            _who_usage_class(topic, code, name)
+            for code, name in zip(frame["indicator_code"].astype(str), frame["indicator_name"].astype(str))
+        ]
+        frame["quality_flag"] = np.select(
+            [
+                frame["year"].isna(),
+                frame["year"].gt(datetime.now().year),
+                frame["usage_class"].eq("keyword_false_positive"),
+                frame["numeric_value_clean"].isna(),
+            ],
+            ["invalid_year", "future_year", "keyword_false_positive", "non_numeric_reference"],
+            default="ok",
+        )
+        if frame["usage_class"].eq("keyword_false_positive").any():
+            false_keyword_files.add(path.name)
+        frames.append(frame)
+
+    if not frames:
+        quality = {
+            "status": "empty",
+            "input_root": safe_relative(who_root),
+            "input_files": len(all_files),
+            "processed_latest_files": len(files),
+            "input_rows": 0,
+            "output_rows": 0,
+            "schema_error_files": schema_error_files,
+            "hiv_observation_rows": 0,
+            "tb_auxiliary_rows": 0,
+        }
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), quality
+
+    catalog = pd.concat(frames, ignore_index=True, sort=False)
+    input_rows = len(catalog)
+    fallback_key_columns = [
+        "indicator_code",
+        "location_type",
+        "location_code",
+        "year",
+        "dimension_1_type",
+        "dimension_1_value",
+        "dimension_2_type",
+        "dimension_2_value",
+        "dimension_3_type",
+        "dimension_3_value",
+        "numeric_value_clean",
+        "value",
+    ]
+    catalog["_dedup_key"] = catalog[fallback_key_columns].astype("string").fillna("").agg("|".join, axis=1)
+    record_id_mask = catalog["who_record_id"].notna()
+    catalog.loc[record_id_mask, "_dedup_key"] = (
+        catalog.loc[record_id_mask, "indicator_code"].astype(str)
+        + "|id:"
+        + pd.to_numeric(catalog.loc[record_id_mask, "who_record_id"], errors="coerce").astype("Int64").astype(str)
+    )
+    catalog["duplicate_source_count"] = catalog.groupby("_dedup_key")["_dedup_key"].transform("size")
+    catalog = (
+        catalog.sort_values(["_dedup_key", "collector_topic_match", "source_file"])
+        .drop_duplicates("_dedup_key", keep="last")
+        .drop(columns="_dedup_key")
+        .reset_index(drop=True)
+    )
+    duplicate_rows_removed = input_rows - len(catalog)
+
+    location_lookup = location_catalog.set_index("location_code")["location"].to_dict()
+    primary_candidates = catalog[
+        catalog["indicator_code"].eq(WHO_HIV_PRIMARY_INDICATOR)
+        & catalog["location_type"].eq("COUNTRY")
+        & catalog["location_code"].isin(selected_codes)
+    ].copy()
+    hiv = primary_candidates[
+        primary_candidates["numeric_value_clean"].notna() & primary_candidates["numeric_value_clean"].ge(0)
+    ][
+        ["location_code", "year", "numeric_value_clean", "low", "high", "indicator_name"]
+    ].copy()
+    hiv = hiv.rename(
+        columns={
+            "numeric_value_clean": "value",
+            "low": "who_estimate_low",
+            "high": "who_estimate_high",
+            "indicator_name": "who_indicator_name",
+        }
+    )
+    hiv = hiv.sort_values(["location_code", "year"]).drop_duplicates(["location_code", "year"], keep="last")
+
+    prevalence = catalog[
+        catalog["indicator_code"].eq(WHO_HIV_PREVALENCE_INDICATOR)
+        & catalog["location_type"].eq("COUNTRY")
+        & catalog["location_code"].isin(selected_codes)
+        & catalog["numeric_value_clean"].notna()
+    ][["location_code", "year", "numeric_value_clean", "low", "high"]].rename(
+        columns={
+            "numeric_value_clean": "hiv_prevalence_adults_percent",
+            "low": "hiv_prevalence_adults_percent_low",
+            "high": "hiv_prevalence_adults_percent_high",
+        }
+    )
+    prevalence = prevalence.drop_duplicates(["location_code", "year"], keep="last")
+    hiv = hiv.merge(prevalence, on=["location_code", "year"], how="left")
+    if not hiv.empty:
+        hiv["date"] = pd.to_datetime(hiv["year"].astype(str) + "-12-31")
+        hiv["location"] = hiv["location_code"].map(location_lookup).fillna(hiv["location_code"])
+        hiv["disease"] = HIV_DISEASE
+        hiv["frequency"] = "annual"
+        hiv["period_days"] = 365
+        hiv["metric"] = "new_infections"
+        hiv["metric_label"] = "年度新增 HIV 感染数"
+        hiv["new_cases_clean"] = hiv["value"]
+        hiv["published_smoothed"] = np.nan
+        hiv["total_cases"] = np.nan
+        hiv["total_deaths"] = np.nan
+        hiv["new_deaths"] = np.nan
+        hiv["is_negative_case_correction"] = False
+        hiv["is_negative_death_correction"] = False
+        hiv["source_population"] = np.nan
+        hiv["source_density_per_km2"] = np.nan
+        hiv["source_gdp_per_capita"] = np.nan
+        hiv["source"] = f"WHO GHO {WHO_HIV_PRIMARY_INDICATOR}"
+        hiv["quality_flag"] = np.where(
+            hiv["who_estimate_low"].notna() & hiv["who_estimate_high"].notna(),
+            "who_estimate_with_interval",
+            "ok",
+        )
+        hiv["who_indicator_code"] = WHO_HIV_PRIMARY_INDICATOR
+
+    tb_auxiliary: pd.DataFrame | None = None
+    for indicator_code, output_column in WHO_TB_AUXILIARY_INDICATORS.items():
+        part = catalog[
+            catalog["indicator_code"].eq(indicator_code)
+            & catalog["location_type"].eq("COUNTRY")
+            & catalog["location_code"].isin(selected_codes)
+            & catalog["numeric_value_clean"].notna()
+        ][["location_code", "year", "numeric_value_clean", "low", "high"]].copy()
+        part = part.rename(
+            columns={
+                "numeric_value_clean": output_column,
+                "low": f"{output_column}_low",
+                "high": f"{output_column}_high",
+            }
+        ).drop_duplicates(["location_code", "year"], keep="last")
+        tb_auxiliary = part if tb_auxiliary is None else tb_auxiliary.merge(
+            part,
+            on=["location_code", "year"],
+            how="outer",
+        )
+    if tb_auxiliary is None:
+        tb_auxiliary = pd.DataFrame(columns=["location_code", "year"])
+    if not tb_auxiliary.empty:
+        tb_auxiliary["date"] = pd.to_datetime(tb_auxiliary["year"].astype("Int64").astype(str) + "-12-31")
+        tb_auxiliary["location"] = tb_auxiliary["location_code"].map(location_lookup).fillna(
+            tb_auxiliary["location_code"]
+        )
+        tb_auxiliary["source"] = "WHO GHO tuberculosis auxiliary indicators"
+
+    hiv_year_gap_count = 0
+    for _, group in hiv.groupby("location_code") if not hiv.empty else []:
+        years = sorted(group["year"].dropna().astype(int).unique().tolist())
+        if years:
+            hiv_year_gap_count += max(years) - min(years) + 1 - len(years)
+    quality = {
+        "status": "cleaned" if not catalog.empty else "empty",
+        "input_root": safe_relative(who_root),
+        "input_files": len(all_files),
+        "processed_latest_files": len(files),
+        "stale_file_count": len(all_files) - len(files),
+        "input_rows": input_rows,
+        "output_rows": len(catalog),
+        "duplicate_rows_removed": duplicate_rows_removed,
+        "invalid_raw_json_rows": invalid_raw_json_rows,
+        "empty_file_count": len(empty_files),
+        "empty_files": empty_files,
+        "schema_error_files": schema_error_files,
+        "indicator_count": int(catalog["indicator_code"].nunique()),
+        "numeric_rows": int(catalog["numeric_value_clean"].notna().sum()),
+        "location_types": catalog.groupby("location_type").size().to_dict(),
+        "files_by_topic_rows": file_rows_by_topic,
+        "usage_rows": catalog.groupby("usage_class").size().to_dict(),
+        "false_keyword_match_files": sorted(false_keyword_files),
+        "future_date_rows": int(catalog["year"].gt(datetime.now().year).sum()),
+        "date_min": iso_date(catalog["date"].min()),
+        "date_max": iso_date(catalog["date"].max()),
+        "primary_indicator": WHO_HIV_PRIMARY_INDICATOR,
+        "primary_candidate_rows": len(primary_candidates),
+        "primary_no_data_rows": int(primary_candidates["numeric_value_clean"].isna().sum()),
+        "hiv_observation_rows": len(hiv),
+        "hiv_country_count": int(hiv["location_code"].nunique()) if not hiv.empty else 0,
+        "hiv_rows_by_country": hiv.groupby("location_code").size().to_dict() if not hiv.empty else {},
+        "hiv_year_min": int(hiv["year"].min()) if not hiv.empty else None,
+        "hiv_year_max": int(hiv["year"].max()) if not hiv.empty else None,
+        "hiv_internal_year_gap_count": hiv_year_gap_count,
+        "tb_auxiliary_rows": len(tb_auxiliary),
+        "tb_auxiliary_country_count": int(tb_auxiliary["location_code"].nunique()) if not tb_auxiliary.empty else 0,
+        "important_rule": "Only HIV_0000000026 becomes a disease observation. TB indicators are auxiliary; prison and keyword false-positive indicators remain catalog-only.",
+    }
+    return catalog.sort_values(["indicator_code", "location_type", "location_code", "year"]), hiv, tb_auxiliary, quality
+
+
 WEATHER_VALUE_COLUMNS = [
     "temperature_mean",
     "temperature_max",
@@ -1535,9 +1966,10 @@ def build_source_status(quality_parts: dict[str, Any], generated_at: str) -> lis
     cdc_quality = quality_parts.get("china_cdc", {})
     who_quality = quality_parts.get("who", {})
     historical_quality = quality_parts.get("historical_weather", {})
-    who_indicators = int(who_quality.get("configured_indicator_count", 0))
-    who_files = int(who_quality.get("local_csv_count", 0))
-    who_status = "not_configured" if who_indicators == 0 else ("ok" if who_files else "warn")
+    who_rows = int(who_quality.get("output_rows", 0))
+    who_files = int(who_quality.get("input_files", 0))
+    who_hiv_rows = int(who_quality.get("hiv_observation_rows", 0))
+    who_status = "ok" if who_rows and who_hiv_rows else ("info" if who_rows else "not_configured")
     items = [
         {"name": "OWID COVID-19 daily (primary)", "status": "ok", "updated_at": generated_at, "rows": quality_parts["owid"]["output_rows"], "detail": "COVID 日频主表，已完成字段、日期和国家代码标准化。"},
         {"name": "Kaggle COVID-19 (cross-check)", "status": "ok", "updated_at": generated_at, "rows": quality_parts["kaggle_covid"]["output_rows"], "detail": "仅用于与 OWID 交叉核验，避免重复叠加病例。"},
@@ -1554,11 +1986,17 @@ def build_source_status(quality_parts: dict[str, Any], generated_at: str) -> lis
             "detail": "网页索引、周次、附件完整性及高置信摘要字段已清洗；原 HTML/PDF 保留，复杂表格暂不作为模型标签。",
         },
         {
-            "name": "WHO indicators",
+            "name": "WHO GHO indicators and HIV annual series",
             "status": who_status,
             "updated_at": generated_at,
-            "rows": who_files,
-            "detail": "collectors.who.indicators 为空，属于主动未配置，不是数据清洗失败。" if who_status == "not_configured" else "已配置 WHO 指标；请核对本地 CSV 采集结果。",
+            "rows": who_rows,
+            "raw_rows": who_quality.get("input_rows", 0),
+            "detail": (
+                f"{who_files} 个本地 CSV 已清洗（{who_quality.get('empty_file_count', 0)} 个接口返回空表）；"
+                f"HIV 年度主序列 {who_hiv_rows} 行，WHO 结核病指标作为辅助字段。"
+                if who_rows
+                else "未发现可用 WHO CSV；需要先采集或放入 data/raw/who。"
+            ),
         },
         {
             "name": "Kaggle 2012-2017 historical weather",
@@ -1651,6 +2089,11 @@ def export_serving(
                 "relative_humidity_mean": numeric_or_none(row.get("relative_humidity_mean")),
                 "precipitation_sum": numeric_or_none(row.get("precipitation_sum")),
                 "prediction_error": numeric_or_none(row.get("prediction_error")),
+                "total_cases": numeric_or_none(row.get("total_cases")),
+                "total_deaths": numeric_or_none(row.get("total_deaths")),
+                "who_estimate_low": numeric_or_none(row.get("who_estimate_low")),
+                "who_estimate_high": numeric_or_none(row.get("who_estimate_high")),
+                "hiv_prevalence_adults_percent": numeric_or_none(row.get("hiv_prevalence_adults_percent")),
             }
             for model_name in available_models:
                 prediction_column = f"prediction_{model_name}"
@@ -1673,9 +2116,13 @@ def export_serving(
             }
         )
 
-    model_predictions = features[
-        features["model_eligible"] & features["target_t_plus_7"].notna()
-    ].sort_values("date").tail(2000).copy()
+    model_predictions = (
+        features[features["target_t_plus_7"].notna()]
+        .sort_values(["disease", "location_code", "date"])
+        .groupby(["disease", "location_code"], as_index=False, group_keys=False)
+        .tail(2500)
+        .copy()
+    )
     model_predictions["actual_t_plus_7"] = model_predictions["target_t_plus_7"]
     model_predictions["prediction"] = model_predictions["prediction_t_plus_7"]
     model_predictions["error"] = model_predictions["prediction_error"]
@@ -1719,12 +2166,13 @@ def export_serving(
         "run_time": generated_at,
         "is_demo_data": False,
         "warnings": [
-            "Windows local path uses pandas instead of Spark/HDFS.",
-            "Open-Meteo uses representative-city weather as a country-level proxy.",
-            "Tuberculosis is annual incidence per 100,000; respiratory data is weekly hospital admissions.",
-            "Kaggle historical hourly weather is used only for same-year USA Tuberculosis enrichment, never for COVID.",
-            "China CDC metadata and high-confidence text summaries are cleaned; complex PDF tables remain review-only.",
-            "WHO indicators are intentionally disabled until collectors.who.indicators is configured.",
+            "当前为 Windows 本地 Pandas 流水线，未使用 Spark/HDFS。",
+            "Open-Meteo 使用国家代表城市天气，仅作为教学代理特征。",
+            "结核病是年度每10万人发病率，呼吸系统数据是周住院人数，不跨口径相加。",
+            "Kaggle 历史小时天气仅关联同年份美国结核病，不与 COVID 强行拼接。",
+            "China CDC 已清洗元数据和高置信正文摘要，复杂 PDF 表格仍需人工复核。",
+            "WHO HIV_0000000026 提供 HIV/AIDS 年度观测；No data 保留在目录但不作为模型目标。",
+            "WHO 监狱指标和关键词误匹配只进入目录；WHO 结核病指标不覆盖原发病率目标。",
         ],
     }
 
@@ -1744,6 +2192,37 @@ def export_serving(
         codes = sorted(subset["location_code"].dropna().unique().tolist())
         first = subset.iloc[0]
         models = available_models if disease == COVID_DISEASE else ["naive_last_value", MOVING_AVERAGE_MODEL]
+        location_date_ranges: dict[str, Any] = {}
+        for code, series in subset.groupby("location_code", sort=True):
+            series = series.sort_values("date")
+            full_start = pd.Timestamp(series["date"].min())
+            full_end = pd.Timestamp(series["date"].max())
+            default_start = full_start
+            default_end = full_end
+            last_nonzero_date = None
+            if disease == COVID_DISEASE and str(series["frequency"].iloc[0]) == "daily":
+                signal_columns = [
+                    "value",
+                    "rolling_mean_7",
+                    "prediction_error",
+                ]
+                informative = pd.Series(False, index=series.index)
+                for column in signal_columns:
+                    if column in series:
+                        informative = informative | pd.to_numeric(series[column], errors="coerce").abs().gt(1e-9)
+                nonzero_actual = pd.to_numeric(series["value"], errors="coerce").abs().gt(1e-9)
+                if nonzero_actual.any():
+                    last_nonzero_date = pd.Timestamp(series.loc[nonzero_actual, "date"].max())
+                if informative.any():
+                    default_end = pd.Timestamp(series.loc[informative, "date"].max())
+                    default_start = max(full_start, default_end - pd.Timedelta(days=365))
+            location_date_ranges[str(code)] = {
+                "full_start": iso_date(full_start),
+                "full_end": iso_date(full_end),
+                "default_start": iso_date(default_start),
+                "default_end": iso_date(default_end),
+                "last_nonzero_date": iso_date(last_nonzero_date),
+            }
         availability[disease] = {
             "locations": [location_by_code[code] for code in codes if code in location_by_code],
             "date_range": {"start": iso_date(subset["date"].min()), "end": iso_date(subset["date"].max())},
@@ -1751,6 +2230,7 @@ def export_serving(
             "metric": first["metric"],
             "metric_label": first["metric_label"],
             "models": models,
+            "location_date_ranges": location_date_ranges,
         }
     options = {
         "data_mode": "real_local_multi_source",
@@ -1837,7 +2317,7 @@ def main() -> None:
     parser.add_argument("--print-json", action="store_true", help="Print the full manifest JSON after the concise summary.")
     parser.add_argument("--no-progress", action="store_true", help="Disable step progress output.")
     args = parser.parse_args()
-    progress = PipelineProgress(total=14, enabled=not args.no_progress)
+    progress = PipelineProgress(total=15, enabled=not args.no_progress)
 
     if args.lstm:
         from src.models.lstm_optional import PYTORCH_INSTALL_COMMAND, pytorch_available
@@ -1869,14 +2349,6 @@ def main() -> None:
     )
     china_cdc_root = project_path(get_setting(settings, "paths.china_cdc_raw", "data/raw/china_cdc"))
     who_root = project_path(get_setting(settings, "paths.who_raw", "data/raw/who"))
-    who_indicators = get_setting(settings, "collectors.who.indicators", []) or []
-    who_files = sorted(who_root.rglob("*.csv")) if who_root.exists() else []
-    who_quality = {
-        "status": "not_configured" if not who_indicators else ("collected" if who_files else "configured_without_local_files"),
-        "configured_indicator_count": len(who_indicators),
-        "local_csv_count": len(who_files),
-        "local_files": [safe_relative(path) for path in who_files],
-    }
     serving_dir = project_path(args.serving_dir or get_setting(settings, "paths.serving", "data/serving"))
     silver_dir = project_path(args.silver_dir)
     gold_dir = project_path(args.gold_dir)
@@ -1923,8 +2395,36 @@ def main() -> None:
         f"missing_attachments={china_cdc_quality.get('local_attachment_missing_count', 0)}"
     )
 
+    progress.start("Clean WHO GHO catalog and curate HIV/Tuberculosis indicators")
+    who_catalog, who_hiv, who_tb_auxiliary, who_quality = clean_who(
+        who_root,
+        selected_codes,
+        location_catalog,
+    )
+    who_tb_columns = [
+        column
+        for column in who_tb_auxiliary.columns
+        if column.startswith("who_tb_")
+    ]
+    if who_tb_columns:
+        tuberculosis = tuberculosis.merge(
+            who_tb_auxiliary[["location_code", "year", *who_tb_columns]],
+            on=["location_code", "year"],
+            how="left",
+        )
+    tuberculosis_quality["who_auxiliary_matched_rows"] = int(
+        tuberculosis[who_tb_columns].notna().any(axis=1).sum()
+    ) if who_tb_columns else 0
+    tuberculosis_quality["who_auxiliary_non_missing_rate"] = {
+        column: round(float(tuberculosis[column].notna().mean()), 6) for column in who_tb_columns
+    }
+    progress.done(
+        f"catalog={who_quality['output_rows']}, HIV={who_quality['hiv_observation_rows']}, "
+        f"TB_aux={who_quality['tb_auxiliary_rows']}, false_matches={len(who_quality['false_keyword_match_files'])}"
+    )
+
     progress.start("Build canonical multi-disease observation table")
-    observations = pd.concat([owid, tuberculosis, respiratory], ignore_index=True, sort=False)
+    observations = pd.concat([owid, tuberculosis, respiratory, who_hiv], ignore_index=True, sort=False)
     observations = observations.drop_duplicates(["location_code", "disease", "date"], keep="last")
     progress.done(f"rows={len(observations)}, diseases={observations['disease'].nunique()}, countries={observations['location_code'].nunique()}")
 
@@ -1980,6 +2480,9 @@ def main() -> None:
     weather.to_csv(silver_dir / "weather_daily_clean.csv", index=False, encoding="utf-8-sig")
     historical_weather.to_csv(silver_dir / "historical_weather_annual_clean.csv", index=False, encoding="utf-8-sig")
     china_cdc.to_csv(silver_dir / "china_cdc_metadata_clean.csv", index=False, encoding="utf-8-sig")
+    who_catalog.to_csv(silver_dir / "who_indicators_clean.csv", index=False, encoding="utf-8-sig")
+    who_hiv.to_csv(silver_dir / "who_hiv_annual_clean.csv", index=False, encoding="utf-8-sig")
+    who_tb_auxiliary.to_csv(silver_dir / "who_tuberculosis_auxiliary_clean.csv", index=False, encoding="utf-8-sig")
     features.to_csv(gold_dir / "forecast_features.csv", index=False, encoding="utf-8-sig")
     progress.done(f"silver={safe_relative(silver_dir)}, gold={safe_relative(gold_dir)}")
 
@@ -2008,7 +2511,7 @@ def main() -> None:
             "respiratory": "provided USA national weekly row; state rows are not re-summed",
             "historical_kaggle_weather": "aggregated to USA annual means and joined only to same-year Tuberculosis rows; never joined to COVID",
             "china_cdc": "clean metadata and high-confidence text summaries; original HTML/PDF retained, complex PDF tables excluded from model labels",
-            "who": "intentionally not configured because collectors.who.indicators is empty",
+            "who": "HIV_0000000026 is an annual HIV/AIDS observation; selected TB indicators are auxiliary; prison and keyword false-positive indicators remain catalog-only",
         },
         "outputs": {
             "silver_dir": safe_relative(silver_dir),
@@ -2028,6 +2531,7 @@ def main() -> None:
     print(f"  diseases: {', '.join([name for name in DISEASE_ORDER if name in set(features['disease'])])}")
     print(f"  observation rows: {len(observations)}")
     print(f"  weather matched rows: {feature_quality['weather_matched_rows']} (unmatched rows were retained)")
+    print(f"  WHO catalog rows: {who_quality['output_rows']}; HIV observation rows: {who_quality['hiv_observation_rows']}")
     print(f"  best COVID daily model: {comparison.get('best_model')}")
     print(f"  trained model options: {', '.join(available_models)}")
     print(f"  model dir: {safe_relative(model_dir)}")

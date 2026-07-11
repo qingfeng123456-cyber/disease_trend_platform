@@ -8,6 +8,7 @@ from scripts.build_local_serving_from_raw import (
     build_source_status,
     clean_china_cdc_metadata,
     clean_historical_weather,
+    clean_who,
 )
 
 
@@ -84,7 +85,7 @@ def test_source_status_does_not_report_intentional_states_as_warnings():
         "weather": {"output_rows": 10},
         "population": {"output_rows": 10},
         "china_cdc": {"input_rows": 27, "output_rows": 27},
-        "who": {"configured_indicator_count": 0, "local_csv_count": 0},
+        "who": {"input_files": 105, "input_rows": 122169, "output_rows": 117492, "hiv_observation_rows": 96},
         "historical_weather": {"input_rows": 45253, "output_rows": 6},
         "models": {},
     }
@@ -93,6 +94,113 @@ def test_source_status_does_not_report_intentional_states_as_warnings():
     status_by_name = {item["name"]: item["status"] for item in items}
 
     assert status_by_name["China CDC cleaned report index"] == "info"
-    assert status_by_name["WHO indicators"] == "not_configured"
+    assert status_by_name["WHO GHO indicators and HIV annual series"] == "ok"
     assert status_by_name["Kaggle 2012-2017 historical weather"] == "ok"
     assert all(item["status"] != "warn" for item in items)
+
+
+def test_who_cleaning_curates_hiv_and_keeps_false_matches_catalog_only(tmp_path):
+    fields = [
+        "source",
+        "endpoint",
+        "indicator_code",
+        "indicator_name",
+        "location_code",
+        "location_name",
+        "location_type",
+        "year",
+        "value",
+        "numeric_value",
+        "low",
+        "high",
+        "unit",
+        "sex",
+        "age",
+        "publish_state",
+        "raw_json",
+    ]
+
+    def row(code, name, year, value, record_id, *, low=None, high=None, dim1_type=None, dim1=None):
+        raw = {
+            "Id": record_id,
+            "IndicatorCode": code,
+            "SpatialDimType": "COUNTRY",
+            "SpatialDim": "AUS",
+            "TimeDim": year,
+            "Dim1Type": dim1_type,
+            "Dim1": dim1,
+            "NumericValue": value,
+        }
+        return {
+            "source": "WHO GHO OData",
+            "endpoint": code,
+            "indicator_code": code,
+            "indicator_name": name,
+            "location_code": "AUS",
+            "location_name": None,
+            "location_type": "COUNTRY",
+            "year": year,
+            "value": "No data" if value is None else value,
+            "numeric_value": value,
+            "low": low,
+            "high": high,
+            "unit": None,
+            "sex": None,
+            "age": None,
+            "publish_state": None,
+            "raw_json": json.dumps(raw),
+        }
+
+    def write_file(topic, code, rows):
+        path = tmp_path / f"who_{topic}_{code}_20260711T000000Z.csv"
+        pd.DataFrame(rows, columns=fields).to_csv(path, index=False, encoding="utf-8-sig")
+
+    write_file(
+        "hiv",
+        "HIV_0000000026",
+        [
+            row("HIV_0000000026", "Number of new HIV infections", 2020, 100.0, 1, low=80.0, high=120.0),
+            row("HIV_0000000026", "Number of new HIV infections", 2021, None, 2),
+        ],
+    )
+    write_file(
+        "hiv",
+        "MDG_0000000029",
+        [row("MDG_0000000029", "Prevalence of HIV among adults aged 15 to 49 (%)", 2020, 0.2, 3)],
+    )
+    write_file(
+        "tuberculosis",
+        "MDG_0000000017",
+        [row("MDG_0000000017", "Deaths due to tuberculosis among HIV-negative people (per 100 000 population)", 2020, 0.3, 4)],
+    )
+    write_file(
+        "tuberculosis",
+        "TB_1",
+        [row("TB_1", "Tuberculosis treatment coverage", 2020, 75.0, 5)],
+    )
+    write_file(
+        "tuberculosis",
+        "TB_c_newinc",
+        [row("TB_c_newinc", "Tuberculosis - new and relapse cases", 2020, 1400.0, 6)],
+    )
+    write_file(
+        "influenza",
+        "EMFLIMITMAGNETIC",
+        [row("EMFLIMITMAGNETIC", "Magnetic flux density (microT)", 2018, 50.0, 7, dim1_type="SEX", dim1="SEX_MLE")],
+    )
+    location_catalog = pd.DataFrame(
+        [{"location_code": "AUS", "location": "Australia", "representative_city": "Canberra", "latitude": -35.28, "longitude": 149.13}]
+    )
+
+    catalog, hiv, tb_auxiliary, quality = clean_who(tmp_path, {"AUS"}, location_catalog)
+
+    assert len(hiv) == 1
+    assert hiv.iloc[0]["value"] == 100.0
+    assert hiv.iloc[0]["hiv_prevalence_adults_percent"] == 0.2
+    assert len(tb_auxiliary) == 1
+    assert tb_auxiliary.iloc[0]["who_tb_new_relapse_cases"] == 1400.0
+    false_match = catalog[catalog["indicator_code"].eq("EMFLIMITMAGNETIC")].iloc[0]
+    assert false_match["usage_class"] == "keyword_false_positive"
+    assert false_match["sex"] == "SEX_MLE"
+    assert quality["primary_no_data_rows"] == 1
+    assert quality["hiv_observation_rows"] == 1

@@ -1,0 +1,85 @@
+{
+  "data_mode": "real_local_multi_source",
+  "items": [
+    {
+      "name": "OWID COVID-19 daily (primary)",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 21920,
+      "detail": "COVID 日频主表，已完成字段、日期和国家代码标准化。"
+    },
+    {
+      "name": "Kaggle COVID-19 (cross-check)",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 4879,
+      "detail": "仅用于与 OWID 交叉核验，避免重复叠加病例。"
+    },
+    {
+      "name": "Kaggle Tuberculosis annual indicators",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 230,
+      "detail": "结核病年发病率及辅助指标，保留原统计口径。"
+    },
+    {
+      "name": "US weekly respiratory hospital metrics",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 507,
+      "detail": "美国全国周频住院指标，未重复汇总州级行。"
+    },
+    {
+      "name": "Open-Meteo same-period daily weather",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 5142,
+      "detail": "与疫情同期的代表城市日频天气。"
+    },
+    {
+      "name": "World Bank + Kaggle population",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 560,
+      "detail": "按 ISO3 和年份合并，缺年仅在相邻已知年份之间插值。"
+    },
+    {
+      "name": "China CDC cleaned report index",
+      "status": "info",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 27,
+      "raw_rows": 27,
+      "detail": "网页索引、周次、附件完整性及高置信摘要字段已清洗；原 HTML/PDF 保留，复杂表格暂不作为模型标签。"
+    },
+    {
+      "name": "WHO GHO indicators and HIV annual series",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 117492,
+      "raw_rows": 122169,
+      "detail": "105 个本地 CSV 已清洗（24 个接口返回空表）；HIV 年度主序列 96 行，WHO 结核病指标作为辅助字段。"
+    },
+    {
+      "name": "Kaggle 2012-2017 historical weather",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 6,
+      "raw_rows": 45253,
+      "detail": "小时数据已聚合为美国 2012-2017 年天气，用于同年结核病探索性关联，不与 COVID 强行拼接。"
+    },
+    {
+      "name": "Local sklearn GBDT model",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 21750,
+      "detail": "模型已训练并导出预测结果。"
+    },
+    {
+      "name": "Local PyTorch LSTM model",
+      "status": "ok",
+      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "rows": 21550,
+      "detail": "模型已训练并导出预测结果。"
+    }
+  ]
+}

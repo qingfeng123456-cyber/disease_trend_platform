@@ -1,0 +1,47 @@
+{
+  "data_mode": "real_local_multi_source",
+  "items": [
+    {
+      "disease": "COVID-19",
+      "record_count": 21890,
+      "location_count": 10,
+      "start_date": "2020-01-04T00:00:00",
+      "end_date": "2025-12-31T00:00:00"
+    },
+    {
+      "disease": "COVID-19 Hospital Admissions",
+      "record_count": 224,
+      "location_count": 1,
+      "start_date": "2020-08-08T00:00:00",
+      "end_date": "2024-11-16T00:00:00"
+    },
+    {
+      "disease": "HIV/AIDS",
+      "record_count": 96,
+      "location_count": 6,
+      "start_date": "2000-12-31T00:00:00",
+      "end_date": "2024-12-31T00:00:00"
+    },
+    {
+      "disease": "Influenza",
+      "record_count": 224,
+      "location_count": 1,
+      "start_date": "2020-08-08T00:00:00",
+      "end_date": "2024-11-16T00:00:00"
+    },
+    {
+      "disease": "RSV",
+      "record_count": 59,
+      "location_count": 1,
+      "start_date": "2023-10-07T00:00:00",
+      "end_date": "2024-11-16T00:00:00"
+    },
+    {
+      "disease": "Tuberculosis",
+      "record_count": 230,
+      "location_count": 10,
+      "start_date": "2000-12-31T00:00:00",
+      "end_date": "2022-12-31T00:00:00"
+    }
+  ]
+}

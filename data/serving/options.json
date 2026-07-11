@@ -1,0 +1,567 @@
+{
+  "data_mode": "real_local_multi_source",
+  "locations": [
+    {
+      "code": "AUS",
+      "name": "Australia",
+      "latitude": -35.2809,
+      "longitude": 149.13
+    },
+    {
+      "code": "BRA",
+      "name": "Brazil",
+      "latitude": -15.7939,
+      "longitude": -47.8828
+    },
+    {
+      "code": "CHN",
+      "name": "China",
+      "latitude": 39.9042,
+      "longitude": 116.4074
+    },
+    {
+      "code": "DEU",
+      "name": "Germany",
+      "latitude": 52.52,
+      "longitude": 13.405
+    },
+    {
+      "code": "FRA",
+      "name": "France",
+      "latitude": 48.8566,
+      "longitude": 2.3522
+    },
+    {
+      "code": "GBR",
+      "name": "United Kingdom",
+      "latitude": 51.5072,
+      "longitude": -0.1276
+    },
+    {
+      "code": "IND",
+      "name": "India",
+      "latitude": 28.6139,
+      "longitude": 77.209
+    },
+    {
+      "code": "JPN",
+      "name": "Japan",
+      "latitude": 35.6762,
+      "longitude": 139.6503
+    },
+    {
+      "code": "KOR",
+      "name": "South Korea",
+      "latitude": 37.5665,
+      "longitude": 126.978
+    },
+    {
+      "code": "USA",
+      "name": "United States",
+      "latitude": 38.9072,
+      "longitude": -77.0369
+    }
+  ],
+  "diseases": [
+    "COVID-19",
+    "Influenza",
+    "RSV",
+    "Tuberculosis",
+    "HIV/AIDS",
+    "COVID-19 Hospital Admissions"
+  ],
+  "models": [
+    "naive_last_value",
+    "moving_average",
+    "local_sklearn_gbdt",
+    "local_pytorch_lstm"
+  ],
+  "default_model": "naive_last_value",
+  "date_range": {
+    "start": "2000-12-31",
+    "end": "2025-12-31"
+  },
+  "availability": {
+    "COVID-19": {
+      "locations": [
+        {
+          "code": "AUS",
+          "name": "Australia",
+          "latitude": -35.2809,
+          "longitude": 149.13
+        },
+        {
+          "code": "BRA",
+          "name": "Brazil",
+          "latitude": -15.7939,
+          "longitude": -47.8828
+        },
+        {
+          "code": "CHN",
+          "name": "China",
+          "latitude": 39.9042,
+          "longitude": 116.4074
+        },
+        {
+          "code": "DEU",
+          "name": "Germany",
+          "latitude": 52.52,
+          "longitude": 13.405
+        },
+        {
+          "code": "FRA",
+          "name": "France",
+          "latitude": 48.8566,
+          "longitude": 2.3522
+        },
+        {
+          "code": "GBR",
+          "name": "United Kingdom",
+          "latitude": 51.5072,
+          "longitude": -0.1276
+        },
+        {
+          "code": "IND",
+          "name": "India",
+          "latitude": 28.6139,
+          "longitude": 77.209
+        },
+        {
+          "code": "JPN",
+          "name": "Japan",
+          "latitude": 35.6762,
+          "longitude": 139.6503
+        },
+        {
+          "code": "KOR",
+          "name": "South Korea",
+          "latitude": 37.5665,
+          "longitude": 126.978
+        },
+        {
+          "code": "USA",
+          "name": "United States",
+          "latitude": 38.9072,
+          "longitude": -77.0369
+        }
+      ],
+      "date_range": {
+        "start": "2020-01-04",
+        "end": "2025-12-31"
+      },
+      "frequency": "daily",
+      "metric": "new_cases",
+      "metric_label": "日新增病例",
+      "models": [
+        "naive_last_value",
+        "moving_average",
+        "local_sklearn_gbdt",
+        "local_pytorch_lstm"
+      ],
+      "location_date_ranges": {
+        "AUS": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2023-05-20",
+          "default_end": "2024-05-19",
+          "last_nonzero_date": "2024-05-13"
+        },
+        "BRA": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2024-12-31",
+          "default_end": "2025-12-31",
+          "last_nonzero_date": "2025-12-30"
+        },
+        "CHN": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2024-01-17",
+          "default_end": "2025-01-16",
+          "last_nonzero_date": "2025-01-10"
+        },
+        "DEU": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2024-12-31",
+          "default_end": "2025-12-31",
+          "last_nonzero_date": "2025-12-29"
+        },
+        "FRA": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2024-12-31",
+          "default_end": "2025-12-31",
+          "last_nonzero_date": "2025-12-29"
+        },
+        "GBR": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2024-12-31",
+          "default_end": "2025-12-31",
+          "last_nonzero_date": "2025-12-29"
+        },
+        "IND": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2024-12-22",
+          "default_end": "2025-12-22",
+          "last_nonzero_date": "2025-12-16"
+        },
+        "JPN": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2022-05-18",
+          "default_end": "2023-05-18",
+          "last_nonzero_date": "2023-05-12"
+        },
+        "KOR": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2022-09-10",
+          "default_end": "2023-09-10",
+          "last_nonzero_date": "2023-09-04"
+        },
+        "USA": {
+          "full_start": "2020-01-04",
+          "full_end": "2025-12-31",
+          "default_start": "2022-05-20",
+          "default_end": "2023-05-20",
+          "last_nonzero_date": "2023-05-14"
+        }
+      }
+    },
+    "Influenza": {
+      "locations": [
+        {
+          "code": "USA",
+          "name": "United States",
+          "latitude": 38.9072,
+          "longitude": -77.0369
+        }
+      ],
+      "date_range": {
+        "start": "2020-08-08",
+        "end": "2024-11-16"
+      },
+      "frequency": "weekly",
+      "metric": "hospital_admissions",
+      "metric_label": "每周新增住院入院人数",
+      "models": [
+        "naive_last_value",
+        "moving_average"
+      ],
+      "location_date_ranges": {
+        "USA": {
+          "full_start": "2020-08-08",
+          "full_end": "2024-11-16",
+          "default_start": "2020-08-08",
+          "default_end": "2024-11-16",
+          "last_nonzero_date": null
+        }
+      }
+    },
+    "RSV": {
+      "locations": [
+        {
+          "code": "USA",
+          "name": "United States",
+          "latitude": 38.9072,
+          "longitude": -77.0369
+        }
+      ],
+      "date_range": {
+        "start": "2023-10-07",
+        "end": "2024-11-16"
+      },
+      "frequency": "weekly",
+      "metric": "hospital_admissions",
+      "metric_label": "每周新增住院入院人数",
+      "models": [
+        "naive_last_value",
+        "moving_average"
+      ],
+      "location_date_ranges": {
+        "USA": {
+          "full_start": "2023-10-07",
+          "full_end": "2024-11-16",
+          "default_start": "2023-10-07",
+          "default_end": "2024-11-16",
+          "last_nonzero_date": null
+        }
+      }
+    },
+    "Tuberculosis": {
+      "locations": [
+        {
+          "code": "AUS",
+          "name": "Australia",
+          "latitude": -35.2809,
+          "longitude": 149.13
+        },
+        {
+          "code": "BRA",
+          "name": "Brazil",
+          "latitude": -15.7939,
+          "longitude": -47.8828
+        },
+        {
+          "code": "CHN",
+          "name": "China",
+          "latitude": 39.9042,
+          "longitude": 116.4074
+        },
+        {
+          "code": "DEU",
+          "name": "Germany",
+          "latitude": 52.52,
+          "longitude": 13.405
+        },
+        {
+          "code": "FRA",
+          "name": "France",
+          "latitude": 48.8566,
+          "longitude": 2.3522
+        },
+        {
+          "code": "GBR",
+          "name": "United Kingdom",
+          "latitude": 51.5072,
+          "longitude": -0.1276
+        },
+        {
+          "code": "IND",
+          "name": "India",
+          "latitude": 28.6139,
+          "longitude": 77.209
+        },
+        {
+          "code": "JPN",
+          "name": "Japan",
+          "latitude": 35.6762,
+          "longitude": 139.6503
+        },
+        {
+          "code": "KOR",
+          "name": "South Korea",
+          "latitude": 37.5665,
+          "longitude": 126.978
+        },
+        {
+          "code": "USA",
+          "name": "United States",
+          "latitude": 38.9072,
+          "longitude": -77.0369
+        }
+      ],
+      "date_range": {
+        "start": "2000-12-31",
+        "end": "2022-12-31"
+      },
+      "frequency": "annual",
+      "metric": "incidence_per_100k",
+      "metric_label": "估计发病率（每10万人）",
+      "models": [
+        "naive_last_value",
+        "moving_average"
+      ],
+      "location_date_ranges": {
+        "AUS": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "BRA": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "CHN": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "DEU": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "FRA": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "GBR": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "IND": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "JPN": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "KOR": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "USA": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        }
+      }
+    },
+    "HIV/AIDS": {
+      "locations": [
+        {
+          "code": "AUS",
+          "name": "Australia",
+          "latitude": -35.2809,
+          "longitude": 149.13
+        },
+        {
+          "code": "BRA",
+          "name": "Brazil",
+          "latitude": -15.7939,
+          "longitude": -47.8828
+        },
+        {
+          "code": "DEU",
+          "name": "Germany",
+          "latitude": 52.52,
+          "longitude": 13.405
+        },
+        {
+          "code": "FRA",
+          "name": "France",
+          "latitude": 48.8566,
+          "longitude": 2.3522
+        },
+        {
+          "code": "GBR",
+          "name": "United Kingdom",
+          "latitude": 51.5072,
+          "longitude": -0.1276
+        },
+        {
+          "code": "IND",
+          "name": "India",
+          "latitude": 28.6139,
+          "longitude": 77.209
+        }
+      ],
+      "date_range": {
+        "start": "2000-12-31",
+        "end": "2024-12-31"
+      },
+      "frequency": "annual",
+      "metric": "new_infections",
+      "metric_label": "年度新增 HIV 感染数",
+      "models": [
+        "naive_last_value",
+        "moving_average"
+      ],
+      "location_date_ranges": {
+        "AUS": {
+          "full_start": "2000-12-31",
+          "full_end": "2022-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2022-12-31",
+          "last_nonzero_date": null
+        },
+        "BRA": {
+          "full_start": "2000-12-31",
+          "full_end": "2024-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2024-12-31",
+          "last_nonzero_date": null
+        },
+        "DEU": {
+          "full_start": "2010-12-31",
+          "full_end": "2024-12-31",
+          "default_start": "2010-12-31",
+          "default_end": "2024-12-31",
+          "last_nonzero_date": null
+        },
+        "FRA": {
+          "full_start": "2000-12-31",
+          "full_end": "2023-12-31",
+          "default_start": "2000-12-31",
+          "default_end": "2023-12-31",
+          "last_nonzero_date": null
+        },
+        "GBR": {
+          "full_start": "2016-12-31",
+          "full_end": "2023-12-31",
+          "default_start": "2016-12-31",
+          "default_end": "2023-12-31",
+          "last_nonzero_date": null
+        },
+        "IND": {
+          "full_start": "2024-12-31",
+          "full_end": "2024-12-31",
+          "default_start": "2024-12-31",
+          "default_end": "2024-12-31",
+          "last_nonzero_date": null
+        }
+      }
+    },
+    "COVID-19 Hospital Admissions": {
+      "locations": [
+        {
+          "code": "USA",
+          "name": "United States",
+          "latitude": 38.9072,
+          "longitude": -77.0369
+        }
+      ],
+      "date_range": {
+        "start": "2020-08-08",
+        "end": "2024-11-16"
+      },
+      "frequency": "weekly",
+      "metric": "hospital_admissions",
+      "metric_label": "每周新增住院入院人数",
+      "models": [
+        "naive_last_value",
+        "moving_average"
+      ],
+      "location_date_ranges": {
+        "USA": {
+          "full_start": "2020-08-08",
+          "full_end": "2024-11-16",
+          "default_start": "2020-08-08",
+          "default_end": "2024-11-16",
+          "last_nonzero_date": null
+        }
+      }
+    }
+  }
+}

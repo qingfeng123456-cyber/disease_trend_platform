@@ -29,7 +29,7 @@ kaggle --version
 
 ## 3. 最终天气补充数据源
 
-采用 Open-Meteo Archive API 补充 2020-01-22 至 2021-05-29 的日频天气数据。
+采用 Open-Meteo Archive API 补充日频天气数据。首批范围为 2020-01-22 至 2021-05-29；为匹配当前 COVID 默认窗口，又补充了 2024-01-17 至 2025-01-16。
 
 API：
 
@@ -55,6 +55,13 @@ API：
 - China -> Beijing
 - United States -> Washington DC
 - United Kingdom -> London
+- France -> Paris
+- Germany -> Berlin
+- India -> New Delhi
+- Brazil -> Brasilia
+- Japan -> Tokyo
+- South Korea -> Seoul
+- Australia -> Canberra
 
 后续候选国家和代表城市维护在：
 
@@ -70,14 +77,9 @@ API：
 
 - `data/raw/open_meteo/<location_code>/`
 
-当前已生成：
+当前保留原 CHN、USA、GBR 的 2020/2021 文件，并新增 AUS、BRA、CHN、DEU、FRA、GBR、IND、JPN、KOR、USA 的 2024/2025 文件。命名格式统一为：
 
-- `data/raw/open_meteo/CHN/open_meteo_CHN_2020.csv`
-- `data/raw/open_meteo/CHN/open_meteo_CHN_2021.csv`
-- `data/raw/open_meteo/USA/open_meteo_USA_2020.csv`
-- `data/raw/open_meteo/USA/open_meteo_USA_2021.csv`
-- `data/raw/open_meteo/GBR/open_meteo_GBR_2020.csv`
-- `data/raw/open_meteo/GBR/open_meteo_GBR_2021.csv`
+- `data/raw/open_meteo/<ISO3>/open_meteo_<ISO3>_<year>.csv`
 
 每个 CSV 旁边保存 `.meta.json`，包含：
 
@@ -123,6 +125,16 @@ python scripts\validate_dataset_overlap.py --output-json data\serving\dataset_ov
 
 - 疫情与天气国家交集：3 个，`CHN, GBR, USA`
 - 疫情与天气日期交集：2020-01-22~2021-05-29
+
+## 7. COVID 默认窗口扩充结果
+
+已实际运行：
+
+```powershell
+conda run --no-capture-output -n intership python scripts\download_weather_data.py --location-codes AUS BRA CHN DEU FRA GBR IND JPN KOR USA --start-date 2024-01-17 --end-date 2025-01-16
+```
+
+结果为 20 个 CSV 和 20 个 `.meta.json`：10 个国家各 366 行，共 3,660 行；日期重复数为 0；`temperature_mean`、`relative_humidity_mean`、`precipitation_sum` 缺失数均为 0。重新运行本地流水线后，Open-Meteo 清洗表共有 5,142 行，特征表天气匹配行数为 5,377。中国 COVID 默认窗口返回 366 个 `exact_day` 匹配点，`fallback_used=false`。
 - 每个已采集国家共同日期数：494
 - 天气 `location_code + date` 重复键数量：0
 - 日期解析错误：0

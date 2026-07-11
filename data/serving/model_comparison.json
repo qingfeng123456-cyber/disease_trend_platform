@@ -1,0 +1,38 @@
+{
+  "data_mode": "real_local_multi_source",
+  "best_model": "naive_last_value",
+  "items": [
+    {
+      "model": "naive_last_value",
+      "mae": 24.532504,
+      "rmse": 98.925756,
+      "r2": 0.934833,
+      "mape": 0.481492,
+      "smape": 0.239651
+    },
+    {
+      "model": "moving_average",
+      "mae": 24.532504,
+      "rmse": 98.92576,
+      "r2": 0.934833,
+      "mape": 0.481492,
+      "smape": 0.239651
+    },
+    {
+      "model": "local_sklearn_gbdt",
+      "mae": 595.83942,
+      "rmse": 6696.049729,
+      "r2": -297.571457,
+      "mape": 1514.345632,
+      "smape": 1.554152
+    },
+    {
+      "model": "local_pytorch_lstm",
+      "mae": 27.010495,
+      "rmse": 109.92026,
+      "r2": 0.920584,
+      "mape": 0.494898,
+      "smape": 1.054456
+    }
+  ]
+}

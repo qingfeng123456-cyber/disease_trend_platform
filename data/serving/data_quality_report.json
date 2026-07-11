@@ -1,0 +1,57 @@
+{
+  "data_mode": "real_local_multi_source",
+  "total_records": 22723,
+  "date_range": {
+    "start": "2000-12-31",
+    "end": "2025-12-31"
+  },
+  "region_count": 10,
+  "disease_count": 6,
+  "required_missing_rate_by_column": {
+    "date": 0.0,
+    "location_code": 0.0,
+    "disease": 0.0,
+    "frequency": 0.0,
+    "metric": 0.0,
+    "value": 0.0
+  },
+  "optional_missing_rate_by_column": {
+    "temperature_mean": 0.763368,
+    "relative_humidity_mean": 0.763368,
+    "population": 0.0,
+    "gdp_per_capita": 0.012058,
+    "target_t_plus_7": 0.003917
+  },
+  "missing_rate_by_column": {
+    "date": 0.0,
+    "location_code": 0.0,
+    "disease": 0.0,
+    "frequency": 0.0,
+    "metric": 0.0,
+    "value": 0.0
+  },
+  "duplicate_count": 0,
+  "negative_correction_count": 2,
+  "outlier_count": 0,
+  "weather_matched_count": 5377,
+  "weather_unmatched_count": 17346,
+  "population_unmatched_count": 0,
+  "records_by_source": {
+    "Kaggle Tuberculosis / Our World in Data indicators": 230,
+    "Kaggle Weekly Hospital Respiratory Data and Metrics": 507,
+    "Our World in Data COVID compact": 21890,
+    "WHO GHO HIV_0000000026": 96
+  },
+  "latest_data_date": "2025-12-31",
+  "run_time": "2026-07-11T03:54:02.238144+00:00",
+  "is_demo_data": false,
+  "warnings": [
+    "当前为 Windows 本地 Pandas 流水线，未使用 Spark/HDFS。",
+    "Open-Meteo 使用国家代表城市天气，仅作为教学代理特征。",
+    "结核病是年度每10万人发病率，呼吸系统数据是周住院人数，不跨口径相加。",
+    "Kaggle 历史小时天气仅关联同年份美国结核病，不与 COVID 强行拼接。",
+    "China CDC 已清洗元数据和高置信正文摘要，复杂 PDF 表格仍需人工复核。",
+    "WHO HIV_0000000026 提供 HIV/AIDS 年度观测；No data 保留在目录但不作为模型目标。",
+    "WHO 监狱指标和关键词误匹配只进入目录；WHO 结核病指标不覆盖原发病率目标。"
+  ]
+}

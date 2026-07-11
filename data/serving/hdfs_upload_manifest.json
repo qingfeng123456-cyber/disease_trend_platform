@@ -1,0 +1,163 @@
+{
+  "generated_at": "2026-07-10T03:42:21.616865+00:00",
+  "dataset": "all",
+  "dry_run": true,
+  "force": false,
+  "verify": false,
+  "records": [
+    {
+      "dataset": "epidemic",
+      "local_path": "data/raw/kaggle/epidemic/novel-corona-virus-2019-dataset/archive (2)/covid_19_data.csv",
+      "hdfs_path": "/disease_platform/raw/kaggle/epidemic/covid_19_data.csv",
+      "local_size": 22535273,
+      "hdfs_size": null,
+      "sha256": "b64303296f617984bd13fecf69a5250b26f5a19d2009d2c03ffedf46a46b910d",
+      "uploaded_at": "2026-07-10T03:42:21.644498+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "population",
+      "local_path": "data/raw/kaggle/population/world-population-dataset/world_population.csv",
+      "hdfs_path": "/disease_platform/raw/kaggle/population/world_population.csv",
+      "local_size": 29247,
+      "hdfs_size": null,
+      "sha256": "9b5078ba6432407f8e8717d5e977a9632ad4aac18256642f0fd0d6c67bf4fe65",
+      "uploaded_at": "2026-07-10T03:42:21.654556+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/CHN/open_meteo_CHN_2020.csv",
+      "hdfs_path": "/disease_platform/raw/open_meteo/CHN/open_meteo_CHN_2020.csv",
+      "local_size": 49659,
+      "hdfs_size": null,
+      "sha256": "bbb0e96a4a7000ec5058871a940de61f1a81b9d2db05e0a760b70cd7a9127c35",
+      "uploaded_at": "2026-07-10T03:42:21.669312+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/CHN/open_meteo_CHN_2020.csv.meta.json",
+      "hdfs_path": "/disease_platform/raw/open_meteo/CHN/open_meteo_CHN_2020.csv.meta.json",
+      "local_size": 1580,
+      "hdfs_size": null,
+      "sha256": "d7a7fda2b07c3bf60897326507ed21d15566098dd3f4cde9a238def7f4ce6c07",
+      "uploaded_at": "2026-07-10T03:42:21.678336+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/CHN/open_meteo_CHN_2021.csv",
+      "hdfs_path": "/disease_platform/raw/open_meteo/CHN/open_meteo_CHN_2021.csv",
+      "local_size": 21539,
+      "hdfs_size": null,
+      "sha256": "b234b06e42da2306e592c165c96790943e586cc90da7f19f7aa0fbaa06cb511e",
+      "uploaded_at": "2026-07-10T03:42:21.696109+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/CHN/open_meteo_CHN_2021.csv.meta.json",
+      "hdfs_path": "/disease_platform/raw/open_meteo/CHN/open_meteo_CHN_2021.csv.meta.json",
+      "local_size": 1580,
+      "hdfs_size": null,
+      "sha256": "baad8302359bb077d20e8de67be17787d3a691efdf4a0a53d558d3e3ab6ebf90",
+      "uploaded_at": "2026-07-10T03:42:21.705257+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/GBR/open_meteo_GBR_2020.csv",
+      "hdfs_path": "/disease_platform/raw/open_meteo/GBR/open_meteo_GBR_2020.csv",
+      "local_size": 51920,
+      "hdfs_size": null,
+      "sha256": "a25d7472575bec88d546cbb7515be81928305d247db063a4ebeb0bab76a098c2",
+      "uploaded_at": "2026-07-10T03:42:21.723076+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/GBR/open_meteo_GBR_2020.csv.meta.json",
+      "hdfs_path": "/disease_platform/raw/open_meteo/GBR/open_meteo_GBR_2020.csv.meta.json",
+      "local_size": 1585,
+      "hdfs_size": null,
+      "sha256": "b82314517c690f928aaa39b721881c0cf4c788544ece64b3008f949cb377c5a4",
+      "uploaded_at": "2026-07-10T03:42:21.733341+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/GBR/open_meteo_GBR_2021.csv",
+      "hdfs_path": "/disease_platform/raw/open_meteo/GBR/open_meteo_GBR_2021.csv",
+      "local_size": 22432,
+      "hdfs_size": null,
+      "sha256": "103610c760e945f78a0f0fbe80f8981b21b9a64a6390b75b4e3340c99f1d4d4c",
+      "uploaded_at": "2026-07-10T03:42:21.747877+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/GBR/open_meteo_GBR_2021.csv.meta.json",
+      "hdfs_path": "/disease_platform/raw/open_meteo/GBR/open_meteo_GBR_2021.csv.meta.json",
+      "local_size": 1585,
+      "hdfs_size": null,
+      "sha256": "9b8cc4cbcba87483713198e728ffe6eb458b664ee1aeee72287d52bdde7f0093",
+      "uploaded_at": "2026-07-10T03:42:21.757307+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/USA/open_meteo_USA_2020.csv",
+      "hdfs_path": "/disease_platform/raw/open_meteo/USA/open_meteo_USA_2020.csv",
+      "local_size": 55498,
+      "hdfs_size": null,
+      "sha256": "80b99fb91b88479c201a6dc7d142f2df5101535abd0c27dc69121a0e32fc50e8",
+      "uploaded_at": "2026-07-10T03:42:21.771655+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/USA/open_meteo_USA_2020.csv.meta.json",
+      "hdfs_path": "/disease_platform/raw/open_meteo/USA/open_meteo_USA_2020.csv.meta.json",
+      "local_size": 1600,
+      "hdfs_size": null,
+      "sha256": "c060614030f9b802dc19d787267ef633ed9050c84fadae47f2d2b3ecfe519c78",
+      "uploaded_at": "2026-07-10T03:42:21.782450+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/USA/open_meteo_USA_2021.csv",
+      "hdfs_path": "/disease_platform/raw/open_meteo/USA/open_meteo_USA_2021.csv",
+      "local_size": 24032,
+      "hdfs_size": null,
+      "sha256": "a43146c5441faffd03f33b3d8c086a6ed811bee8bebf946e06d200dbacca9683",
+      "uploaded_at": "2026-07-10T03:42:21.799638+00:00",
+      "status": "dry_run",
+      "error": null
+    },
+    {
+      "dataset": "weather",
+      "local_path": "data/raw/open_meteo/USA/open_meteo_USA_2021.csv.meta.json",
+      "hdfs_path": "/disease_platform/raw/open_meteo/USA/open_meteo_USA_2021.csv.meta.json",
+      "local_size": 1600,
+      "hdfs_size": null,
+      "sha256": "292c850911e9d5931d1097222e82419c4df79141d41b1ea344009f3f0193704f",
+      "uploaded_at": "2026-07-10T03:42:21.809182+00:00",
+      "status": "dry_run",
+      "error": null
+    }
+  ]
+}

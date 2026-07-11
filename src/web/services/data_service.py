@@ -66,7 +66,14 @@ class DataService:
             "serving_dir": safe_relative(self.serving_dir),
         }
 
-    def overview(self, *, location: str | None = None, disease: str | None = None) -> dict[str, Any]:
+    def overview(
+        self,
+        *,
+        location: str | None = None,
+        disease: str | None = None,
+        start_date: str | None = None,
+        end_date: str | None = None,
+    ) -> dict[str, Any]:
         payload = self._read_json("overview.json")
         if not location and not disease:
             return payload
@@ -83,6 +90,31 @@ class DataService:
         )
         if summary is None:
             return payload
+        start = self._parse_optional_date(start_date, "start_date")
+        end = self._parse_optional_date(end_date, "end_date")
+        if start and end and start > end:
+            raise ValidationError("start_date 不能晚于 end_date")
+        selected_points: list[dict[str, Any]] = []
+        if start or end:
+            trend_payload = self._read_json("trend.json")
+            series = next(
+                (
+                    item
+                    for item in trend_payload.get("items", [])
+                    if item.get("location_code") == location_code and item.get("disease") == disease_name
+                ),
+                None,
+            )
+            if series:
+                for point in series.get("points", []):
+                    point_date = date.fromisoformat(point["date"])
+                    if start and point_date < start:
+                        continue
+                    if end and point_date > end:
+                        continue
+                    selected_points.append(point)
+        latest_point = selected_points[-1] if selected_points else None
+        first_point = selected_points[0] if selected_points else None
         risk_items = self.risk_map(disease=disease_name).get("items", [])
         return {
             **payload,
@@ -93,13 +125,13 @@ class DataService:
             "selected_metric_label": summary.get("metric_label"),
             "selected_frequency": summary.get("frequency"),
             "selected_rolling_label": summary.get("rolling_label"),
-            "latest_date": summary.get("latest_date"),
-            "start_date": summary.get("start_date"),
-            "end_date": summary.get("end_date"),
-            "current_total_cases": summary.get("current_total_cases"),
-            "current_total_deaths": summary.get("current_total_deaths"),
-            "current_new_cases": summary.get("current_value"),
-            "current_rolling_value": summary.get("current_rolling_value"),
+            "latest_date": latest_point.get("date") if latest_point else summary.get("latest_date"),
+            "start_date": first_point.get("date") if first_point else summary.get("start_date"),
+            "end_date": latest_point.get("date") if latest_point else summary.get("end_date"),
+            "current_total_cases": latest_point.get("total_cases") if latest_point else summary.get("current_total_cases"),
+            "current_total_deaths": latest_point.get("total_deaths") if latest_point else summary.get("current_total_deaths"),
+            "current_new_cases": latest_point.get("actual") if latest_point else summary.get("current_value"),
+            "current_rolling_value": latest_point.get("rolling_7") if latest_point else summary.get("current_rolling_value"),
             "high_risk_regions": sum(1 for item in risk_items if item.get("risk_level") == "高风险"),
         }
 
@@ -190,7 +222,35 @@ class DataService:
             values = [item.get("temperature_mean"), item.get("relative_humidity_mean"), item.get("new_cases_smoothed")]
             if all(isinstance(value, (int, float)) and math.isfinite(float(value)) for value in values):
                 valid_items.append(item)
+        fallback_used = False
+        if not valid_items and (start_date or end_date) and location and disease:
+            full_filtered = self._filter_payload_items(
+                payload,
+                location=location,
+                disease=disease,
+                start_date=None,
+                end_date=None,
+            )
+            full_valid_items = []
+            for item in full_filtered.get("items", []):
+                values = [
+                    item.get("temperature_mean"),
+                    item.get("relative_humidity_mean"),
+                    item.get("new_cases_smoothed"),
+                ]
+                if all(isinstance(value, (int, float)) and math.isfinite(float(value)) for value in values):
+                    full_valid_items.append(item)
+            if full_valid_items:
+                filtered = full_filtered
+                valid_items = full_valid_items
+                fallback_used = True
         metric_label = valid_items[0].get("metric_label") if valid_items else None
+        matched_date_range = None
+        if valid_items:
+            matched_date_range = {
+                "start": str(valid_items[0].get("date") or "")[:10],
+                "end": str(valid_items[-1].get("date") or "")[:10],
+            }
         return {
             **filtered,
             "items": valid_items[-1200:],
@@ -198,7 +258,13 @@ class DataService:
             "metric_label": metric_label,
             "temperature_correlation": self._pearson(valid_items, "temperature_mean", "new_cases_smoothed"),
             "humidity_correlation": self._pearson(valid_items, "relative_humidity_mean", "new_cases_smoothed"),
-            "message": None if valid_items else "当前疾病、地区和日期范围没有可关联的同期天气数据。",
+            "fallback_used": fallback_used,
+            "matched_date_range": matched_date_range,
+            "message": (
+                "所选日期窗口没有同期天气，已展示该疾病和地区全部可匹配天气期。"
+                if fallback_used
+                else (None if valid_items else "当前疾病、地区和日期范围没有可关联的同期天气数据。")
+            ),
         }
 
     def disease_share(self) -> dict[str, Any]:

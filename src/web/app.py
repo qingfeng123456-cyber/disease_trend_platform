@@ -51,6 +51,8 @@ def overview():
         service.overview(
             location=request.args.get("location") or request.args.get("iso"),
             disease=request.args.get("disease"),
+            start_date=request.args.get("start_date"),
+            end_date=request.args.get("end_date"),
         )
     )
 

@@ -12,7 +12,7 @@
 - 内容：历史温度、降水、湿度、风速、气压。
 - 入口：`https://archive-api.open-meteo.com/v1/archive`
 - 采集器：`src.collectors.open_meteo_collector`
-- 说明：地区来自 `config/locations.csv`，按年份分批请求，已有完整文件会跳过。
+- 说明：地区来自 `config/weather_locations.csv`，按年份分批请求，已有完整文件会根据旁路 `.meta.json` 自动跳过。
 
 ## World Bank
 

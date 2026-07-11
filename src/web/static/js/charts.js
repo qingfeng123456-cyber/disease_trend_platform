@@ -24,30 +24,72 @@ function chartBase() {
   };
 }
 
+function hasSignal(value) {
+  return Number.isFinite(Number(value)) && Math.abs(Number(value)) > 1e-9;
+}
+
+function lastSignalIndex(items, predicate) {
+  for (let index = items.length - 1; index >= 0; index -= 1) {
+    if (predicate(items[index])) return index;
+  }
+  return Math.max(0, items.length - 1);
+}
+
+function smartWindow(items, limit, predicate) {
+  if (items.length <= limit) return items;
+  const signalIndex = lastSignalIndex(items, predicate);
+  const endIndex = Math.min(items.length, signalIndex + 1);
+  return items.slice(Math.max(0, endIndex - limit), endIndex);
+}
+
+function chartModelName(model) {
+  const names = {
+    naive_last_value: '最近值',
+    moving_average: '移动平均',
+    local_sklearn_gbdt: 'GBDT',
+    local_pytorch_lstm: 'LSTM'
+  };
+  return names[model] || model;
+}
+
 function lineTrendOption(trend) {
   const points = trend.points || [];
   const dates = points.map(p => p.date);
   const actualName = trend.metric_label || '实际值';
   const rollingName = trend.rolling_label || '移动平均';
   const predictionName = `${trend.forecast_horizon_label || '未来'}预测`;
+  const signalIndex = lastSignalIndex(
+    points,
+    point => [point.actual, point.rolling_7, point.prediction, point.growth_rate_7].some(hasSignal)
+  );
+  const visibleCount = 420;
+  const zoomEndIndex = Math.min(points.length - 1, signalIndex + 7);
+  const zoomStartIndex = Math.max(0, zoomEndIndex - visibleCount + 1);
   return {
     ...chartBase(),
     legend: { top: 8, textStyle: { color: palette.text }, data: [actualName, rollingName, predictionName, '置信下界', '置信上界'] },
     xAxis: { type: 'category', data: dates, axisLabel: { color: palette.muted, hideOverlap: true } },
     yAxis: { type: 'value', scale: true, axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
-    dataZoom: [{ type: 'inside', start: 68, end: 100 }, { type: 'slider', bottom: 8, height: 16, textStyle: { color: palette.muted } }],
+    dataZoom: [
+      { type: 'inside', startValue: dates[zoomStartIndex], endValue: dates[zoomEndIndex] },
+      { type: 'slider', startValue: dates[zoomStartIndex], endValue: dates[zoomEndIndex], bottom: 8, height: 16, textStyle: { color: palette.muted } }
+    ],
     series: [
       { name: actualName, type: 'line', showSymbol: points.length < 80, data: points.map(p => p.actual), lineStyle: { width: 1, opacity: .55 }, itemStyle: { color: '#9ab4c5' } },
       { name: rollingName, type: 'line', showSymbol: false, smooth: true, data: points.map(p => p.rolling_7), lineStyle: { width: 2 }, itemStyle: { color: palette.cyan }, areaStyle: { opacity: .08 } },
       { name: predictionName, type: 'line', showSymbol: false, smooth: true, data: points.map(p => p.prediction), lineStyle: { width: 2, type: 'dashed' }, itemStyle: { color: palette.red } },
       { name: '置信下界', type: 'line', showSymbol: false, data: points.map(p => p.lower), lineStyle: { opacity: 0 }, stack: 'confidence', itemStyle: { color: 'transparent' } },
-      { name: '置信上界', type: 'line', showSymbol: false, data: points.map((p, i) => p.upper && p.lower ? p.upper - p.lower : null), lineStyle: { opacity: 0 }, areaStyle: { color: 'rgba(255,107,107,.12)' }, stack: 'confidence', itemStyle: { color: 'transparent' } }
+      { name: '置信上界', type: 'line', showSymbol: false, data: points.map(p => Number.isFinite(p.upper) && Number.isFinite(p.lower) ? p.upper - p.lower : null), lineStyle: { opacity: 0 }, areaStyle: { color: 'rgba(255,107,107,.12)' }, stack: 'confidence', itemStyle: { color: 'transparent' } }
     ]
   };
 }
 
 function avgOption(trend) {
-  const points = (trend.points || []).slice(-365);
+  const points = smartWindow(
+    trend.points || [],
+    365,
+    point => hasSignal(point.rolling_7) || hasSignal(point.actual)
+  );
   return {
     ...chartBase(),
     xAxis: { type: 'category', data: points.map(p => p.date), axisLabel: { color: palette.muted, hideOverlap: true } },
@@ -98,10 +140,20 @@ function weatherOption(data) {
   }
   const humidityValues = items.map(item => Number(item.relative_humidity_mean));
   const maxValue = Math.max(1, ...items.map(item => Number(item.new_cases_smoothed) || 0));
+  const fallbackRange = data.matched_date_range
+    ? `${data.matched_date_range.start} 至 ${data.matched_date_range.end}`
+    : '';
   return {
-    title: { text: `温度 r=${correlationText(data.temperature_correlation)}  湿度 r=${correlationText(data.humidity_correlation)}  n=${data.sample_size || items.length}`, left: 10, top: 2, textStyle: { color: palette.muted, fontSize: 11, fontWeight: 'normal' } },
+    title: {
+      text: `温度 r=${correlationText(data.temperature_correlation)}  湿度 r=${correlationText(data.humidity_correlation)}  n=${data.sample_size || items.length}`,
+      subtext: data.fallback_used ? `回退至天气覆盖期：${fallbackRange}` : '',
+      left: 10,
+      top: 2,
+      textStyle: { color: palette.muted, fontSize: 11, fontWeight: 'normal' },
+      subtextStyle: { color: palette.amber, fontSize: 10 }
+    },
     tooltip: { trigger: 'item', formatter: p => `${p.data.location} ${p.data.date}<br/>温度：${p.value[0]}℃<br/>湿度：${p.value[2]}%<br/>${metricLabel}：${fmtNumber(p.value[1], 1)}` },
-    grid: { left: 62, right: 48, top: 34, bottom: 42 },
+    grid: { left: 62, right: 48, top: data.fallback_used ? 48 : 34, bottom: 42 },
     xAxis: { type: 'value', name: '温度', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
     yAxis: { type: 'value', name: metricLabel, scale: true, axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
     visualMap: { dimension: 2, min: Math.min(...humidityValues), max: Math.max(...humidityValues), right: 2, top: 36, text: ['湿', '干'], textStyle: { color: palette.text }, inRange: { color: [palette.amber, palette.cyan, palette.blue] } },
@@ -120,7 +172,7 @@ function modelOption(metrics) {
     tooltip: { trigger: 'axis' },
     legend: { top: 5, textStyle: { color: palette.text } },
     grid: { left: 50, right: 18, top: 48, bottom: 38 },
-    xAxis: { type: 'category', data: items.map(x => x.model), axisLabel: { color: palette.muted } },
+    xAxis: { type: 'category', data: items.map(x => chartModelName(x.model)), axisLabel: { color: palette.muted } },
     yAxis: { type: 'value', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
     series: [
       { name: 'MAE', type: 'bar', data: items.map(x => x.mae), itemStyle: { color: palette.cyan } },
@@ -147,7 +199,7 @@ function qualityOption(report) {
 }
 
 function growthOption(trend) {
-  const points = (trend.points || []).slice(-240);
+  const points = smartWindow(trend.points || [], 240, point => hasSignal(point.growth_rate_7));
   return {
     ...chartBase(),
     xAxis: { type: 'category', data: points.map(p => p.date), axisLabel: { color: palette.muted, hideOverlap: true } },
@@ -160,7 +212,16 @@ function shareOption(data) {
   const items = data.items || [];
   return {
     tooltip: { trigger: 'item' },
-    legend: { bottom: 5, textStyle: { color: palette.text } },
+    legend: {
+      type: 'scroll',
+      left: 8,
+      right: 8,
+      bottom: 3,
+      textStyle: { color: palette.text },
+      pageTextStyle: { color: palette.muted },
+      pageIconColor: palette.cyan,
+      pageIconInactiveColor: palette.grid
+    },
     series: [{
       type: 'pie',
       radius: ['42%', '68%'],
@@ -172,10 +233,10 @@ function shareOption(data) {
 }
 
 function errorOption(predictions) {
-  const items = (predictions.items || []).slice(-180);
+  const items = smartWindow(predictions.items || [], 180, item => hasSignal(item.error));
   if (!items.length) {
     return {
-      title: { text: '该序列未进入 COVID 日频模型', left: 'center', top: '42%', textStyle: { color: palette.muted, fontSize: 13, fontWeight: 'normal' } },
+      title: { text: '当前序列没有可计算的预测误差', left: 'center', top: '42%', textStyle: { color: palette.muted, fontSize: 13, fontWeight: 'normal' } },
       xAxis: { show: false },
       yAxis: { show: false },
       series: []

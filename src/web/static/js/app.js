@@ -14,6 +14,16 @@ const chartIds = [
 const charts = {};
 const state = { options: null };
 
+function modelDisplayName(model) {
+  const names = {
+    naive_last_value: '最近值基线',
+    moving_average: '移动平均基线',
+    local_sklearn_gbdt: 'GBDT',
+    local_pytorch_lstm: 'LSTM'
+  };
+  return names[model] || model || '--';
+}
+
 function initCharts() {
   if (!window.echarts) {
     setMessage('ECharts CDN 未加载，基础数据仍可通过 API 查看。');
@@ -32,7 +42,9 @@ function fillSelect(id, items, valueKey, labelKey, preferredValue = null) {
   const select = document.getElementById(id);
   select.innerHTML = items.map(item => {
     const value = typeof item === 'string' ? item : item[valueKey];
-    const label = typeof item === 'string' ? item : `${item[labelKey]} ${item[valueKey]}`;
+    const label = id === 'modelSelect'
+      ? modelDisplayName(value)
+      : (typeof item === 'string' ? item : `${item[labelKey]} ${item[valueKey]}`);
     return `<option value="${value}">${label}</option>`;
   }).join('');
   if (preferredValue && Array.from(select.options).some(option => option.value === preferredValue)) {
@@ -57,8 +69,24 @@ function applyDiseaseAvailability(preferDefaultLocation = false) {
   const modelSelect = document.getElementById('modelSelect');
   const currentModel = modelSelect.value;
   fillSelect('modelSelect', availability.models || state.options.models || [], 'code', 'name', currentModel);
-  document.getElementById('startDate').value = availability.date_range?.start || state.options.date_range?.start || '';
-  document.getElementById('endDate').value = availability.date_range?.end || state.options.date_range?.end || '';
+  applySeriesDateRange();
+}
+
+function applySeriesDateRange() {
+  const disease = document.getElementById('diseaseSelect').value;
+  const location = document.getElementById('locationSelect').value;
+  const availability = state.options?.availability?.[disease] || {};
+  const range = availability.location_date_ranges?.[location] || {};
+  const fullStart = range.full_start || availability.date_range?.start || state.options?.date_range?.start || '';
+  const fullEnd = range.full_end || availability.date_range?.end || state.options?.date_range?.end || '';
+  const startInput = document.getElementById('startDate');
+  const endInput = document.getElementById('endDate');
+  startInput.min = fullStart;
+  startInput.max = fullEnd;
+  endInput.min = fullStart;
+  endInput.max = fullEnd;
+  startInput.value = range.default_start || fullStart;
+  endInput.value = range.default_end || fullEnd;
 }
 
 function selectedParams() {
@@ -68,6 +96,29 @@ function selectedParams() {
     start_date: document.getElementById('startDate').value,
     end_date: document.getElementById('endDate').value,
     model: document.getElementById('modelSelect').value
+  };
+}
+
+async function loadWeatherCorrelation(params) {
+  const selected = await apiGet('/api/weather-correlation', params);
+  if ((selected.items || []).length || !params.location || !params.disease) return selected;
+
+  const fallback = await apiGet('/api/weather-correlation', {
+    location: params.location,
+    disease: params.disease
+  });
+  const items = fallback.items || [];
+  if (!items.length) return selected;
+
+  const dates = items.map(item => String(item.date || '').slice(0, 10)).filter(Boolean);
+  return {
+    ...fallback,
+    fallback_used: true,
+    matched_date_range: fallback.matched_date_range || {
+      start: dates[0] || '',
+      end: dates[dates.length - 1] || ''
+    },
+    message: '所选日期窗口没有同期天气，已自动展示该疾病和地区的可匹配天气期。'
   };
 }
 
@@ -88,7 +139,9 @@ function renderKpis(overview, metrics, quality) {
   document.getElementById('kpiDeaths').textContent = overview.current_total_deaths == null ? (frequencyNames[overview.selected_frequency] || '--') : fmtNumber(overview.current_total_deaths);
   document.getElementById('kpiDeathsHint').textContent = overview.current_total_deaths == null ? (frequencyNames[overview.selected_frequency] || '--') : '同一来源辅助指标';
   document.getElementById('kpiHighRisk').textContent = fmtNumber(overview.high_risk_regions);
-  document.getElementById('kpiBestModel').textContent = `${overview.best_model || '--'} / ${fmtNumber(metrics.mae, 2)}`;
+  const bestModelText = `${modelDisplayName(overview.best_model)} / ${fmtNumber(metrics.mae, 2)}`;
+  document.getElementById('kpiBestModel').textContent = bestModelText;
+  document.getElementById('kpiBestModel').title = `${overview.best_model || '--'} / MAE ${fmtNumber(metrics.mae, 2)}`;
   document.getElementById('kpiQuality').textContent = fmtPercent(overview.data_completeness ?? 0);
   if (quality?.warnings?.length) setMessage(quality.warnings[0]);
 }
@@ -153,7 +206,7 @@ async function refreshDashboard() {
       apiGet('/api/trend', params),
       apiGet('/api/risk-map', params),
       apiGet('/api/rankings', params),
-      apiGet('/api/weather-correlation', params),
+      loadWeatherCorrelation(params),
       apiGet('/api/model-metrics'),
       apiGet('/api/data-quality'),
       apiGet('/api/disease-share'),
@@ -181,7 +234,11 @@ async function bootstrap() {
     applyDiseaseAvailability(false);
     await refreshDashboard();
   });
-  ['locationSelect', 'startDate', 'endDate', 'modelSelect'].forEach(id => {
+  document.getElementById('locationSelect').addEventListener('change', async () => {
+    applySeriesDateRange();
+    await refreshDashboard();
+  });
+  ['startDate', 'endDate', 'modelSelect'].forEach(id => {
     document.getElementById(id).addEventListener('change', refreshDashboard);
   });
   document.getElementById('refreshBtn').addEventListener('click', refreshDashboard);

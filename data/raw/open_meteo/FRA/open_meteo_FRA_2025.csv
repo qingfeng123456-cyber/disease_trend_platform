@@ -1,0 +1,17 @@
+﻿date,location,location_code,representative_city,latitude,longitude,temperature_mean,temperature_max,temperature_min,precipitation_sum,relative_humidity_mean,wind_speed_max,source,source_timezone,downloaded_at
+2025-01-01,France,FRA,Paris,48.8566,2.3522,6.3,8.8,4.2,0.0,88,25.2,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-02,France,FRA,Paris,48.8566,2.3522,4.4,9.7,1.2,22.7,94,26.6,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-03,France,FRA,Paris,48.8566,2.3522,0.4,4.1,-1.8,0.0,89,8.3,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-04,France,FRA,Paris,48.8566,2.3522,-0.6,2.3,-3.0,4.3,86,13.8,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-05,France,FRA,Paris,48.8566,2.3522,9.3,12.2,0.8,14.5,88,28.3,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-06,France,FRA,Paris,48.8566,2.3522,9.8,12.8,6.0,3.8,76,33.0,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-07,France,FRA,Paris,48.8566,2.3522,5.0,6.8,3.3,2.2,77,21.7,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-08,France,FRA,Paris,48.8566,2.3522,5.8,11.9,3.0,16.4,93,31.0,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-09,France,FRA,Paris,48.8566,2.3522,6.3,10.9,2.1,6.0,86,22.7,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-10,France,FRA,Paris,48.8566,2.3522,3.3,5.4,1.8,0.2,86,10.0,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-11,France,FRA,Paris,48.8566,2.3522,1.0,2.1,-0.8,0.0,92,8.6,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-12,France,FRA,Paris,48.8566,2.3522,1.6,4.1,-0.9,0.0,92,7.9,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-13,France,FRA,Paris,48.8566,2.3522,0.6,4.1,-2.0,0.0,82,9.0,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-14,France,FRA,Paris,48.8566,2.3522,-1.4,2.6,-4.0,0.0,85,4.9,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-15,France,FRA,Paris,48.8566,2.3522,2.2,5.6,-1.4,0.2,96,7.2,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00
+2025-01-16,France,FRA,Paris,48.8566,2.3522,3.6,5.3,0.6,0.0,92,12.1,Open-Meteo archive API,Europe/Paris,2026-07-11T03:35:12.528331+00:00

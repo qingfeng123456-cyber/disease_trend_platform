@@ -41,14 +41,13 @@ class WHOCollector(BaseCollector):
         ],
         "influenza": [
             "influenza",
-            "flu",
             "seasonal influenza",
+            "seasonal flu",
         ],
         "tuberculosis": [
             "tuberculosis",
             "tuberculous",
-            "tb ",
-            " tb",
+            "tb",
         ],
         "hiv": [
             "hiv",
@@ -97,6 +96,12 @@ class WHOCollector(BaseCollector):
             raise ValidationError(f"非法 WHO 指标代码：{value}")
 
         return value
+
+    @staticmethod
+    def keyword_matches(text: str, keyword: str) -> bool:
+        """Match complete terms so `flu`/`hiv` do not hit fluoride, flux or archived."""
+        pattern = rf"(?<![A-Za-z0-9]){re.escape(keyword.lower().strip())}(?![A-Za-z0-9])"
+        return bool(re.search(pattern, text.lower()))
 
     def request_json(
         self,
@@ -208,7 +213,7 @@ class WHOCollector(BaseCollector):
                 continue
 
             text = f"{code} {name}".lower()
-            if any(keyword in text for keyword in normalized_keywords):
+            if any(self.keyword_matches(text, keyword) for keyword in normalized_keywords):
                 results.append(
                     {
                         "indicator_code": code,
@@ -261,7 +266,7 @@ class WHOCollector(BaseCollector):
                     continue
 
                 text = f"{code} {name}".lower()
-                if any(keyword in text for keyword in keywords):
+                if any(self.keyword_matches(text, keyword) for keyword in keywords):
                     matched[code] = {
                         "indicator_code": code,
                         "indicator_name": name,

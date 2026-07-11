@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-07-10T03:42:21.478906+00:00",
+  "os": {
+    "system": "Windows",
+    "release": "11",
+    "version": "10.0.26200",
+    "machine": "AMD64"
+  },
+  "python": {
+    "executable": "C:\\Users\\16355\\miniconda3\\python.exe",
+    "version": "3.12.4 | packaged by Anaconda, Inc. | (main, Jun 18 2024, 15:03:56) [MSC v.1929 64 bit (AMD64)]"
+  },
+  "java": {
+    "command": [
+      "java",
+      "-version"
+    ],
+    "available": true,
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "java version \"17.0.12\" 2024-07-16 LTS\nJava(TM) SE Runtime Environment (build 17.0.12+8-LTS-286)\nJava HotSpot(TM) 64-Bit Server VM (build 17.0.12+8-LTS-286, mixed mode, sharing)"
+  },
+  "hadoop": {
+    "command": [
+      "hadoop",
+      "version"
+    ],
+    "available": false,
+    "returncode": null,
+    "stdout": "",
+    "stderr": "未找到命令: hadoop"
+  },
+  "hdfs": {
+    "command": [
+      "hdfs",
+      "version"
+    ],
+    "available": false,
+    "returncode": null,
+    "stdout": "",
+    "stderr": "未找到命令: hdfs"
+  },
+  "spark_submit": {
+    "command": [
+      "spark-submit",
+      "--version"
+    ],
+    "available": false,
+    "returncode": null,
+    "stdout": "",
+    "stderr": "未找到命令: spark-submit"
+  },
+  "jps": {
+    "command": [
+      "jps"
+    ],
+    "available": false,
+    "returncode": null,
+    "stdout": "",
+    "stderr": "未找到命令: jps"
+  },
+  "fs_default_fs": {
+    "command": [
+      "hdfs",
+      "getconf",
+      "-confKey",
+      "fs.defaultFS"
+    ],
+    "available": false,
+    "returncode": null,
+    "stdout": "",
+    "stderr": "未找到命令: hdfs"
+  },
+  "hdfs_root": {
+    "command": [
+      "hdfs",
+      "dfs",
+      "-ls",
+      "/"
+    ],
+    "available": false,
+    "returncode": null,
+    "stdout": "",
+    "stderr": "未找到命令: hdfs"
+  },
+  "services": {
+    "namenode_running": false,
+    "datanode_running": false,
+    "resourcemanager_running": false,
+    "nodemanager_running": false,
+    "hdfs_accessible": false,
+    "fs_default_fs": null
+  },
+  "advice": [
+    "未检测到 hdfs 命令：请在安装 Hadoop 且配置 PATH 的 Ubuntu 中运行 HDFS 步骤。"
+  ],
+  "forbidden_operations": [
+    "绝不自动执行 hdfs namenode -format。"
+  ]
+}

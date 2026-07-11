@@ -1,0 +1,5 @@
+{
+  "data_mode": "real_local_multi_source",
+  "generated_at": "2026-07-11T03:54:02.238144+00:00",
+  "generator": "scripts/build_local_serving_from_raw.py"
+}

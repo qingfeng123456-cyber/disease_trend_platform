@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-07-10T03:44:18.225331+00:00",
+  "config": "config\\settings.yaml",
+  "master": "local[*]",
+  "dry_run": true,
+  "status": "dry_run",
+  "steps": [
+    {
+      "name": "clean_epidemic",
+      "command": [
+        "spark-submit",
+        "--master",
+        "local[*]",
+        "src/spark_jobs/clean_epidemic.py",
+        "--config",
+        "config\\settings.yaml",
+        "--master",
+        "local[*]"
+      ],
+      "started_at": null,
+      "ended_at": null,
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "status": "dry_run"
+    },
+    {
+      "name": "clean_population",
+      "command": [
+        "spark-submit",
+        "--master",
+        "local[*]",
+        "src/spark_jobs/clean_population.py",
+        "--config",
+        "config\\settings.yaml",
+        "--master",
+        "local[*]"
+      ],
+      "started_at": null,
+      "ended_at": null,
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "status": "dry_run"
+    },
+    {
+      "name": "clean_weather",
+      "command": [
+        "spark-submit",
+        "--master",
+        "local[*]",
+        "src/spark_jobs/clean_weather.py",
+        "--config",
+        "config\\settings.yaml",
+        "--master",
+        "local[*]"
+      ],
+      "started_at": null,
+      "ended_at": null,
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "status": "dry_run"
+    },
+    {
+      "name": "data_quality_report",
+      "command": [
+        "spark-submit",
+        "--master",
+        "local[*]",
+        "src/spark_jobs/data_quality_report.py",
+        "--config",
+        "config\\settings.yaml",
+        "--master",
+        "local[*]"
+      ],
+      "started_at": null,
+      "ended_at": null,
+      "returncode": null,
+      "stdout": "",
+      "stderr": "",
+      "status": "dry_run"
+    }
+  ],
+  "error": null
+}
