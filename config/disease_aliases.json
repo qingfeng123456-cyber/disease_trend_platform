@@ -1,0 +1,9 @@
+{
+  "COVID-19": ["COVID-19", "COVID19", "新冠肺炎", "新型冠状病毒感染", "新型冠状病毒肺炎"],
+  "Influenza": ["Influenza", "Flu", "流感", "流行性感冒"],
+  "Tuberculosis": ["Tuberculosis", "TB", "肺结核"],
+  "RSV": ["RSV", "Respiratory Syncytial Virus", "呼吸道合胞病毒"],
+  "COVID-19 Hospital Admissions": ["COVID-19 Hospital Admissions", "COVID hospital admissions", "新冠住院入院"],
+  "Dengue": ["Dengue", "登革热"],
+  "Measles": ["Measles", "麻疹"]
+}

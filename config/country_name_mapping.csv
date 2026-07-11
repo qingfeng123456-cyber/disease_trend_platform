@@ -1,0 +1,229 @@
+﻿epidemic_name,population_name,standard_name,location_code,enabled,notes
+"('St. Martin',)",Saint Martin,Saint Martin,MAF,true,manual
+Afghanistan,Afghanistan,Afghanistan,AFG,true,exact
+Albania,Albania,Albania,ALB,true,exact
+Algeria,Algeria,Algeria,DZA,true,exact
+Andorra,Andorra,Andorra,AND,true,exact
+Angola,Angola,Angola,AGO,true,exact
+Antigua and Barbuda,Antigua and Barbuda,Antigua and Barbuda,ATG,true,exact
+Argentina,Argentina,Argentina,ARG,true,exact
+Armenia,Armenia,Armenia,ARM,true,exact
+Aruba,Aruba,Aruba,ABW,true,exact
+Australia,Australia,Australia,AUS,true,exact
+Austria,Austria,Austria,AUT,true,exact
+Azerbaijan,Azerbaijan,Azerbaijan,AZE,true,exact
+Bahamas,Bahamas,Bahamas,BHS,true,exact
+"Bahamas, The",Bahamas,Bahamas,BHS,true,manual
+Bahrain,Bahrain,Bahrain,BHR,true,exact
+Bangladesh,Bangladesh,Bangladesh,BGD,true,exact
+Barbados,Barbados,Barbados,BRB,true,exact
+Belarus,Belarus,Belarus,BLR,true,exact
+Belgium,Belgium,Belgium,BEL,true,exact
+Belize,Belize,Belize,BLZ,true,exact
+Benin,Benin,Benin,BEN,true,exact
+Bhutan,Bhutan,Bhutan,BTN,true,exact
+Bolivia,Bolivia,Bolivia,BOL,true,exact
+Bosnia and Herzegovina,Bosnia and Herzegovina,Bosnia and Herzegovina,BIH,true,exact
+Botswana,Botswana,Botswana,BWA,true,exact
+Brazil,Brazil,Brazil,BRA,true,exact
+Brunei,Brunei,Brunei,BRN,true,exact
+Bulgaria,Bulgaria,Bulgaria,BGR,true,exact
+Burkina Faso,Burkina Faso,Burkina Faso,BFA,true,exact
+Burma,Myanmar,Myanmar,MMR,true,manual
+Burundi,Burundi,Burundi,BDI,true,exact
+Cabo Verde,Cape Verde,Cape Verde,CPV,true,manual
+Cambodia,Cambodia,Cambodia,KHM,true,exact
+Cameroon,Cameroon,Cameroon,CMR,true,exact
+Canada,Canada,Canada,CAN,true,exact
+Cape Verde,Cape Verde,Cape Verde,CPV,true,exact
+Cayman Islands,Cayman Islands,Cayman Islands,CYM,true,exact
+Central African Republic,Central African Republic,Central African Republic,CAF,true,exact
+Chad,Chad,Chad,TCD,true,exact
+Channel Islands,,Channel Islands,,false,unmapped; combined crown-dependency row has no single CCA3 in population table
+Chile,Chile,Chile,CHL,true,exact
+China,China,China,CHN,true,exact
+Colombia,Colombia,Colombia,COL,true,exact
+Comoros,Comoros,Comoros,COM,true,exact
+Congo (Brazzaville),Republic of the Congo,Republic of the Congo,COG,true,manual
+Congo (Kinshasa),DR Congo,DR Congo,COD,true,manual
+Costa Rica,Costa Rica,Costa Rica,CRI,true,exact
+Croatia,Croatia,Croatia,HRV,true,exact
+Cuba,Cuba,Cuba,CUB,true,exact
+Curacao,Curacao,Curacao,CUW,true,exact
+Cyprus,Cyprus,Cyprus,CYP,true,exact
+Czech Republic,Czech Republic,Czech Republic,CZE,true,exact
+Denmark,Denmark,Denmark,DNK,true,exact
+Diamond Princess,,Diamond Princess,,false,disabled; not a country-level population entity
+Djibouti,Djibouti,Djibouti,DJI,true,exact
+Dominica,Dominica,Dominica,DMA,true,exact
+Dominican Republic,Dominican Republic,Dominican Republic,DOM,true,exact
+East Timor,Timor-Leste,Timor-Leste,TLS,true,manual
+Ecuador,Ecuador,Ecuador,ECU,true,exact
+Egypt,Egypt,Egypt,EGY,true,exact
+El Salvador,El Salvador,El Salvador,SLV,true,exact
+Equatorial Guinea,Equatorial Guinea,Equatorial Guinea,GNQ,true,exact
+Eritrea,Eritrea,Eritrea,ERI,true,exact
+Estonia,Estonia,Estonia,EST,true,exact
+Eswatini,Eswatini,Eswatini,SWZ,true,manual
+Ethiopia,Ethiopia,Ethiopia,ETH,true,exact
+Faroe Islands,Faroe Islands,Faroe Islands,FRO,true,exact
+Fiji,Fiji,Fiji,FJI,true,exact
+Finland,Finland,Finland,FIN,true,exact
+France,France,France,FRA,true,exact
+French Guiana,French Guiana,French Guiana,GUF,true,exact
+Gabon,Gabon,Gabon,GAB,true,exact
+Gambia,Gambia,Gambia,GMB,true,exact
+"Gambia, The",Gambia,Gambia,GMB,true,manual
+Georgia,Georgia,Georgia,GEO,true,exact
+Germany,Germany,Germany,DEU,true,exact
+Ghana,Ghana,Ghana,GHA,true,exact
+Gibraltar,Gibraltar,Gibraltar,GIB,true,exact
+Greece,Greece,Greece,GRC,true,exact
+Greenland,Greenland,Greenland,GRL,true,exact
+Grenada,Grenada,Grenada,GRD,true,exact
+Guadeloupe,Guadeloupe,Guadeloupe,GLP,true,exact
+Guam,Guam,Guam,GUM,true,exact
+Guatemala,Guatemala,Guatemala,GTM,true,exact
+Guernsey,Guernsey,Guernsey,GGY,true,exact
+Guinea,Guinea,Guinea,GIN,true,exact
+Guinea-Bissau,Guinea-Bissau,Guinea-Bissau,GNB,true,exact
+Guyana,Guyana,Guyana,GUY,true,exact
+Haiti,Haiti,Haiti,HTI,true,exact
+Holy See,Vatican City,Vatican City,VAT,true,manual
+Honduras,Honduras,Honduras,HND,true,exact
+Hong Kong,Hong Kong,Hong Kong,HKG,true,exact
+Hungary,Hungary,Hungary,HUN,true,exact
+Iceland,Iceland,Iceland,ISL,true,exact
+India,India,India,IND,true,exact
+Indonesia,Indonesia,Indonesia,IDN,true,exact
+Iran,Iran,Iran,IRN,true,exact
+Iraq,Iraq,Iraq,IRQ,true,exact
+Ireland,Ireland,Ireland,IRL,true,exact
+Israel,Israel,Israel,ISR,true,exact
+Italy,Italy,Italy,ITA,true,exact
+Ivory Coast,Ivory Coast,Ivory Coast,CIV,true,exact
+Jamaica,Jamaica,Jamaica,JAM,true,exact
+Japan,Japan,Japan,JPN,true,exact
+Jersey,Jersey,Jersey,JEY,true,exact
+Jordan,Jordan,Jordan,JOR,true,exact
+Kazakhstan,Kazakhstan,Kazakhstan,KAZ,true,exact
+Kenya,Kenya,Kenya,KEN,true,exact
+Kiribati,Kiribati,Kiribati,KIR,true,exact
+Kosovo,,Kosovo,,false,unmapped; no matching CCA3 row in current population file
+Kuwait,Kuwait,Kuwait,KWT,true,exact
+Kyrgyzstan,Kyrgyzstan,Kyrgyzstan,KGZ,true,exact
+Laos,Laos,Laos,LAO,true,manual
+Latvia,Latvia,Latvia,LVA,true,exact
+Lebanon,Lebanon,Lebanon,LBN,true,exact
+Lesotho,Lesotho,Lesotho,LSO,true,exact
+Liberia,Liberia,Liberia,LBR,true,exact
+Libya,Libya,Libya,LBY,true,exact
+Liechtenstein,Liechtenstein,Liechtenstein,LIE,true,exact
+Lithuania,Lithuania,Lithuania,LTU,true,exact
+Luxembourg,Luxembourg,Luxembourg,LUX,true,exact
+MS Zaandam,,MS Zaandam,,false,disabled; not a country-level population entity
+Macau,Macau,Macau,MAC,true,exact
+Madagascar,Madagascar,Madagascar,MDG,true,exact
+Mainland China,China,China,CHN,true,manual
+Malawi,Malawi,Malawi,MWI,true,exact
+Malaysia,Malaysia,Malaysia,MYS,true,exact
+Maldives,Maldives,Maldives,MDV,true,exact
+Mali,Mali,Mali,MLI,true,exact
+Malta,Malta,Malta,MLT,true,exact
+Marshall Islands,Marshall Islands,Marshall Islands,MHL,true,exact
+Martinique,Martinique,Martinique,MTQ,true,exact
+Mauritania,Mauritania,Mauritania,MRT,true,exact
+Mauritius,Mauritius,Mauritius,MUS,true,exact
+Mayotte,Mayotte,Mayotte,MYT,true,exact
+Mexico,Mexico,Mexico,MEX,true,exact
+Micronesia,Micronesia,Micronesia,FSM,true,manual
+Moldova,Moldova,Moldova,MDA,true,exact
+Monaco,Monaco,Monaco,MCO,true,exact
+Mongolia,Mongolia,Mongolia,MNG,true,exact
+Montenegro,Montenegro,Montenegro,MNE,true,exact
+Morocco,Morocco,Morocco,MAR,true,exact
+Mozambique,Mozambique,Mozambique,MOZ,true,exact
+Namibia,Namibia,Namibia,NAM,true,exact
+Nepal,Nepal,Nepal,NPL,true,exact
+Netherlands,Netherlands,Netherlands,NLD,true,exact
+New Zealand,New Zealand,New Zealand,NZL,true,exact
+Nicaragua,Nicaragua,Nicaragua,NIC,true,exact
+Niger,Niger,Niger,NER,true,exact
+Nigeria,Nigeria,Nigeria,NGA,true,exact
+North Ireland,United Kingdom,United Kingdom,GBR,true,manual; maps legacy row to United Kingdom for country-date aggregation
+North Macedonia,North Macedonia,North Macedonia,MKD,true,manual
+Norway,Norway,Norway,NOR,true,exact
+Oman,Oman,Oman,OMN,true,exact
+Others,,Others,,false,disabled; not a country-level population entity
+Pakistan,Pakistan,Pakistan,PAK,true,exact
+Palestine,Palestine,Palestine,PSE,true,exact
+Panama,Panama,Panama,PAN,true,exact
+Papua New Guinea,Papua New Guinea,Papua New Guinea,PNG,true,exact
+Paraguay,Paraguay,Paraguay,PRY,true,exact
+Peru,Peru,Peru,PER,true,exact
+Philippines,Philippines,Philippines,PHL,true,exact
+Poland,Poland,Poland,POL,true,exact
+Portugal,Portugal,Portugal,PRT,true,exact
+Puerto Rico,Puerto Rico,Puerto Rico,PRI,true,exact
+Qatar,Qatar,Qatar,QAT,true,exact
+Republic of Ireland,Ireland,Ireland,IRL,true,normalized
+Republic of the Congo,Republic of the Congo,Republic of the Congo,COG,true,exact
+Reunion,Reunion,Reunion,REU,true,exact
+Romania,Romania,Romania,ROU,true,exact
+Russia,Russia,Russia,RUS,true,manual
+Rwanda,Rwanda,Rwanda,RWA,true,exact
+Saint Barthelemy,Saint Barthelemy,Saint Barthelemy,BLM,true,exact
+Saint Kitts and Nevis,Saint Kitts and Nevis,Saint Kitts and Nevis,KNA,true,exact
+Saint Lucia,Saint Lucia,Saint Lucia,LCA,true,exact
+Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,VCT,true,exact
+Samoa,Samoa,Samoa,WSM,true,exact
+San Marino,San Marino,San Marino,SMR,true,exact
+Sao Tome and Principe,Sao Tome and Principe,Sao Tome and Principe,STP,true,manual
+Saudi Arabia,Saudi Arabia,Saudi Arabia,SAU,true,exact
+Senegal,Senegal,Senegal,SEN,true,exact
+Serbia,Serbia,Serbia,SRB,true,exact
+Seychelles,Seychelles,Seychelles,SYC,true,exact
+Sierra Leone,Sierra Leone,Sierra Leone,SLE,true,exact
+Singapore,Singapore,Singapore,SGP,true,exact
+Slovakia,Slovakia,Slovakia,SVK,true,exact
+Slovenia,Slovenia,Slovenia,SVN,true,exact
+Solomon Islands,Solomon Islands,Solomon Islands,SLB,true,exact
+Somalia,Somalia,Somalia,SOM,true,exact
+South Africa,South Africa,South Africa,ZAF,true,exact
+South Korea,South Korea,South Korea,KOR,true,manual
+South Sudan,South Sudan,South Sudan,SSD,true,exact
+Spain,Spain,Spain,ESP,true,exact
+Sri Lanka,Sri Lanka,Sri Lanka,LKA,true,exact
+St. Martin,Saint Martin,Saint Martin,MAF,true,manual
+Sudan,Sudan,Sudan,SDN,true,exact
+Suriname,Suriname,Suriname,SUR,true,exact
+Sweden,Sweden,Sweden,SWE,true,exact
+Switzerland,Switzerland,Switzerland,CHE,true,exact
+Syria,Syria,Syria,SYR,true,manual
+Taiwan,Taiwan,Taiwan,TWN,true,manual
+Tajikistan,Tajikistan,Tajikistan,TJK,true,exact
+Tanzania,Tanzania,Tanzania,TZA,true,exact
+Thailand,Thailand,Thailand,THA,true,exact
+The Bahamas,Bahamas,Bahamas,BHS,true,normalized
+The Gambia,Gambia,Gambia,GMB,true,normalized
+Timor-Leste,Timor-Leste,Timor-Leste,TLS,true,manual
+Togo,Togo,Togo,TGO,true,exact
+Trinidad and Tobago,Trinidad and Tobago,Trinidad and Tobago,TTO,true,exact
+Tunisia,Tunisia,Tunisia,TUN,true,exact
+Turkey,Turkey,Turkey,TUR,true,exact
+UK,United Kingdom,United Kingdom,GBR,true,manual
+US,United States,United States,USA,true,manual
+Uganda,Uganda,Uganda,UGA,true,exact
+Ukraine,Ukraine,Ukraine,UKR,true,exact
+United Arab Emirates,United Arab Emirates,United Arab Emirates,ARE,true,exact
+Uruguay,Uruguay,Uruguay,URY,true,exact
+Uzbekistan,Uzbekistan,Uzbekistan,UZB,true,exact
+Vanuatu,Vanuatu,Vanuatu,VUT,true,exact
+Vatican City,Vatican City,Vatican City,VAT,true,exact
+Venezuela,Venezuela,Venezuela,VEN,true,exact
+Vietnam,Vietnam,Vietnam,VNM,true,manual
+West Bank and Gaza,Palestine,Palestine,PSE,true,manual
+Yemen,Yemen,Yemen,YEM,true,exact
+Zambia,Zambia,Zambia,ZMB,true,exact
+Zimbabwe,Zimbabwe,Zimbabwe,ZWE,true,exact
+occupied Palestinian territory,Palestine,Palestine,PSE,true,manual

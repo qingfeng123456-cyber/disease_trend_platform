@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "name": "China CDC",
+      "status": "ok",
+      "updated_at": "2026-06-30",
+      "rows": 2150
+    },
+    {
+      "name": "WHO GHO",
+      "status": "ok",
+      "updated_at": "2026-06-29",
+      "rows": 84520
+    },
+    {
+      "name": "OWID Catalog",
+      "status": "ok",
+      "updated_at": "2026-06-30",
+      "rows": 486302
+    },
+    {
+      "name": "Open-Meteo",
+      "status": "ok",
+      "updated_at": "2026-06-30",
+      "rows": 12176400
+    },
+    {
+      "name": "World Bank",
+      "status": "warn",
+      "updated_at": "2025-12-31",
+      "rows": 24600
+    }
+  ]
+}

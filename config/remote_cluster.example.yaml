@@ -1,0 +1,50 @@
+remote:
+  host: 192.168.1.100
+  port: 22
+  username: student
+  auth_method: password
+  key_file: ""
+  allow_unknown_host: false
+  connect_timeout: 20
+  command_timeout: 1800
+  project_dir: /home/student/disease_trend_platform
+  conda_env: disease_platform
+  conda_executable: /home/student/miniconda3/bin/conda
+  shell: bash
+
+bigdata:
+  java_home: ""
+  hadoop_home: ""
+  spark_home: ""
+  hadoop_conf_dir: ""
+  spark_master: "local[*]"
+  start_hdfs_when_missing: true
+  start_yarn: false
+  use_webhdfs: false
+
+hdfs:
+  base_path: /disease_platform
+  raw_path: /disease_platform/raw
+  silver_path: /disease_platform/silver
+  serving_path: /disease_platform/serving
+
+web_ui:
+  namenode_port: 9870
+  yarn_port: 8088
+  spark_master_port: 8080
+  spark_application_port: 4040
+
+sync:
+  upload_raw_data: true
+  download_reports: true
+  compare_method: size_mtime
+  exclude:
+    - .git
+    - .idea
+    - .venv
+    - __pycache__
+    - "*.pyc"
+    - logs
+    - data/silver
+    - data/gold
+    - data/models

@@ -1,0 +1,11 @@
+iso_code,name,latitude,longitude,timezone
+CHN,Beijing,39.9042,116.4074,Asia/Shanghai
+USA,Washington DC,38.9072,-77.0369,America/New_York
+JPN,Tokyo,35.6762,139.6503,Asia/Tokyo
+KOR,Seoul,37.5665,126.9780,Asia/Seoul
+GBR,London,51.5072,-0.1276,Europe/London
+FRA,Paris,48.8566,2.3522,Europe/Paris
+DEU,Berlin,52.5200,13.4050,Europe/Berlin
+IND,New Delhi,28.6139,77.2090,Asia/Kolkata
+BRA,Brasilia,-15.7939,-47.8828,America/Sao_Paulo
+AUS,Canberra,-35.2809,149.1300,Australia/Sydney

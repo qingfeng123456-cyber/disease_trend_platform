@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>传染病趋势预测与风险预警平台</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="brand-mark">DT</div>
+    <div>
+      <h1>基于机器学习的传染病趋势预测与可视化分析平台</h1>
+      <p>HDFS 分层存储 · Spark 清洗建模 · Flask API · ECharts 大屏</p>
+    </div>
+    <div class="top-meta">
+      <span id="dataMode">数据模式：--</span>
+      <span id="lastUpdate">更新时间：--</span>
+      <span id="sourceHealth">数据源：--</span>
+      <strong id="clock">--:--:--</strong>
+    </div>
+  </header>
+
+  <section class="filters">
+    <label>疾病<select id="diseaseSelect"></select></label>
+    <label>地区<select id="locationSelect"></select></label>
+    <label>开始<input id="startDate" type="date" /></label>
+    <label>结束<input id="endDate" type="date" /></label>
+    <label>模型<select id="modelSelect"></select></label>
+    <button id="refreshBtn" type="button">刷新</button>
+    <span id="demoBadge" class="demo-badge">演示数据</span>
+  </section>
+
+  <div id="message" class="message" role="status"></div>
+
+  <main class="dashboard">
+    <section class="kpis">
+      <article class="kpi"><span id="kpiCasesLabel">累计病例</span><strong id="kpiCases">--</strong><small id="kpiCasesHint">当前筛选口径</small></article>
+      <article class="kpi"><span id="kpiNewCasesLabel">新增病例</span><strong id="kpiNewCases">--</strong><small id="kpiNewCasesHint">最新日期</small></article>
+      <article class="kpi"><span id="kpiDeathsLabel">累计死亡</span><strong id="kpiDeaths">--</strong><small id="kpiDeathsHint">演示/真实数据</small></article>
+      <article class="kpi"><span>高风险地区</span><strong id="kpiHighRisk">--</strong><small>教学风险指数</small></article>
+      <article class="kpi"><span>最佳模型</span><strong id="kpiBestModel">--</strong><small>测试集 MAE</small></article>
+      <article class="kpi"><span>数据完整率</span><strong id="kpiQuality">--</strong><small>serving 质量报告</small></article>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-title"><span class="dot"></span><span id="trendPanelTitle">实际病例与 T+7 预测</span></div>
+      <div id="trendChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot danger"></span>风险地图</div>
+      <div id="riskMapChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="averagePanelTitle">移动平均</span></div>
+      <div id="avgChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot danger"></span>高风险地区排行榜</div>
+      <div id="rankingChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="weatherPanelTitle">温湿度与病例关联</span></div>
+      <div id="weatherChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span>模型指标对比</div>
+      <div id="modelChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span>数据质量仪表盘</div>
+      <div id="qualityChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span><span id="growthPanelTitle">指标增长率</span></div>
+      <div id="growthChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span>疾病数据覆盖占比</div>
+      <div id="shareChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span>预测误差</div>
+      <div id="errorChart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span class="dot"></span>数据源状态</div>
+      <div id="sourceList" class="source-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    教学演示，不构成公共卫生决策或医疗建议。风险指数是课程项目分析指标，并非官方疫情风险等级。
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

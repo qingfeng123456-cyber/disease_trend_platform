@@ -1,0 +1,95 @@
+project:
+  name: disease_trend_platform
+  display_name: 基于机器学习的传染病趋势预测与可视化分析平台
+  environment: local
+  demo_mode: true
+  root_detection: auto
+  timezone: Asia/Shanghai
+  version: 1.0.0
+
+storage:
+  mode: hdfs
+
+paths:
+  raw: data/raw
+  silver: data/silver
+  gold: data/gold
+  serving: data/serving
+  local_serving: data/serving
+  demo: data/demo
+  logs: logs
+  models: data/models
+  epidemic_raw: data/raw/kaggle/epidemic/novel-corona-virus-2019-dataset/archive (2)/covid_19_data.csv
+  owid_raw: data/raw/owid
+  tuberculosis_raw: data/raw/kaggle/epidemic/Tuberculosis
+  respiratory_raw: data/raw/kaggle/epidemic/Weekly Hospital Respiratory Data and Metrics
+  population_raw: data/raw/kaggle/population/world-population-dataset/world_population.csv
+  world_bank_raw: data/raw/world_bank
+  weather_raw: data/raw/open_meteo
+  weather_locations: config/weather_locations.csv
+
+hdfs:
+  enabled: true
+  auto_discover_default_fs: true
+  base_path: /disease_platform
+  raw_path: /disease_platform/raw
+  silver_path: /disease_platform/silver
+  gold_path: /disease_platform/gold
+  serving_path: /disease_platform/serving
+  checkpoint_path: /disease_platform/checkpoints
+  model_path: /disease_platform/models/gbt_t_plus_7
+
+spark:
+  master: local[*]
+  app_name: disease-trend-platform
+  shuffle_partitions: 8
+  log_level: WARN
+  driver_memory: 2g
+  executor_memory: 2g
+
+collectors:
+  start_date: "2020-01-01"
+  end_date: "2025-12-31"
+  timeout: 60
+  retry_count: 3
+  request_interval: 1.5
+  user_agent: DiseaseTrendPlatformCourseProject/1.0 (educational public-data collector)
+  countries: [CHN, USA, JPN, KOR, GBR, FRA, DEU, IND, BRA, AUS]
+  owid:
+    url: https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv
+  open_meteo:
+    archive_api: https://archive-api.open-meteo.com/v1/archive
+  world_bank:
+    start_year: 2020
+    end_year: 2025
+    indicators:
+      SP.POP.TOTL: population
+      SP.URB.TOTL.IN.ZS: urban_population_ratio
+      NY.GDP.PCAP.CD: gdp_per_capita
+  who:
+    base_url: https://ghoapi.azureedge.net/api
+    indicators: []
+  china_cdc:
+    start_urls:
+      - https://www.chinacdc.cn/jksj/
+      - https://www.chinacdc.cn/jksj/jksj04_14249/
+      - https://www.chinacdc.cn/jksj/jksj04_14275/
+    max_detail_pages: 80
+
+web:
+  host: 0.0.0.0
+  port: 5000
+  debug: false
+  default_location: CHN
+  default_disease: COVID-19
+  cache_seconds: 30
+
+model:
+  forecast_horizon: 7
+  train_ratio: 0.70
+  validation_ratio: 0.15
+  random_seed: 2026
+  target_column: new_cases_smoothed
+  min_history_days: 90
+  gbt_max_iter: 60
+  gbt_max_depth: 5

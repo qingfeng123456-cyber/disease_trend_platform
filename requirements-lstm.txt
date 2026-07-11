@@ -1,0 +1,4 @@
+# Optional dependency for the real local LSTM training path.
+# On Windows CPU, prefer scripts/install_lstm_dependencies.ps1 so pip uses
+# the official PyTorch CPU wheel index.
+torch>=2.2,<3

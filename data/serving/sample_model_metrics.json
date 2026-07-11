@@ -1,0 +1,9 @@
+{
+  "model": "Spark GBTRegressor",
+  "mae": 86.42,
+  "rmse": 143.77,
+  "r2": 0.812,
+  "baseline_mae": 104.35,
+  "beats_baseline": true,
+  "note": "样例指标；运行真实管道后将由 data/serving/model_metrics.json 覆盖。"
+}

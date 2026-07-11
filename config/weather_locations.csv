@@ -1,0 +1,15 @@
+location,location_code,representative_city,latitude,longitude,timezone,enabled,notes
+China,CHN,Beijing,39.9042,116.4074,Asia/Shanghai,true,Representative capital city proxy for national weather context
+United States,USA,Washington DC,38.9072,-77.0369,America/New_York,true,Representative capital city proxy for national weather context
+United Kingdom,GBR,London,51.5072,-0.1276,Europe/London,true,Representative capital city proxy for national weather context
+France,FRA,Paris,48.8566,2.3522,Europe/Paris,true,Representative capital city proxy for national weather context
+Germany,DEU,Berlin,52.5200,13.4050,Europe/Berlin,true,Representative capital city proxy for national weather context
+Italy,ITA,Rome,41.9028,12.4964,Europe/Rome,true,Representative capital city proxy for national weather context
+Spain,ESP,Madrid,40.4168,-3.7038,Europe/Madrid,true,Representative capital city proxy for national weather context
+Russia,RUS,Moscow,55.7558,37.6173,Europe/Moscow,true,Representative capital city proxy for national weather context
+India,IND,New Delhi,28.6139,77.2090,Asia/Kolkata,true,Representative capital city proxy for national weather context
+Brazil,BRA,Brasilia,-15.7939,-47.8828,America/Sao_Paulo,true,Representative capital city proxy for national weather context
+Japan,JPN,Tokyo,35.6762,139.6503,Asia/Tokyo,true,Representative capital city proxy for national weather context
+South Korea,KOR,Seoul,37.5665,126.9780,Asia/Seoul,true,Representative capital city proxy for national weather context
+Canada,CAN,Ottawa,45.4215,-75.6972,America/Toronto,true,Representative capital city proxy for national weather context
+Australia,AUS,Canberra,-35.2809,149.1300,Australia/Sydney,true,Representative capital city proxy for national weather context
