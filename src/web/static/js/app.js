@@ -95,15 +95,33 @@ function renderKpis(overview, metrics, quality) {
 
 function renderSources(sourceStatus) {
   const items = sourceStatus.items || [];
-  document.getElementById('sourceHealth').textContent = `数据源：${items.filter(x => x.status === 'ok').length}/${items.length} 正常`;
-  document.getElementById('sourceList').innerHTML = items.map(item => `
+  const statusLabels = {
+    ok: '正常',
+    info: '说明',
+    not_configured: '未配置',
+    excluded: '未入模',
+    warn: '需检查',
+    pending: '处理中'
+  };
+  const okCount = items.filter(item => item.status === 'ok').length;
+  const warnCount = items.filter(item => item.status === 'warn').length;
+  const noticeCount = items.filter(item => ['info', 'not_configured', 'excluded'].includes(item.status)).length;
+  document.getElementById('sourceHealth').textContent = `数据源：${okCount} 正常 · ${noticeCount} 说明 · ${warnCount} 警告`;
+  document.getElementById('sourceList').innerHTML = items.map(item => {
+    const status = statusLabels[item.status] ? item.status : 'warn';
+    const rowText = item.raw_rows != null && item.raw_rows !== item.rows
+      ? `清洗 ${fmtNumber(item.rows)} / 原始 ${fmtNumber(item.raw_rows)} 行`
+      : `${fmtNumber(item.rows)} 行`;
+    return `
     <div class="source-item">
-      <strong>${item.name}</strong>
-      <span class="${item.status}">${item.status}</span>
+      <strong title="${item.name}">${item.name}</strong>
+      <span class="${status}">${statusLabels[status]}</span>
       <span>更新：${item.updated_at || '--'}</span>
-      <span>${fmtNumber(item.rows)} 行</span>
+      <span>${rowText}</span>
+      ${item.detail ? `<span class="source-detail">${item.detail}</span>` : ''}
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function setCharts({ trend, risk, rankings, weather, metrics, quality, share, predictions }) {

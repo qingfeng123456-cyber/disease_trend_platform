@@ -26,6 +26,9 @@ paths:
   population_raw: data/raw/kaggle/population/world-population-dataset/world_population.csv
   world_bank_raw: data/raw/world_bank
   weather_raw: data/raw/open_meteo
+  historical_weather_raw: data/raw/kaggle/weather/historical-hourly-weather-data
+  china_cdc_raw: data/raw/china_cdc
+  who_raw: data/raw/who
   weather_locations: config/weather_locations.csv
 
 hdfs:
