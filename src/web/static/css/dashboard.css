@@ -296,9 +296,25 @@ button:disabled {
   color: var(--green);
 }
 
+.source-item .info {
+  color: var(--cyan);
+}
+
+.source-item .not_configured,
+.source-item .excluded {
+  color: #9fb0bd;
+}
+
 .source-item .pending,
 .source-item .warn {
   color: var(--amber);
+}
+
+.source-item .source-detail {
+  grid-column: 1 / -1;
+  color: #8fa9bb;
+  line-height: 1.45;
+  white-space: normal;
 }
 
 footer {

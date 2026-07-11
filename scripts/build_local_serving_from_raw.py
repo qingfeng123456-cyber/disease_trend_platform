@@ -683,6 +683,276 @@ def clean_weather(weather_root: Path, selected_codes: set[str]) -> tuple[pd.Data
     return cleaned, quality
 
 
+def _annual_city_metric(
+    path: Path,
+    city_columns: list[str],
+    *,
+    value_name: str,
+    value_offset: float = 0.0,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    yearly: dict[int, dict[str, float]] = {}
+    input_rows = 0
+    date_min: pd.Timestamp | None = None
+    date_max: pd.Timestamp | None = None
+    for chunk in pd.read_csv(path, usecols=["datetime", *city_columns], chunksize=5000):
+        dates = pd.to_datetime(chunk.pop("datetime"), errors="coerce")
+        values = chunk.apply(pd.to_numeric, errors="coerce")
+        input_rows += len(values)
+        valid_dates = dates.dropna()
+        if not valid_dates.empty:
+            chunk_min = valid_dates.min()
+            chunk_max = valid_dates.max()
+            date_min = chunk_min if date_min is None else min(date_min, chunk_min)
+            date_max = chunk_max if date_max is None else max(date_max, chunk_max)
+        for year in sorted(valid_dates.dt.year.unique()):
+            year_values = values.loc[dates.dt.year.eq(year)].to_numpy(dtype=float)
+            valid = year_values[np.isfinite(year_values)]
+            if not len(valid):
+                continue
+            bucket = yearly.setdefault(int(year), {"sum": 0.0, "count": 0.0, "min": math.inf, "max": -math.inf})
+            bucket["sum"] += float(valid.sum())
+            bucket["count"] += float(len(valid))
+            bucket["min"] = min(bucket["min"], float(valid.min()))
+            bucket["max"] = max(bucket["max"], float(valid.max()))
+
+    rows = []
+    for year, bucket in sorted(yearly.items()):
+        rows.append(
+            {
+                "year": year,
+                value_name: bucket["sum"] / bucket["count"] + value_offset,
+                f"{value_name}_observations": int(bucket["count"]),
+            }
+        )
+    quality = {
+        "input_path": safe_relative(path),
+        "input_rows": input_rows,
+        "date_min": iso_date(date_min),
+        "date_max": iso_date(date_max),
+        "non_null_observations": int(sum(bucket["count"] for bucket in yearly.values())),
+    }
+    return pd.DataFrame(rows), quality
+
+
+def clean_historical_weather(
+    weather_root: Path,
+    selected_codes: set[str],
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    city_path = weather_root / "city_attributes.csv"
+    metric_specs = {
+        "temperature.csv": ("temperature_mean", -273.15),
+        "humidity.csv": ("relative_humidity_mean", 0.0),
+        "pressure.csv": ("pressure_mean_hpa", 0.0),
+        "wind_speed.csv": ("wind_speed_mean", 0.0),
+    }
+    required_paths = [city_path, *(weather_root / name for name in metric_specs)]
+    missing_files = [safe_relative(path) for path in required_paths if not path.exists()]
+    if missing_files:
+        quality = {
+            "input_root": safe_relative(weather_root),
+            "status": "missing",
+            "missing_files": missing_files,
+            "input_rows": 0,
+            "output_rows": 0,
+            "country_count": 0,
+        }
+        return pd.DataFrame(), quality
+
+    cities = pd.read_csv(city_path)
+    supported_country_codes = {"United States": "USA"}
+    cities["location_code"] = cities["Country"].map(supported_country_codes)
+    cities = cities[cities["location_code"].isin(selected_codes)].copy()
+    if cities.empty:
+        quality = {
+            "input_root": safe_relative(weather_root),
+            "status": "no_selected_country",
+            "input_rows": 0,
+            "output_rows": 0,
+            "country_count": 0,
+            "available_countries": sorted(pd.read_csv(city_path)["Country"].dropna().unique().tolist()),
+        }
+        return pd.DataFrame(), quality
+
+    country_frames: list[pd.DataFrame] = []
+    metric_quality: dict[str, Any] = {}
+    raw_rows = 0
+    for country_code, country_cities in cities.groupby("location_code", sort=True):
+        city_columns = country_cities["City"].dropna().astype(str).tolist()
+        annual: pd.DataFrame | None = None
+        for file_name, (value_name, offset) in metric_specs.items():
+            metric_frame, metric_profile = _annual_city_metric(
+                weather_root / file_name,
+                city_columns,
+                value_name=value_name,
+                value_offset=offset,
+            )
+            raw_rows = max(raw_rows, int(metric_profile["input_rows"]))
+            metric_quality[file_name] = metric_profile
+            annual = metric_frame if annual is None else annual.merge(metric_frame, on="year", how="outer")
+        if annual is None or annual.empty:
+            continue
+        annual["date"] = pd.to_datetime(annual["year"].astype("Int64").astype(str) + "-12-31", errors="coerce")
+        annual["location_code"] = country_code
+        annual["location"] = "United States" if country_code == "USA" else country_code
+        annual["city_count"] = len(city_columns)
+        annual["temperature_max"] = np.nan
+        annual["temperature_min"] = np.nan
+        annual["precipitation_sum"] = np.nan
+        annual["wind_speed_max"] = np.nan
+        annual["weather_match_level"] = "historical_hourly_annual_city_mean"
+        annual["source"] = "Kaggle historical hourly weather (annual city mean)"
+        country_frames.append(annual)
+
+    cleaned = pd.concat(country_frames, ignore_index=True, sort=False) if country_frames else pd.DataFrame()
+    if not cleaned.empty:
+        cleaned = cleaned.sort_values(["location_code", "year"]).drop_duplicates(["location_code", "year"], keep="last")
+    quality = {
+        "input_root": safe_relative(weather_root),
+        "status": "cleaned" if not cleaned.empty else "empty",
+        "input_rows": raw_rows,
+        "output_rows": len(cleaned),
+        "country_count": int(cleaned["location_code"].nunique()) if not cleaned.empty else 0,
+        "city_count": int(cities["City"].nunique()),
+        "date_min": iso_date(cleaned["date"].min()) if not cleaned.empty else None,
+        "date_max": iso_date(cleaned["date"].max()) if not cleaned.empty else None,
+        "temperature_input_unit": "Kelvin",
+        "temperature_output_unit": "Celsius",
+        "humidity_unit": "percent",
+        "usage": "USA annual weather enrichment for same-year Tuberculosis observations; never joined to COVID dates.",
+        "metric_profiles": metric_quality,
+    }
+    return cleaned, quality
+
+
+def _cdc_report_category(title: str) -> str:
+    if "流感监测周报" in title:
+        return "Influenza surveillance"
+    if "急性呼吸道传染病" in title:
+        return "Respiratory pathogen surveillance"
+    if "法定传染病" in title:
+        return "Notifiable infectious diseases"
+    if "新型冠状病毒" in title:
+        return "COVID-19 surveillance"
+    return "Other China CDC report"
+
+
+def _cdc_optional_number(text: str, pattern: str, *, as_float: bool = False) -> float | int | None:
+    match = re.search(pattern, text)
+    if not match:
+        return None
+    return float(match.group(1)) if as_float else int(match.group(1))
+
+
+def clean_china_cdc_metadata(cdc_root: Path) -> tuple[pd.DataFrame, dict[str, Any]]:
+    metadata_path = cdc_root / "page_metadata.jsonl"
+    if not metadata_path.exists():
+        return pd.DataFrame(), {
+            "input_path": safe_relative(metadata_path),
+            "status": "missing",
+            "input_rows": 0,
+            "output_rows": 0,
+        }
+
+    records: list[dict[str, Any]] = []
+    invalid_json_rows = 0
+    with metadata_path.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                invalid_json_rows += 1
+                continue
+            record["source_line_number"] = line_number
+            records.append(record)
+    if not records:
+        return pd.DataFrame(), {
+            "input_path": safe_relative(metadata_path),
+            "status": "empty",
+            "input_rows": 0,
+            "output_rows": 0,
+            "invalid_json_rows": invalid_json_rows,
+        }
+
+    raw = pd.DataFrame(records)
+    raw["downloaded_at_parsed"] = pd.to_datetime(raw.get("downloaded_at"), errors="coerce", utc=True)
+    raw = raw.sort_values(["page_url", "downloaded_at_parsed", "source_line_number"])
+    duplicate_url_rows = int(raw.duplicated("page_url", keep="last").sum())
+    raw = raw.drop_duplicates("page_url", keep="last").copy()
+
+    cleaned_rows: list[dict[str, Any]] = []
+    for row in raw.to_dict("records"):
+        report_title = str(row.get("anchor_title") or row.get("title") or "").strip()
+        text_preview = str(row.get("text_preview") or "")
+        title_and_text = f"{report_title}\n{text_preview}"
+        week_match = re.search(r"(20\d{2})年第\s*(\d{1,2})\s*周", title_and_text)
+        month_match = re.search(r"(20\d{2})年\s*(\d{1,2})\s*月", report_title)
+        report_year = int(week_match.group(1)) if week_match else (int(month_match.group(1)) if month_match else None)
+        report_week = int(week_match.group(2)) if week_match else None
+        report_month = int(month_match.group(2)) if month_match else None
+        local_html_path = str(row.get("local_html_path") or "")
+        attachment_urls = row.get("attachment_urls") if isinstance(row.get("attachment_urls"), list) else []
+        local_attachment_paths = row.get("local_attachment_paths") if isinstance(row.get("local_attachment_paths"), list) else []
+
+        def local_file_exists(relative_path: str) -> bool:
+            normalized = relative_path.replace("\\", os.sep).replace("/", os.sep)
+            return bool(relative_path) and (cdc_root / normalized).is_file()
+
+        existing_attachments = sum(local_file_exists(str(path)) for path in local_attachment_paths)
+        category = _cdc_report_category(report_title)
+        cleaned_rows.append(
+            {
+                "page_url": row.get("page_url"),
+                "report_title": report_title,
+                "report_category": category,
+                "disease": "Influenza" if category == "Influenza surveillance" else None,
+                "record_role": "listing" if str(row.get("page_url") or "").endswith("/") else "detail",
+                "published_date": pd.to_datetime(row.get("published_date"), errors="coerce"),
+                "report_year": report_year,
+                "report_week": report_week,
+                "report_month": report_month,
+                "stat_period": f"{report_year}-W{report_week:02d}" if report_year and report_week else (f"{report_year}-{report_month:02d}" if report_year and report_month else None),
+                "reported_ili_outbreaks": _cdc_optional_number(title_and_text, r"全国共报告\s*(\d+)\s*起流感样病例暴发疫情"),
+                "south_ili_percent": _cdc_optional_number(title_and_text, r"南方省份哨点医院报告的ILI%为\s*(\d+(?:\.\d+)?)%", as_float=True),
+                "north_ili_percent": _cdc_optional_number(title_and_text, r"北方省份哨点医院报告的ILI%为\s*(\d+(?:\.\d+)?)%", as_float=True),
+                "influenza_samples_tested": _cdc_optional_number(title_and_text, r"共检测流感样病例监测标本\s*(\d+)\s*份"),
+                "attachment_url_count": len(attachment_urls),
+                "local_attachment_count": len(local_attachment_paths),
+                "existing_attachment_count": existing_attachments,
+                "attachments_complete": existing_attachments == len(local_attachment_paths) == len(attachment_urls),
+                "local_html_path": local_html_path,
+                "local_html_exists": local_file_exists(local_html_path),
+                "attachment_urls_json": json.dumps(attachment_urls, ensure_ascii=False),
+                "local_attachment_paths_json": json.dumps(local_attachment_paths, ensure_ascii=False),
+                "text_preview": text_preview,
+                "downloaded_at": row.get("downloaded_at"),
+                "source_line_number": row.get("source_line_number"),
+                "numeric_extraction_status": "summary_text_only" if category == "Influenza surveillance" else "metadata_only",
+            }
+        )
+
+    cleaned = pd.DataFrame(cleaned_rows).sort_values(["published_date", "report_title"], ascending=[False, True])
+    summary_columns = ["reported_ili_outbreaks", "south_ili_percent", "north_ili_percent", "influenza_samples_tested"]
+    quality = {
+        "input_path": safe_relative(metadata_path),
+        "status": "cleaned_metadata",
+        "input_rows": len(records),
+        "output_rows": len(cleaned),
+        "invalid_json_rows": invalid_json_rows,
+        "duplicate_url_rows": duplicate_url_rows,
+        "detail_rows": int(cleaned["record_role"].eq("detail").sum()),
+        "category_rows": cleaned.groupby("report_category").size().to_dict(),
+        "report_week_min": int(cleaned["report_week"].min()) if cleaned["report_week"].notna().any() else None,
+        "report_week_max": int(cleaned["report_week"].max()) if cleaned["report_week"].notna().any() else None,
+        "local_html_missing_rows": int((~cleaned["local_html_exists"]).sum()),
+        "local_attachment_missing_count": int((cleaned["local_attachment_count"] - cleaned["existing_attachment_count"]).clip(lower=0).sum()),
+        "high_confidence_summary_rows": int(cleaned[summary_columns].notna().any(axis=1).sum()),
+        "usage": "Clean report index and high-confidence summary fields; raw HTML/PDF remains unchanged and PDF tables are not used as model targets.",
+    }
+    return cleaned, quality
+
+
 WEATHER_VALUE_COLUMNS = [
     "temperature_mean",
     "temperature_max",
@@ -700,6 +970,7 @@ def aggregate_weather(weather: pd.DataFrame, frequency: str) -> pd.DataFrame:
         frame["join_date"] = frame["date"] + pd.to_timedelta(days_to_saturday, unit="D")
         grouped = frame.groupby(["location_code", "join_date"], as_index=False)[WEATHER_VALUE_COLUMNS].mean()
         grouped["weather_match_level"] = "weekly_mean_to_saturday"
+        grouped["weather_source"] = "Open-Meteo representative-city daily weather"
         return grouped
     if frequency == "annual":
         frame["year"] = frame["date"].dt.year
@@ -707,10 +978,12 @@ def aggregate_weather(weather: pd.DataFrame, frequency: str) -> pd.DataFrame:
         grouped["join_date"] = pd.to_datetime(grouped["year"].astype(str) + "-12-31")
         grouped = grouped.drop(columns="year")
         grouped["weather_match_level"] = "annual_mean"
+        grouped["weather_source"] = "Open-Meteo representative-city daily weather"
         return grouped
     frame = frame.rename(columns={"date": "join_date"})
     frame["weather_match_level"] = "exact_day"
-    return frame[["location_code", "join_date", *WEATHER_VALUE_COLUMNS, "weather_match_level"]]
+    frame["weather_source"] = "Open-Meteo representative-city daily weather"
+    return frame[["location_code", "join_date", *WEATHER_VALUE_COLUMNS, "weather_match_level", "weather_source"]]
 
 
 def add_time_features(group: pd.DataFrame) -> pd.DataFrame:
@@ -752,6 +1025,7 @@ def build_features(
     weather: pd.DataFrame,
     population: pd.DataFrame,
     location_catalog: pd.DataFrame,
+    historical_weather: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     observations = observations.dropna(subset=["date", "location_code", "disease", "value"]).copy()
     observations["date"] = pd.to_datetime(observations["date"])
@@ -769,6 +1043,24 @@ def build_features(
     enriched_parts: list[pd.DataFrame] = []
     for frequency, subset in observations.groupby("frequency", sort=False):
         weather_for_frequency = aggregate_weather(weather, frequency)
+        if frequency == "annual" and historical_weather is not None and not historical_weather.empty:
+            historical = historical_weather.copy()
+            for column in WEATHER_VALUE_COLUMNS:
+                if column not in historical.columns:
+                    historical[column] = np.nan
+            historical["join_date"] = pd.to_datetime(historical["date"], errors="coerce")
+            historical["weather_source"] = historical.get(
+                "source",
+                pd.Series("Kaggle historical hourly weather", index=historical.index),
+            )
+            historical = historical[
+                ["location_code", "join_date", *WEATHER_VALUE_COLUMNS, "weather_match_level", "weather_source"]
+            ]
+            weather_for_frequency = (
+                pd.concat([weather_for_frequency, historical], ignore_index=True, sort=False)
+                .sort_values(["location_code", "join_date", "weather_match_level"])
+                .drop_duplicates(["location_code", "join_date"], keep="last")
+            )
         part = subset.merge(
             weather_for_frequency,
             left_on=["location_code", "date"],
@@ -810,6 +1102,7 @@ def build_features(
     joined["longitude"] = joined["catalog_longitude"]
     joined["has_weather"] = joined["temperature_mean"].notna() & joined["relative_humidity_mean"].notna()
     joined["weather_match_level"] = joined["weather_match_level"].fillna("unmatched")
+    joined["weather_source"] = joined["weather_source"].fillna("unmatched")
 
     joined = pd.concat(
         [add_time_features(group) for _, group in joined.groupby(["location_code", "disease"], sort=False)],
@@ -839,6 +1132,8 @@ def build_features(
         "weather_matched_rows": int(joined["has_weather"].sum()),
         "weather_unmatched_rows": int((~joined["has_weather"]).sum()),
         "weather_match_rate": round(float(joined["has_weather"].mean()), 6),
+        "weather_matches_by_level": joined.loc[joined["has_weather"]].groupby("weather_match_level").size().to_dict(),
+        "weather_matches_by_source": joined.loc[joined["has_weather"]].groupby("weather_source").size().to_dict(),
         "population_unmatched_rows": int(joined["population"].isna().sum()),
         "important_rule": "Epidemic rows are retained when weather is unavailable; weather is optional enrichment.",
     }
@@ -1237,28 +1532,42 @@ def series_summaries(features: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 def build_source_status(quality_parts: dict[str, Any], generated_at: str) -> list[dict[str, Any]]:
-    cdc_path = project_path("data", "raw", "china_cdc", "page_metadata.jsonl")
-    cdc_rows = 0
-    if cdc_path.exists():
-        with cdc_path.open("r", encoding="utf-8") as handle:
-            cdc_rows = sum(1 for line in handle if line.strip())
-    who_files = list(project_path("data", "raw", "who").glob("*.csv"))
-    historical_weather_root = project_path("data", "raw", "kaggle", "weather")
-    historical_temperature = next(historical_weather_root.rglob("temperature.csv"), None)
-    historical_weather_rows = 0
-    if historical_temperature:
-        with historical_temperature.open("r", encoding="utf-8-sig", errors="replace") as handle:
-            historical_weather_rows = max(sum(1 for _ in handle) - 1, 0)
+    cdc_quality = quality_parts.get("china_cdc", {})
+    who_quality = quality_parts.get("who", {})
+    historical_quality = quality_parts.get("historical_weather", {})
+    who_indicators = int(who_quality.get("configured_indicator_count", 0))
+    who_files = int(who_quality.get("local_csv_count", 0))
+    who_status = "not_configured" if who_indicators == 0 else ("ok" if who_files else "warn")
     items = [
-        {"name": "OWID COVID-19 daily (primary)", "status": "ok", "updated_at": generated_at, "rows": quality_parts["owid"]["output_rows"]},
-        {"name": "Kaggle COVID-19 (cross-check)", "status": "ok", "updated_at": generated_at, "rows": quality_parts["kaggle_covid"]["output_rows"]},
-        {"name": "Kaggle Tuberculosis annual indicators", "status": "ok", "updated_at": generated_at, "rows": quality_parts["tuberculosis"]["output_rows"]},
-        {"name": "US weekly respiratory hospital metrics", "status": "ok", "updated_at": generated_at, "rows": quality_parts["respiratory"]["output_rows"]},
-        {"name": "Open-Meteo same-period daily weather", "status": "ok", "updated_at": generated_at, "rows": quality_parts["weather"]["output_rows"]},
-        {"name": "World Bank + Kaggle population", "status": "ok", "updated_at": generated_at, "rows": quality_parts["population"]["output_rows"]},
-        {"name": "China CDC pages (manual review metadata)", "status": "warn", "updated_at": generated_at, "rows": cdc_rows},
-        {"name": "WHO indicators (not configured)", "status": "warn", "updated_at": generated_at, "rows": len(who_files)},
-        {"name": "Kaggle 2012-2017 weather (not used for COVID)", "status": "warn", "updated_at": generated_at, "rows": historical_weather_rows},
+        {"name": "OWID COVID-19 daily (primary)", "status": "ok", "updated_at": generated_at, "rows": quality_parts["owid"]["output_rows"], "detail": "COVID 日频主表，已完成字段、日期和国家代码标准化。"},
+        {"name": "Kaggle COVID-19 (cross-check)", "status": "ok", "updated_at": generated_at, "rows": quality_parts["kaggle_covid"]["output_rows"], "detail": "仅用于与 OWID 交叉核验，避免重复叠加病例。"},
+        {"name": "Kaggle Tuberculosis annual indicators", "status": "ok", "updated_at": generated_at, "rows": quality_parts["tuberculosis"]["output_rows"], "detail": "结核病年发病率及辅助指标，保留原统计口径。"},
+        {"name": "US weekly respiratory hospital metrics", "status": "ok", "updated_at": generated_at, "rows": quality_parts["respiratory"]["output_rows"], "detail": "美国全国周频住院指标，未重复汇总州级行。"},
+        {"name": "Open-Meteo same-period daily weather", "status": "ok", "updated_at": generated_at, "rows": quality_parts["weather"]["output_rows"], "detail": "与疫情同期的代表城市日频天气。"},
+        {"name": "World Bank + Kaggle population", "status": "ok", "updated_at": generated_at, "rows": quality_parts["population"]["output_rows"], "detail": "按 ISO3 和年份合并，缺年仅在相邻已知年份之间插值。"},
+        {
+            "name": "China CDC cleaned report index",
+            "status": "info" if cdc_quality.get("output_rows", 0) else "warn",
+            "updated_at": generated_at,
+            "rows": cdc_quality.get("output_rows", 0),
+            "raw_rows": cdc_quality.get("input_rows", 0),
+            "detail": "网页索引、周次、附件完整性及高置信摘要字段已清洗；原 HTML/PDF 保留，复杂表格暂不作为模型标签。",
+        },
+        {
+            "name": "WHO indicators",
+            "status": who_status,
+            "updated_at": generated_at,
+            "rows": who_files,
+            "detail": "collectors.who.indicators 为空，属于主动未配置，不是数据清洗失败。" if who_status == "not_configured" else "已配置 WHO 指标；请核对本地 CSV 采集结果。",
+        },
+        {
+            "name": "Kaggle 2012-2017 historical weather",
+            "status": "ok" if historical_quality.get("output_rows", 0) else "warn",
+            "updated_at": generated_at,
+            "rows": historical_quality.get("output_rows", 0),
+            "raw_rows": historical_quality.get("input_rows", 0),
+            "detail": "小时数据已聚合为美国 2012-2017 年天气，用于同年结核病探索性关联，不与 COVID 强行拼接。",
+        },
     ]
     model_labels = {
         MODEL_NAME: "Local sklearn GBDT model",
@@ -1274,6 +1583,7 @@ def build_source_status(quality_parts: dict[str, Any], generated_at: str) -> lis
                 "status": "ok" if details.get("status", "trained") == "trained" else "warn",
                 "updated_at": generated_at,
                 "rows": rows,
+                "detail": "模型已训练并导出预测结果。" if details.get("status", "trained") == "trained" else "模型训练状态需要检查。",
             }
         )
     return items
@@ -1412,8 +1722,9 @@ def export_serving(
             "Windows local path uses pandas instead of Spark/HDFS.",
             "Open-Meteo uses representative-city weather as a country-level proxy.",
             "Tuberculosis is annual incidence per 100,000; respiratory data is weekly hospital admissions.",
-            "Kaggle historical hourly weather is excluded because 2012-2017 does not overlap these epidemic series.",
-            "China CDC HTML/PDF records remain manual-review metadata until a stable table parser is available.",
+            "Kaggle historical hourly weather is used only for same-year USA Tuberculosis enrichment, never for COVID.",
+            "China CDC metadata and high-confidence text summaries are cleaned; complex PDF tables remain review-only.",
+            "WHO indicators are intentionally disabled until collectors.who.indicators is configured.",
         ],
     }
 
@@ -1467,6 +1778,7 @@ def export_serving(
             "precipitation_sum",
             "new_cases_smoothed",
             "weather_match_level",
+            "weather_source",
         ]
     ].sort_values(["disease", "location_code", "date"])
     disease_share = (
@@ -1525,7 +1837,7 @@ def main() -> None:
     parser.add_argument("--print-json", action="store_true", help="Print the full manifest JSON after the concise summary.")
     parser.add_argument("--no-progress", action="store_true", help="Disable step progress output.")
     args = parser.parse_args()
-    progress = PipelineProgress(total=12, enabled=not args.no_progress)
+    progress = PipelineProgress(total=14, enabled=not args.no_progress)
 
     if args.lstm:
         from src.models.lstm_optional import PYTORCH_INSTALL_COMMAND, pytorch_available
@@ -1552,6 +1864,19 @@ def main() -> None:
     world_bank_root = project_path(get_setting(settings, "paths.world_bank_raw", "data/raw/world_bank"))
     world_bank_path = resolve_latest_csv(world_bank_root, "world_bank*.csv") if world_bank_root.exists() else None
     weather_root = project_path(get_setting(settings, "paths.weather_raw"))
+    historical_weather_root = project_path(
+        get_setting(settings, "paths.historical_weather_raw", "data/raw/kaggle/weather/historical-hourly-weather-data")
+    )
+    china_cdc_root = project_path(get_setting(settings, "paths.china_cdc_raw", "data/raw/china_cdc"))
+    who_root = project_path(get_setting(settings, "paths.who_raw", "data/raw/who"))
+    who_indicators = get_setting(settings, "collectors.who.indicators", []) or []
+    who_files = sorted(who_root.rglob("*.csv")) if who_root.exists() else []
+    who_quality = {
+        "status": "not_configured" if not who_indicators else ("collected" if who_files else "configured_without_local_files"),
+        "configured_indicator_count": len(who_indicators),
+        "local_csv_count": len(who_files),
+        "local_files": [safe_relative(path) for path in who_files],
+    }
     serving_dir = project_path(args.serving_dir or get_setting(settings, "paths.serving", "data/serving"))
     silver_dir = project_path(args.silver_dir)
     gold_dir = project_path(args.gold_dir)
@@ -1584,13 +1909,33 @@ def main() -> None:
     weather, weather_quality = clean_weather(weather_root, selected_codes)
     progress.done(f"rows={weather_quality['output_rows']}, countries={weather_quality['country_count']}")
 
+    progress.start("Aggregate Kaggle 2012-2017 hourly weather without forcing COVID joins")
+    historical_weather, historical_weather_quality = clean_historical_weather(historical_weather_root, selected_codes)
+    progress.done(
+        f"raw_rows={historical_weather_quality['input_rows']}, annual_rows={historical_weather_quality['output_rows']}, "
+        f"countries={historical_weather_quality['country_count']}"
+    )
+
+    progress.start("Clean China CDC report metadata and verify local attachments")
+    china_cdc, china_cdc_quality = clean_china_cdc_metadata(china_cdc_root)
+    progress.done(
+        f"rows={china_cdc_quality['output_rows']}, detail={china_cdc_quality.get('detail_rows', 0)}, "
+        f"missing_attachments={china_cdc_quality.get('local_attachment_missing_count', 0)}"
+    )
+
     progress.start("Build canonical multi-disease observation table")
     observations = pd.concat([owid, tuberculosis, respiratory], ignore_index=True, sort=False)
     observations = observations.drop_duplicates(["location_code", "disease", "date"], keep="last")
     progress.done(f"rows={len(observations)}, diseases={observations['disease'].nunique()}, countries={observations['location_code'].nunique()}")
 
     progress.start("Join weather and socioeconomic context without dropping epidemics")
-    features, feature_quality = build_features(observations, weather, population, location_catalog)
+    features, feature_quality = build_features(
+        observations,
+        weather,
+        population,
+        location_catalog,
+        historical_weather=historical_weather,
+    )
     progress.done(f"rows={feature_quality['feature_rows']}, weather_matches={feature_quality['weather_matched_rows']}")
 
     progress.start("Train COVID daily GBDT/LSTM models and frequency-aware baselines")
@@ -1633,6 +1978,8 @@ def main() -> None:
     observations.to_csv(silver_dir / "epidemic_observations_clean.csv", index=False, encoding="utf-8-sig")
     population.to_csv(silver_dir / "population_yearly_clean.csv", index=False, encoding="utf-8-sig")
     weather.to_csv(silver_dir / "weather_daily_clean.csv", index=False, encoding="utf-8-sig")
+    historical_weather.to_csv(silver_dir / "historical_weather_annual_clean.csv", index=False, encoding="utf-8-sig")
+    china_cdc.to_csv(silver_dir / "china_cdc_metadata_clean.csv", index=False, encoding="utf-8-sig")
     features.to_csv(gold_dir / "forecast_features.csv", index=False, encoding="utf-8-sig")
     progress.done(f"silver={safe_relative(silver_dir)}, gold={safe_relative(gold_dir)}")
 
@@ -1648,6 +1995,9 @@ def main() -> None:
         "respiratory": respiratory_quality,
         "population": population_quality,
         "weather": weather_quality,
+        "historical_weather": historical_weather_quality,
+        "china_cdc": china_cdc_quality,
+        "who": who_quality,
         "features": feature_quality,
         "models": metrics.get("models", {}),
         "available_models": available_models,
@@ -1656,9 +2006,9 @@ def main() -> None:
             "kaggle_covid": "cross-check only to prevent duplicate COVID rows",
             "tuberculosis": "annual incidence per 100,000; auxiliary death/detection/treatment/HIV fields retained",
             "respiratory": "provided USA national weekly row; state rows are not re-summed",
-            "historical_kaggle_weather": "excluded because 2012-2017 has no date overlap",
-            "china_cdc": "metadata/manual review only because current pages and PDFs are not a stable numeric table",
-            "who": "not used because no indicators/files are configured",
+            "historical_kaggle_weather": "aggregated to USA annual means and joined only to same-year Tuberculosis rows; never joined to COVID",
+            "china_cdc": "clean metadata and high-confidence text summaries; original HTML/PDF retained, complex PDF tables excluded from model labels",
+            "who": "intentionally not configured because collectors.who.indicators is empty",
         },
         "outputs": {
             "silver_dir": safe_relative(silver_dir),
