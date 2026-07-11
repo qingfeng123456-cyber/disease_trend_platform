@@ -668,3 +668,83 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2026-07-11 10:50:14,256 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/source-status HTTP/1.1" 200 -
 2026-07-11 10:50:14,256 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
 2026-07-11 10:50:14,257 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /static/flutter-fill.png HTTP/1.1" 200 -
+2026-07-11 10:56:20,273 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:56:20,273 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:56:26,867 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:26] "GET / HTTP/1.1" 200 -
+2026-07-11 10:56:27,135 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,136 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,138 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,142 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,143 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,207 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:56:27,556 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,559 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,559 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,565 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,721 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,721 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:56:27,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:56:27,723 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:56:27,727 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:56:27,728 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:57:13,238 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:57:13] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:57:13,319 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:57:13,322 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:57:13] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-11 11:01:02,589 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 11:01:02,590 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 11:01:04,444 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "GET / HTTP/1.1" 200 -
+2026-07-11 11:01:04,493 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 11:01:04,500 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-11 11:01:04,677 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,684 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,685 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,686 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,686 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,810 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 11:01:05,125 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,128 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,128 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,133 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,292 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,294 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 11:01:05,294 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 11:01:05,296 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 11:01:05,306 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,306 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "[36mGET /static/flutter-fill.png HTTP/1.1[0m" 304 -
+2026-07-11 11:01:05,307 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/source-status HTTP/1.1" 200 -
