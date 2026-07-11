@@ -257,3 +257,494 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2026-07-10 18:06:36,772 | werkzeug | INFO | 192.168.43.6 - - [10/Jul/2026 18:06:36] "GET /api/model-metrics HTTP/1.1" 200 -
 2026-07-10 18:06:36,791 | werkzeug | INFO | 192.168.43.6 - - [10/Jul/2026 18:06:36] "GET /api/predictions HTTP/1.1" 200 -
 2026-07-10 18:06:36,792 | werkzeug | INFO | 192.168.43.6 - - [10/Jul/2026 18:06:36] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:34:05,095 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:34:05,095 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:34:06,720 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:06] "GET / HTTP/1.1" 200 -
+2026-07-11 10:34:06,908 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:06] "GET /static/css/dashboard.css HTTP/1.1" 200 -
+2026-07-11 10:34:06,936 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:06] "GET /static/js/app.js HTTP/1.1" 200 -
+2026-07-11 10:34:06,936 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:06] "GET /static/js/api.js HTTP/1.1" 200 -
+2026-07-11 10:34:06,937 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:06] "GET /static/js/particles.js HTTP/1.1" 200 -
+2026-07-11 10:34:06,939 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:06] "GET /static/js/charts.js HTTP/1.1" 200 -
+2026-07-11 10:34:07,014 | web | WARNING | 数据未准备好: 缺少 serving 文件 options.json，请先运行 python -m src.collectors.generate_demo_data 或 Spark 导出作业。
+2026-07-11 10:34:07,014 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:07] "[35m[1mGET /api/options HTTP/1.1[0m" 503 -
+2026-07-11 10:34:07,313 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:34:07,314 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:07] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2026-07-11 10:34:45,497 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:34:45,497 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:34:46,696 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "GET / HTTP/1.1" 200 -
+2026-07-11 10:34:46,900 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 10:34:46,901 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 10:34:46,902 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:34:46,903 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 10:34:46,905 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 10:34:46,953 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:46] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:34:47,238 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:34:47,239 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:34:47,242 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:34:47,243 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:34:47,247 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:34:47,248 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:34:47,248 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:34:47,249 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:34:47,249 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:34:47,250 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:34:47,254 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2026-07-11 10:34:47,393 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:47] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:34:59,398 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:34:59,410 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:34:59,414 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:34:59,414 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:34:59,414 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:34:59,419 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:34:59,419 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:34:59,419 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:34:59,422 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:34:59,422 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:34:59] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:06,920 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:06,936 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:06,936 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:06,939 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:06,940 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:06,943 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:06,943 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:06,947 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:06,947 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:06,949 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:06] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:09,329 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:09,343 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:09,345 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:09,346 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:09,349 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:09,350 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:09,350 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:09,352 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:09,352 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:09,352 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:09] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,340 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/overview?disease=COVID-19&location=USA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,340 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/risk-map?disease=COVID-19&location=USA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,342 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/rankings?disease=COVID-19&location=USA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,344 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/weather-correlation?disease=COVID-19&location=USA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,356 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/trend?disease=COVID-19&location=USA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,356 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/predictions?disease=COVID-19&location=USA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:13,360 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:13,360 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:13,360 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:13,364 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:13] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:16,286 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/overview?disease=COVID-19&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:16,297 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/trend?disease=COVID-19&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:16,299 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/risk-map?disease=COVID-19&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:16,302 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/rankings?disease=COVID-19&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:16,305 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/weather-correlation?disease=COVID-19&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:16,307 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/predictions?disease=COVID-19&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:16,307 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:16,309 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:16,310 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:16,312 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:16] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:19,706 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/overview?disease=Influenza&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:19,707 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/risk-map?disease=Influenza&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:19,708 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/rankings?disease=Influenza&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:19,714 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/weather-correlation?disease=Influenza&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:19,869 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:19,869 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/trend?disease=Influenza&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:19,872 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:19,872 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:19,872 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:19,872 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:19] "GET /api/predictions?disease=Influenza&location=FRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,204 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/overview?disease=Influenza&location=BRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,220 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/trend?disease=Influenza&location=BRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/risk-map?disease=Influenza&location=BRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,226 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/rankings?disease=Influenza&location=BRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,226 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/weather-correlation?disease=Influenza&location=BRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,229 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:22,230 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:22,230 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/predictions?disease=Influenza&location=BRA&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:22,235 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:22,236 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:22] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:27,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/overview?disease=Influenza&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:27,723 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/rankings?disease=Influenza&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:27,724 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/risk-map?disease=Influenza&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:27,724 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/weather-correlation?disease=Influenza&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:27,733 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/trend?disease=Influenza&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:27,736 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/predictions?disease=Influenza&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:27,737 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:27,737 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:27,737 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:27,739 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:27] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:32,412 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:32,426 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:32,429 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:32,429 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:32,431 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:32,434 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:32,434 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:32,435 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:32,437 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:32,438 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:32] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:35:38,818 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:35:38,832 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:35:38,832 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:35:38,834 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:35:38,839 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:38,839 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:35:38,839 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:38,839 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:38,842 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:38,842 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:38] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_rolling_7 HTTP/1.1" 200 -
+2026-07-11 10:35:41,188 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:41,201 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:41,201 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:41,201 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:41,205 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:35:41,209 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:35:41,210 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:35:41,210 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:35:41,213 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:35:41,213 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:35:41] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=demo_trend_model HTTP/1.1" 200 -
+2026-07-11 10:44:39,987 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:44:39,987 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:44:41,666 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "GET / HTTP/1.1" 200 -
+2026-07-11 10:44:41,905 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:44:41,906 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 10:44:41,909 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 10:44:41,911 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 10:44:41,912 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 10:44:41,968 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:41] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:44:42,297 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:42,300 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:42,303 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:42,304 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:42,339 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:44:42,459 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:42,461 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:44:42,461 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:44:42,463 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:44:42,464 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:44:42,468 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:42,470 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:42] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2026-07-11 10:44:45,873 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:45,874 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:45,885 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:45,886 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:45,887 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:45,888 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:44:45,889 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:44:45,889 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:44:45,891 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:45,892 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:45] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:44:46,705 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:46,705 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:46,713 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:46,717 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:46,717 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:46,717 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:44:46,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:44:46,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:44:46,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:46,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:46] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:44:47,222 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:44:47,230 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:44:47,234 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:44:47,234 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,715 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,728 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,730 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,730 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,730 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:44:47,730 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,730 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:44:47,736 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:44:47,739 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:47,739 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:47] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:44:49,987 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:49] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:44:50,002 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:44:50,003 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:50] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-11 10:44:52,290 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET / HTTP/1.1" 200 -
+2026-07-11 10:44:52,332 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:44:52,333 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-11 10:44:52,334 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET /static/css/dashboard.css HTTP/1.1" 200 -
+2026-07-11 10:44:52,335 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET /static/js/api.js HTTP/1.1" 200 -
+2026-07-11 10:44:52,336 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET /static/js/charts.js HTTP/1.1" 200 -
+2026-07-11 10:44:52,338 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET /static/js/particles.js HTTP/1.1" 200 -
+2026-07-11 10:44:52,340 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET /static/js/app.js HTTP/1.1" 200 -
+2026-07-11 10:44:52,894 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:52] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:44:53,179 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:53,193 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:53,194 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:53,197 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:53,198 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:53,201 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:44:53,201 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:44:53,203 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:44:53,206 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:44:53,207 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:44:53,208 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:44:53,209 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:44:53] "[35m[1mGET /favicon.ico HTTP/1.1[0m" 500 -
+2026-07-11 10:49:16,609 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:49:16,609 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:49:17,673 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:17] "GET / HTTP/1.1" 200 -
+2026-07-11 10:49:17,914 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:17] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:49:17,926 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:17] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 10:49:17,927 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:17] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 10:49:17,929 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:17] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 10:49:17,930 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:17] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 10:49:18,007 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:49:18,322 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:49:18,324 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:49:18,325 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:49:18,329 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:49:18,483 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:49:18,484 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:49:18,486 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:49:18,486 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:49:18,489 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 270, in <lambda>
+    view_func=lambda **kw: self_ref().send_static_file(**kw),  # type: ignore # noqa: B950
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 318, in send_static_file
+    return send_from_directory(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\helpers.py", line 552, in send_from_directory
+    return werkzeug.utils.send_from_directory(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\utils.py", line 575, in send_from_directory
+    raise NotFound()
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:49:18,492 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:49:18,494 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:49:18,515 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:49:18] "[35m[1mGET /static/flutter-fill.png HTTP/1.1[0m" 500 -
+2026-07-11 10:50:02,857 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:50:02,857 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:50:03,725 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:03] "GET / HTTP/1.1" 200 -
+2026-07-11 10:50:03,950 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:03] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:50:03,954 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:03] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 10:50:03,956 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:03] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 10:50:03,957 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:03] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 10:50:03,959 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:03] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 10:50:04,018 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:50:04,345 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:04,347 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:04,348 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:04,354 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:04,354 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:50:04,507 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:04,508 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:50:04,510 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:50:04,514 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:04,515 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:50:04,524 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:50:04] "GET /static/flutter-fill.png HTTP/1.1" 200 -
+2026-07-11 10:50:12,393 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:12] "GET / HTTP/1.1" 200 -
+2026-07-11 10:50:12,465 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:12] "GET /static/css/dashboard.css HTTP/1.1" 200 -
+2026-07-11 10:50:12,468 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:12] "GET /static/js/api.js HTTP/1.1" 200 -
+2026-07-11 10:50:12,470 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:12] "GET /static/js/charts.js HTTP/1.1" 200 -
+2026-07-11 10:50:12,470 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:12] "GET /static/js/particles.js HTTP/1.1" 200 -
+2026-07-11 10:50:12,471 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:12] "GET /static/js/app.js HTTP/1.1" 200 -
+2026-07-11 10:50:13,930 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:13] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:50:14,237 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:14,246 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:14,248 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:14,248 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:14,250 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:14,251 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:50:14,252 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:50:14,253 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:50:14,256 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:50:14,256 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:50:14,257 | werkzeug | INFO | 192.168.62.24 - - [11/Jul/2026 10:50:14] "GET /static/flutter-fill.png HTTP/1.1" 200 -
+2026-07-11 10:56:20,273 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 10:56:20,273 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 10:56:26,867 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:26] "GET / HTTP/1.1" 200 -
+2026-07-11 10:56:27,135 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,136 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,138 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,142 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,143 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 10:56:27,207 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 10:56:27,556 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,559 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,559 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,565 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,721 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:56:27,721 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 10:56:27,722 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 10:56:27,723 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 10:56:27,727 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-11 10:56:27,728 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:56:27] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 10:57:13,238 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:57:13] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 10:57:13,319 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 10:57:13,322 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 10:57:13] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-11 11:01:02,589 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.24:5000
+2026-07-11 11:01:02,590 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-11 11:01:04,444 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "GET / HTTP/1.1" 200 -
+2026-07-11 11:01:04,493 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-11 11:01:04,500 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-11 11:01:04,677 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,684 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,685 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,686 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,686 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-11 11:01:04,810 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:04] "GET /api/options HTTP/1.1" 200 -
+2026-07-11 11:01:05,125 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,128 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,128 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,133 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,292 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,294 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/model-metrics HTTP/1.1" 200 -
+2026-07-11 11:01:05,294 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-11 11:01:05,296 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-11 11:01:05,306 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-01&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-11 11:01:05,306 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "[36mGET /static/flutter-fill.png HTTP/1.1[0m" 304 -
+2026-07-11 11:01:05,307 | werkzeug | INFO | 127.0.0.1 - - [11/Jul/2026 11:01:05] "GET /api/source-status HTTP/1.1" 200 -

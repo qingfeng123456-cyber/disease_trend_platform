@@ -1,561 +1,235 @@
-﻿location_code,location,year,population,population_is_interpolated,urban_population_ratio,gdp_per_capita,density_per_km2,growth_rate,source
-AUS,Australia,1970,12595034.0,False,,,3.4032,1.0099,Kaggle World Population
-AUS,Australia,1971,12806162.8,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1972,13017291.6,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1973,13228420.4,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1974,13439549.2,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1975,13650678.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1976,13861806.8,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1977,14072935.6,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1978,14284064.4,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1979,14495193.2,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1980,14706322.0,False,,,3.4032,1.0099,Kaggle World Population
-AUS,Australia,1981,14940490.1,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1982,15174658.2,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1983,15408826.3,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1984,15642994.4,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1985,15877162.5,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1986,16111330.6,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1987,16345498.7,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1988,16579666.8,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1989,16813834.9,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1990,17048003.0,False,,,3.4032,1.0099,Kaggle World Population
-AUS,Australia,1991,17244999.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1992,17441995.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1993,17638991.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1994,17835987.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1995,18032983.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1996,18229979.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1997,18426975.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1998,18623971.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,1999,18820967.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2000,19017963.0,False,,,3.4032,1.0099,Kaggle World Population
-AUS,Australia,2001,19318083.5,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2002,19618204.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2003,19918324.5,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2004,20218445.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2005,20518565.5,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2006,20818686.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2007,21118806.5,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2008,21418927.0,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2009,21719047.5,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2010,22019168.0,False,,,3.4032,1.0099,Kaggle World Population
-AUS,Australia,2011,22379381.6,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2012,22739595.2,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2013,23099808.8,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2014,23460022.4,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2015,23820236.0,False,,,3.4032,1.0099,Kaggle World Population
-AUS,Australia,2016,24186038.4,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2017,24551840.8,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2018,24917643.2,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2019,25283445.6,True,,,3.4032,1.0099,Interpolated between Kaggle/World Bank population years
-AUS,Australia,2020,25649248.0,False,87.2713470458985,51983.4523666382,3.4032,1.0099,World Bank
-AUS,Australia,2021,25685412.0,False,87.2353407632761,60758.9044397144,3.4032,1.0099,World Bank
-AUS,Australia,2022,26018721.0,False,87.3343268253813,65169.5191118657,3.4032,1.0099,World Bank
-AUS,Australia,2023,26659922.0,False,87.4866955653765,65058.3773146674,3.4032,1.0099,World Bank
-AUS,Australia,2024,27194286.0,False,87.6021469990446,64609.9865116088,3.4032,1.0099,World Bank
-AUS,Australia,2025,27614411.0,False,87.7192672666333,65129.7227990563,3.4032,1.0099,World Bank
-BRA,Brazil,1970,96369875.0,False,,,25.2841,1.0046,Kaggle World Population
-BRA,Brazil,1971,98961725.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1972,101553576.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1973,104145427.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1974,106737278.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1975,109329129.0,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1976,111920979.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1977,114512830.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1978,117104681.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1979,119696532.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1980,122288383.0,False,,,25.2841,1.0046,Kaggle World Population
-BRA,Brazil,1981,125130189.3,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1982,127971995.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1983,130813801.9,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1984,133655608.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1985,136497414.5,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1986,139339220.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1987,142181027.1,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1988,145022833.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1989,147864639.7,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1990,150706446.0,False,,,25.2841,1.0046,Kaggle World Population
-BRA,Brazil,1991,153223173.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1992,155739900.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1993,158256628.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1994,160773355.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1995,163290083.0,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1996,165806810.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1997,168323537.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1998,170840265.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,1999,173356992.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2000,175873720.0,False,,,25.2841,1.0046,Kaggle World Population
-BRA,Brazil,2001,177921697.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2002,179969674.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2003,182017651.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2004,184065628.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2005,186113606.0,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2006,188161583.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2007,190209560.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2008,192257537.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2009,194305514.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2010,196353492.0,False,,,25.2841,1.0046,Kaggle World Population
-BRA,Brazil,2011,198120434.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2012,199887377.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2013,201654319.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2014,203421262.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2015,205188205.0,False,,,25.2841,1.0046,Kaggle World Population
-BRA,Brazil,2016,205882732.4,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2017,206577259.8,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2018,207271787.2,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2019,207966314.6,True,,,25.2841,1.0046,Interpolated between Kaggle/World Bank population years
-BRA,Brazil,2020,208660842.0,False,86.9112186503004,7074.19378337644,25.2841,1.0046,World Bank
-BRA,Brazil,2021,209550294.0,False,87.1360781715439,7972.5366498646,25.2841,1.0046,World Bank
-BRA,Brazil,2022,210306415.0,False,87.349556243881,9281.33334441234,25.2841,1.0046,World Bank
-BRA,Brazil,2023,211140729.0,False,87.6159710235763,10377.5892792557,25.2841,1.0046,World Bank
-BRA,Brazil,2024,211998573.0,False,87.8958549533146,10310.5486973693,25.2841,1.0046,World Bank
-BRA,Brazil,2025,212812405.0,False,88.1772996487898,10713.2856869511,25.2841,1.0046,World Bank
-CHN,China,1970,822534450.0,False,,,146.8933,1.0,Kaggle World Population
-CHN,China,1971,838518251.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1972,854502053.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1973,870485854.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1974,886469656.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1975,902453458.0,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1976,918437259.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1977,934421061.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1978,950404862.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1979,966388664.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1980,982372466.0,False,,,146.8933,1.0,Kaggle World Population
-CHN,China,1981,999505644.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1982,1016638823.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1983,1033772001.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1984,1050905180.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1985,1068038359.0,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1986,1085171537.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1987,1102304716.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1988,1119437894.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1989,1136571073.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1990,1153704252.0,False,,,146.8933,1.0,Kaggle World Population
-CHN,China,1991,1164743733.7,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1992,1175783215.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1993,1186822697.1,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1994,1197862178.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1995,1208901660.5,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1996,1219941142.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1997,1230980623.9,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1998,1242020105.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,1999,1253059587.3,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2000,1264099069.0,False,,,146.8933,1.0,Kaggle World Population
-CHN,China,2001,1272508298.9,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2002,1280917528.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2003,1289326758.7,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2004,1297735988.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2005,1306145218.5,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2006,1314554448.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2007,1322963678.3,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2008,1331372908.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2009,1339782138.1,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2010,1348191368.0,False,,,146.8933,1.0,Kaggle World Population
-CHN,China,2011,1357296184.0,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2012,1366401000.0,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2013,1375505816.0,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2014,1384610632.0,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2015,1393715448.0,False,,,146.8933,1.0,Kaggle World Population
-CHN,China,2016,1397192358.4,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2017,1400669268.8,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2018,1404146179.2,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2019,1407623089.6,True,,,146.8933,1.0,Interpolated between Kaggle/World Bank population years
-CHN,China,2020,1411100000.0,False,63.5234230266258,10627.4637989619,146.8933,1.0,World Bank
-CHN,China,2021,1412360000.0,False,64.721076965332,12887.4357242941,146.8933,1.0,World Bank
-CHN,China,2022,1412175000.0,False,65.2176361083984,12970.6056414327,146.8933,1.0,World Bank
-CHN,China,2023,1410710000.0,False,65.5301448035523,12951.1782397043,146.8933,1.0,World Bank
-CHN,China,2024,1408975000.0,False,65.8946980998325,13293.1162269366,146.8933,1.0,World Bank
-CHN,China,2025,1406585000.0,False,66.3429910348272,13861.970224368,146.8933,1.0,World Bank
-DEU,Germany,1970,78294583.0,False,,,233.4544,0.9995,Kaggle World Population
-DEU,Germany,1971,78243795.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1972,78193007.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1973,78142219.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1974,78091431.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1975,78040643.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1976,77989855.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1977,77939067.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1978,77888279.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1979,77837491.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1980,77786703.0,False,,,233.4544,0.9995,Kaggle World Population
-DEU,Germany,1981,77945052.3,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1982,78103401.6,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1983,78261750.9,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1984,78420100.2,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1985,78578449.5,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1986,78736798.8,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1987,78895148.1,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1988,79053497.4,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1989,79211846.7,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1990,79370196.0,False,,,233.4544,0.9995,Kaggle World Population
-DEU,Germany,1991,79588344.1,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1992,79806492.2,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1993,80024640.3,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1994,80242788.4,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1995,80460936.5,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1996,80679084.6,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1997,80897232.7,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1998,81115380.8,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,1999,81333528.9,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2000,81551677.0,False,,,233.4544,0.9995,Kaggle World Population
-DEU,Germany,2001,81529018.3,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2002,81506359.6,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2003,81483700.9,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2004,81461042.2,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2005,81438383.5,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2006,81415724.8,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2007,81393066.1,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2008,81370407.4,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2009,81347748.7,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2010,81325090.0,False,,,233.4544,0.9995,Kaggle World Population
-DEU,Germany,2011,81474717.2,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2012,81624344.4,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2013,81773971.6,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2014,81923598.8,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2015,82073226.0,False,,,233.4544,0.9995,Kaggle World Population
-DEU,Germany,2016,82290755.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2017,82508284.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2018,82725813.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2019,82943342.0,True,,,233.4544,0.9995,Interpolated between Kaggle/World Bank population years
-DEU,Germany,2020,83160871.0,False,81.4700055002738,47394.8734504469,233.4544,0.9995,World Bank
-DEU,Germany,2021,83196078.0,False,81.6325870653934,52349.2459994422,233.4544,0.9995,World Bank
-DEU,Germany,2022,83177813.0,False,81.7867852780995,50506.5179638543,233.4544,0.9995,World Bank
-DEU,Germany,2023,83287273.0,False,81.9034366692129,54776.7668235491,233.4544,0.9995,World Bank
-DEU,Germany,2024,83516593.0,False,82.0211432579125,56103.7323182554,233.4544,0.9995,World Bank
-DEU,Germany,2025,83491249.0,False,82.13822205362,60496.4350820414,233.4544,0.9995,World Bank
-FRA,France,1970,50523586.0,False,,,117.1419,1.0015,Kaggle World Population
-FRA,France,1971,50842610.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1972,51161634.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1973,51480659.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1974,51799683.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1975,52118708.0,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1976,52437732.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1977,52756756.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1978,53075781.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1979,53394805.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1980,53713830.0,False,,,117.1419,1.0015,Kaggle World Population
-FRA,France,1981,53983736.7,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1982,54253643.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1983,54523550.1,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1984,54793456.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1985,55063363.5,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1986,55333270.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1987,55603176.9,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1988,55873083.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1989,56142990.3,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1990,56412897.0,False,,,117.1419,1.0015,Kaggle World Population
-FRA,France,1991,56638152.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1992,56863408.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1993,57088663.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1994,57313919.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1995,57539175.0,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1996,57764430.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1997,57989686.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1998,58214941.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,1999,58440197.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2000,58665453.0,False,,,117.1419,1.0015,Kaggle World Population
-FRA,France,2001,59043364.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2002,59421275.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2003,59799187.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2004,60177098.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2005,60555010.0,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2006,60932921.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2007,61310832.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2008,61688744.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2009,62066655.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2010,62444567.0,False,,,117.1419,1.0015,Kaggle World Population
-FRA,France,2011,62717607.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2012,62990647.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2013,63263688.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2014,63536728.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2015,63809769.0,False,,,117.1419,1.0015,Kaggle World Population
-FRA,France,2016,64568037.2,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2017,65326305.4,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2018,66084573.6,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2019,66842841.8,True,,,117.1419,1.0015,Interpolated between Kaggle/World Bank population years
-FRA,France,2020,67601110.0,False,78.7119131765249,39169.8606000707,117.1419,1.0015,World Bank
-FRA,France,2021,67842811.0,False,78.7364603392338,43725.0999521245,117.1419,1.0015,World Bank
-FRA,France,2022,68184457.0,False,78.7591921123356,40988.6396406579,117.1419,1.0015,World Bank
-FRA,France,2023,68372286.0,False,78.7804323126547,44700.1384177544,117.1419,1.0015,World Bank
-FRA,France,2024,68551653.0,False,78.7999750964116,46103.0840855884,117.1419,1.0015,World Bank
-FRA,France,2025,68720337.0,False,78.8449650563584,48985.7307807924,117.1419,1.0015,World Bank
-GBR,United Kingdom,1970,55650166.0,False,,,277.9289,1.0034,Kaggle World Population
-GBR,United Kingdom,1971,55717782.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1972,55785398.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1973,55853014.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1974,55920630.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1975,55988247.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1976,56055863.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1977,56123479.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1978,56191095.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1979,56258711.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1980,56326328.0,False,,,277.9289,1.0034,Kaggle World Population
-GBR,United Kingdom,1981,56414739.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1982,56503150.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1983,56591562.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1984,56679973.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1985,56768385.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1986,56856796.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1987,56945207.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1988,57033619.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1989,57122030.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1990,57210442.0,False,,,277.9289,1.0034,Kaggle World Population
-GBR,United Kingdom,1991,57374402.1,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1992,57538362.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1993,57702322.3,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1994,57866282.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1995,58030242.5,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1996,58194202.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1997,58358162.7,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1998,58522122.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,1999,58686082.9,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2000,58850043.0,False,,,277.9289,1.0034,Kaggle World Population
-GBR,United Kingdom,2001,59241042.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2002,59632042.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2003,60023041.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2004,60414041.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2005,60805041.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2006,61196040.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2007,61587040.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2008,61978039.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2009,62369039.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2010,62760039.0,False,,,277.9289,1.0034,Kaggle World Population
-GBR,United Kingdom,2011,63252904.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2012,63745769.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2013,64238634.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2014,64731499.0,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2015,65224364.0,False,,,277.9289,1.0034,Kaggle World Population
-GBR,United Kingdom,2016,65527491.2,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2017,65830618.4,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2018,66133745.6,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2019,66436872.8,True,,,277.9289,1.0034,Interpolated between Kaggle/World Bank population years
-GBR,United Kingdom,2020,66740000.0,False,82.9000015258789,40815.1255364787,277.9289,1.0034,World Bank
-GBR,United Kingdom,2021,66978000.0,False,82.9886431523641,47695.6491523474,277.9289,1.0034,World Bank
-GBR,United Kingdom,2022,67636000.0,False,83.0753982997505,47034.7795621476,277.9289,1.0034,World Bank
-GBR,United Kingdom,2023,68526000.0,False,83.1601932891335,49919.6896621586,277.9289,1.0034,World Bank
-GBR,United Kingdom,2024,69281000.0,False,83.2429544416085,53341.3131094262,277.9289,1.0034,World Bank
-GBR,United Kingdom,2025,69487000.0,False,83.323608078271,57601.9621201954,277.9289,1.0034,World Bank
-IND,India,1970,557501301.0,False,,,431.0675,1.0068,Kaggle World Population
-IND,India,1971,571434009.4,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1972,585366717.8,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1973,599299426.2,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1974,613232134.6,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1975,627164843.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1976,641097551.4,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1977,655030259.8,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1978,668962968.2,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1979,682895676.6,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1980,696828385.0,False,,,431.0675,1.0068,Kaggle World Population
-IND,India,1981,714190763.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1982,731553141.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1983,748915519.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1984,766277897.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1985,783640275.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1986,801002653.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1987,818365031.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1988,835727409.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1989,853089787.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1990,870452165.0,False,,,431.0675,1.0068,Kaggle World Population
-IND,India,1991,889370316.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1992,908288467.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1993,927206618.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1994,946124769.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1995,965042920.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1996,983961071.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1997,1002879222.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1998,1021797373.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,1999,1040715524.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2000,1059633675.0,False,,,431.0675,1.0068,Kaggle World Population
-IND,India,2001,1077731669.5,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2002,1095829664.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2003,1113927658.5,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2004,1132025653.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2005,1150123647.5,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2006,1168221642.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2007,1186319636.5,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2008,1204417631.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2009,1222515625.5,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2010,1240613620.0,False,,,431.0675,1.0068,Kaggle World Population
-IND,India,2011,1257064197.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2012,1273514774.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2013,1289965351.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2014,1306415928.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2015,1322866505.0,False,,,431.0675,1.0068,Kaggle World Population
-IND,India,2016,1338816743.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2017,1354766981.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2018,1370717219.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2019,1386667457.0,True,,,431.0675,1.0068,Interpolated between Kaggle/World Bank population years
-IND,India,2020,1402617695.0,False,34.1286726088333,1907.04251637669,431.0675,1.0068,World Bank
-IND,India,2021,1414203896.0,False,34.4425517181304,2239.61384367482,431.0675,1.0068,World Bank
-IND,India,2022,1425423212.0,False,34.7555673994206,2279.98145719369,431.0675,1.0068,World Bank
-IND,India,2023,1438069596.0,False,35.0676918424186,2434.44826340989,431.0675,1.0068,World Bank
-IND,India,2024,1450935791.0,False,35.3788972368389,2591.9916607122,431.0675,1.0068,World Bank
-IND,India,2025,1463865525.0,False,35.689155772396,2702.47987141553,431.0675,1.0068,World Bank
-JPN,Japan,1970,105416839.0,False,,,327.9753,0.9947,Kaggle World Population
-JPN,Japan,1971,106637574.7,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1972,107858310.4,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1973,109079046.1,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1974,110299781.8,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1975,111520517.5,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1976,112741253.2,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1977,113961988.9,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1978,115182724.6,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1979,116403460.3,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1980,117624196.0,False,,,327.9753,0.9947,Kaggle World Population
-JPN,Japan,1981,118230408.5,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1982,118836621.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1983,119442833.5,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1984,120049046.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1985,120655258.5,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1986,121261471.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1987,121867683.5,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1988,122473896.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1989,123080108.5,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1990,123686321.0,False,,,327.9753,0.9947,Kaggle World Population
-JPN,Japan,1991,123998075.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1992,124309829.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1993,124621583.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1994,124933337.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1995,125245091.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1996,125556845.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1997,125868599.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1998,126180353.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,1999,126492107.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2000,126803861.0,False,,,327.9753,0.9947,Kaggle World Population
-JPN,Japan,2001,126934018.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2002,127064175.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2003,127194332.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2004,127324489.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2005,127454646.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2006,127584803.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2007,127714960.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2008,127845117.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2009,127975274.0,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2010,128105431.0,False,,,327.9753,0.9947,Kaggle World Population
-JPN,Japan,2011,127934531.4,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2012,127763631.8,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2013,127592732.2,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2014,127421832.6,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2015,127250933.0,False,,,327.9753,0.9947,Kaggle World Population
-JPN,Japan,2016,127052946.4,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2017,126854959.8,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2018,126656973.2,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2019,126458986.6,True,,,327.9753,0.9947,Interpolated between Kaggle/World Bank population years
-JPN,Japan,2020,126261000.0,False,91.7809926267889,41098.9739004553,327.9753,0.9947,World Bank
-JPN,Japan,2021,125681593.0,False,91.8741049279527,41580.739040705,327.9753,0.9947,World Bank
-JPN,Japan,2022,125124989.0,False,91.9776532428406,35548.2645222433,327.9753,0.9947,World Bank
-JPN,Japan,2023,124516650.0,False,92.0826903891473,35215.003535366,327.9753,0.9947,World Bank
-JPN,Japan,2024,123975371.0,False,92.1901718034531,33797.1014287876,327.9753,0.9947,World Bank
-JPN,Japan,2025,123366734.0,False,92.3001449420786,35951.0449549304,327.9753,0.9947,World Bank
-KOR,South Korea,1970,32601143.0,False,,,517.0722,0.9997,Kaggle World Population
-KOR,South Korea,1971,33158078.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1972,33715014.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1973,34271950.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1974,34828886.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1975,35385822.0,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1976,35942757.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1977,36499693.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1978,37056629.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1979,37613565.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1980,38170501.0,False,,,517.0722,0.9997,Kaggle World Population
-KOR,South Korea,1981,38765454.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1982,39360408.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1983,39955362.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1984,40550316.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1985,41145270.0,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1986,41740223.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1987,42335177.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1988,42930131.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1989,43525085.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1990,44120039.0,False,,,517.0722,0.9997,Kaggle World Population
-KOR,South Korea,1991,44386894.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1992,44653749.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1993,44920604.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1994,45187459.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1995,45454315.0,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1996,45721170.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1997,45988025.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1998,46254880.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,1999,46521735.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2000,46788591.0,False,,,517.0722,0.9997,Kaggle World Population
-KOR,South Korea,2001,46991036.1,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2002,47193481.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2003,47395926.3,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2004,47598371.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2005,47800816.5,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2006,48003261.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2007,48205706.7,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2008,48408151.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2009,48610596.9,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2010,48813042.0,False,,,517.0722,0.9997,Kaggle World Population
-KOR,South Korea,2011,49249313.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2012,49685585.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2013,50121857.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2014,50558129.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2015,50994401.0,False,,,517.0722,0.9997,Kaggle World Population
-KOR,South Korea,2016,51162768.6,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2017,51331136.2,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2018,51499503.8,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,South Korea,2019,51667871.4,True,,,517.0722,0.9997,Interpolated between Kaggle/World Bank population years
-KOR,"Korea, Rep.",2020,51836239.0,False,81.1759595622913,33645.7719545073,517.0722,0.9997,World Bank
-KOR,"Korea, Rep.",2021,51769539.0,False,81.1616526507785,37518.4635305697,517.0722,0.9997,World Bank
-KOR,"Korea, Rep.",2022,51672569.0,False,81.1624941626873,34822.4048404971,517.0722,0.9997,World Bank
-KOR,"Korea, Rep.",2023,51712619.0,False,81.1645551720421,35674.095995632,517.0722,0.9997,World Bank
-KOR,"Korea, Rep.",2024,51751065.0,False,81.1682528469686,36238.639908315,517.0722,0.9997,World Bank
-KOR,"Korea, Rep.",2025,51684564.0,False,81.1740263306674,36226.9663637512,517.0722,0.9997,World Bank
-USA,United States,1970,200328340.0,False,,,36.0935,1.0038,Kaggle World Population
-USA,United States,1971,202609507.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1972,204890675.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1973,207171843.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1974,209453011.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1975,211734179.0,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1976,214015346.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1977,216296514.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1978,218577682.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1979,220858850.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1980,223140018.0,False,,,36.0935,1.0038,Kaggle World Population
-USA,United States,1981,225634389.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1982,228128760.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1983,230623132.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1984,233117503.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1985,235611875.0,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1986,238106246.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1987,240600617.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1988,243094989.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1989,245589360.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1990,248083732.0,False,,,36.0935,1.0038,Kaggle World Population
-USA,United States,1991,251515214.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1992,254946696.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1993,258378178.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1994,261809660.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1995,265241143.0,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1996,268672625.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1997,272104107.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1998,275535589.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,1999,278967071.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2000,282398554.0,False,,,36.0935,1.0038,Kaggle World Population
-USA,United States,2001,285276983.1,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2002,288155412.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2003,291033841.3,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2004,293912270.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2005,296790699.5,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2006,299669128.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2007,302547557.7,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2008,305425986.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2009,308304415.9,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2010,311182845.0,False,,,36.0935,1.0038,Kaggle World Population
-USA,United States,2011,313867831.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2012,316552817.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2013,319237803.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2014,321922789.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2015,324607776.0,False,,,36.0935,1.0038,Kaggle World Population
-USA,United States,2016,326001841.6,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2017,327395907.2,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2018,328789972.8,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2019,330184038.4,True,,,36.0935,1.0038,Interpolated between Kaggle/World Bank population years
-USA,United States,2020,331578104.0,False,79.997451762548,64465.2971415748,36.0935,1.0038,World Bank
-USA,United States,2021,332100166.0,False,80.0074765140272,71441.2319805947,36.0935,1.0038,World Bank
-USA,United States,2022,333996304.0,False,80.0324978239707,78008.6895811877,36.0935,1.0038,World Bank
-USA,United States,2023,336755052.0,False,80.071561119178,82586.7847707894,36.0935,1.0038,World Bank
-USA,United States,2024,340003797.0,False,80.1247798047184,86169.6641581917,36.0935,1.0038,World Bank
-USA,United States,2025,341784857.0,False,80.1921733027869,90026.5163005744,36.0935,1.0038,World Bank
+﻿location_code,location,year,population,population_2022,density_per_km2,growth_rate
+AFG,Afghanistan,2020,38972230,41128771,63.0587,1.0257
+ALB,Albania,2020,2866849,2842321,98.8702,0.9957
+DZA,Algeria,2020,43451666,44903225,18.8531,1.0164
+ASM,American Samoa,2020,46189,44273,222.4774,0.9831
+AND,Andorra,2020,77700,79824,170.5641,1.01
+AGO,Angola,2020,33428485,35588987,28.5466,1.0315
+AIA,Anguilla,2020,15585,15857,174.2527,1.0066
+ATG,Antigua and Barbuda,2020,92664,93763,212.1335,1.0058
+ARG,Argentina,2020,45036032,45510318,16.3683,1.0052
+ARM,Armenia,2020,2805608,2780469,93.4831,0.9962
+ABW,Aruba,2020,106585,106445,591.3611,0.9991
+AUS,Australia,2020,25670051,26177413,3.4032,1.0099
+AUT,Austria,2020,8907777,8939617,106.5877,1.002
+AZE,Azerbaijan,2020,10284951,10358074,119.6082,1.0044
+BHS,Bahamas,2020,406471,409984,29.4043,1.0051
+BHR,Bahrain,2020,1477469,1472233,1924.4876,1.0061
+BGD,Bangladesh,2020,167420951,171186372,1160.035,1.0108
+BRB,Barbados,2020,280693,281635,654.9651,1.0015
+BLR,Belarus,2020,9633740,9534954,45.9295,0.9955
+BEL,Belgium,2020,11561717,11655930,381.8111,1.0038
+BLZ,Belize,2020,394921,405272,17.6466,1.0131
+BEN,Benin,2020,12643123,13352864,118.5635,1.0274
+BMU,Bermuda,2020,64031,64184,1188.5926,1.0
+BTN,Bhutan,2020,772506,782455,20.3796,1.0064
+BOL,Bolivia,2020,11936162,12224110,11.1272,1.012
+BIH,Bosnia and Herzegovina,2020,3318407,3233526,63.1437,0.9886
+BWA,Botswana,2020,2546402,2630296,4.5194,1.0162
+BRA,Brazil,2020,213196304,215313498,25.2841,1.0046
+VGB,British Virgin Islands,2020,30910,31305,207.3179,1.0059
+BRN,Brunei,2020,441725,449002,77.8841,1.0081
+BGR,Bulgaria,2020,6979175,6781953,61.1654,0.9849
+BFA,Burkina Faso,2020,21522626,22673762,83.0641,1.0259
+BDI,Burundi,2020,12220227,12889576,463.0874,1.027
+KHM,Cambodia,2020,16396860,16767842,92.6221,1.0108
+CMR,Cameroon,2020,26491087,27914536,58.7128,1.0263
+CAN,Canada,2020,37888705,38454327,3.8513,1.0078
+CPV,Cape Verde,2020,582640,593149,147.0739,1.0089
+CYM,Cayman Islands,2020,67311,68706,260.25,1.0084
+CAF,Central African Republic,2020,5343020,5579144,8.9555,1.0224
+TCD,Chad,2020,16644701,17723315,13.8032,1.0316
+CHL,Chile,2020,19300315,19603733,25.9274,1.0057
+CHN,China,2020,1424929781,1425887337,146.8933,1.0
+COL,Colombia,2020,50930662,51874024,45.4339,1.0069
+COM,Comoros,2020,806166,836774,449.3953,1.0184
+COK,Cook Islands,2020,17029,17011,72.0805,1.0005
+CRI,Costa Rica,2020,5123105,5180829,101.3861,1.0052
+HRV,Croatia,2020,4096868,4030358,71.2153,0.9927
+CUB,Cuba,2020,11300698,11212191,102.0366,0.9961
+CUW,Curacao,2020,189288,191163,430.5473,1.0043
+CYP,Cyprus,2020,1237537,1251488,135.2814,1.0059
+CZE,Czech Republic,2020,10530953,10493986,133.0627,0.9984
+DNK,Denmark,2020,5825641,5882261,136.4984,1.0048
+DJI,Djibouti,2020,1090156,1120849,48.3125,1.0138
+DMA,Dominica,2020,71995,72737,96.8535,1.0045
+DOM,Dominican Republic,2020,10999664,11228821,230.7087,1.01
+COD,DR Congo,2020,92853164,99010212,42.2244,1.0325
+ECU,Ecuador,2020,17588595,18001000,65.0229,1.0114
+EGY,Egypt,2020,107465134,110990103,110.7188,1.0158
+SLV,El Salvador,2020,6292731,6336392,301.145,1.0035
+GNQ,Equatorial Guinea,2020,1596049,1674908,59.7094,1.0247
+ERI,Eritrea,2020,3555868,3684032,31.3268,1.0176
+EST,Estonia,2020,1329444,1326062,29.3201,0.998
+SWZ,Eswatini,2020,1180655,1201670,69.2047,1.0079
+ETH,Ethiopia,2020,117190911,123379924,111.7268,1.0257
+FLK,Falkland Islands,2020,3747,3780,0.3105,1.0043
+FRO,Faroe Islands,2020,52415,53090,38.112,1.0038
+FJI,Fiji,2020,920422,929766,50.8847,1.0056
+FIN,Finland,2020,5529468,5540745,16.3722,1.0009
+FRA,France,2020,64480053,64626628,117.1419,1.0015
+GUF,French Guiana,2020,290969,304557,3.6459,1.0239
+PYF,French Polynesia,2020,301920,306279,73.5011,1.0074
+GAB,Gabon,2020,2292573,2388992,8.9252,1.0204
+GMB,Gambia,2020,2573995,2705992,253.1567,1.025
+GEO,Georgia,2020,3765912,3744385,53.7214,0.9964
+DEU,Germany,2020,83328988,83369843,233.4544,0.9995
+GHA,Ghana,2020,32180401,33475870,140.3406,1.0196
+GIB,Gibraltar,2020,32709,32649,5441.5,0.9994
+GRC,Greece,2020,10512232,10384971,78.68,0.9942
+GRL,Greenland,2020,56026,56466,0.0261,1.004
+GRD,Grenada,2020,123663,125438,364.6453,1.0066
+GLP,Guadeloupe,2020,395642,395752,243.0909,0.9992
+GUM,Guam,2020,169231,171774,312.8852,1.0073
+GTM,Guatemala,2020,17362718,17843908,163.8725,1.0134
+GGY,Guernsey,2020,62794,63301,811.5513,1.0037
+GIN,Guinea,2020,13205153,13859341,56.3716,1.0242
+GNB,Guinea-Bissau,2020,2015828,2105566,58.2856,1.0218
+GUY,Guyana,2020,797202,808726,3.7621,1.0052
+HTI,Haiti,2020,11306801,11584996,417.4773,1.012
+HND,Honduras,2020,10121763,10432860,92.7431,1.015
+HKG,Hong Kong,2020,7500958,7488865,6783.3922,0.9992
+HUN,Hungary,2020,9750573,9967308,107.1431,1.0265
+ISL,Iceland,2020,366669,372899,3.6204,1.0069
+IND,India,2020,1396387127,1417173173,431.0675,1.0068
+IDN,Indonesia,2020,271857970,275501339,144.6529,1.0064
+IRN,Iran,2020,87290193,88550570,53.7258,1.0071
+IRQ,Iraq,2020,42556984,44496122,101.5158,1.0221
+IRL,Ireland,2020,4946119,5023109,71.4799,1.0073
+IMN,Isle of Man,2020,84046,84519,147.7605,1.003
+ISR,Israel,2020,8757489,9038309,435.1617,1.0155
+ITA,Italy,2020,59500579,59037474,195.9191,0.9966
+CIV,Ivory Coast,2020,26811790,28160542,87.3295,1.0248
+JAM,Jamaica,2020,2820436,2827377,257.2447,0.9999
+JPN,Japan,2020,125244761,123951692,327.9753,0.9947
+JEY,Jersey,2020,108319,110778,954.9828,1.0106
+JOR,Jordan,2020,10928721,11285869,126.3221,1.0123
+KAZ,Kazakhstan,2020,18979243,19397998,7.1188,1.0105
+KEN,Kenya,2020,51985780,54027487,93.0919,1.0193
+KIR,Kiribati,2020,126463,131232,161.815,1.0183
+KWT,Kuwait,2020,4360444,4268873,239.5821,1.0044
+KGZ,Kyrgyzstan,2020,6424874,6630623,33.1612,1.0158
+LAO,Laos,2020,7319399,7529475,31.7968,1.0141
+LVA,Latvia,2020,1897052,1850651,28.666,0.9876
+LBN,Lebanon,2020,5662923,5489739,525.2334,0.9816
+LSO,Lesotho,2020,2254100,2305825,75.962,1.0107
+LBR,Liberia,2020,5087584,5302681,47.6136,1.021
+LBY,Libya,2020,6653942,6812341,3.8717,1.0114
+LIE,Liechtenstein,2020,38756,39327,245.7937,1.0074
+LTU,Lithuania,2020,2820267,2750055,42.1142,0.9869
+LUX,Luxembourg,2020,630399,647599,250.425,1.0129
+MAC,Macau,2020,676283,695168,23172.2667,1.0125
+MDG,Madagascar,2020,28225177,29611714,50.4423,1.0241
+MWI,Malawi,2020,19377061,20405317,172.22,1.0259
+MYS,Malaysia,2020,33199993,33938221,102.5934,1.0109
+MDV,Maldives,2020,514438,523787,1745.9567,1.0045
+MLI,Mali,2020,21224040,22593590,18.2178,1.0314
+MLT,Malta,2020,515357,533286,1687.6139,1.0124
+MHL,Marshall Islands,2020,43413,41569,229.663,0.9886
+MTQ,Martinique,2020,370391,367507,325.8041,0.9965
+MRT,Mauritania,2020,4498604,4736139,4.5951,1.0263
+MUS,Mauritius,2020,1297828,1299469,636.9946,1.0004
+MYT,Mayotte,2020,305587,326101,871.9278,1.0319
+MEX,Mexico,2020,125998302,127504125,64.9082,1.0063
+FSM,Micronesia,2020,112106,114164,162.6268,1.0091
+MDA,Moldova,2020,3084847,3272996,96.7026,1.0691
+MCO,Monaco,2020,36922,36469,18234.5,0.9941
+MNG,Mongolia,2020,3294335,3398366,2.1727,1.0151
+MNE,Montenegro,2020,629048,627082,45.4012,0.9988
+MSR,Montserrat,2020,4500,4390,43.0392,0.9939
+MAR,Morocco,2020,36688772,37457971,83.883,1.0103
+MOZ,Mozambique,2020,31178239,32969517,41.1302,1.0278
+MMR,Myanmar,2020,53423198,54179306,80.0784,1.0071
+NAM,Namibia,2020,2489098,2567012,3.1092,1.0146
+NRU,Nauru,2020,12315,12668,603.2381,1.0125
+NPL,Nepal,2020,29348627,30547580,207.5511,1.0171
+NLD,Netherlands,2020,17434557,17564014,419.6897,1.0036
+NCL,New Caledonia,2020,286403,289950,15.6097,1.0075
+NZL,New Zealand,2020,5061133,5185288,19.1716,1.0108
+NIC,Nicaragua,2020,6755895,6948392,53.2962,1.0143
+NER,Niger,2020,24333639,26207977,20.6851,1.0378
+NGA,Nigeria,2020,208327405,218541212,236.5759,1.0241
+NIU,Niue,2020,1942,1934,7.4385,0.9985
+PRK,North Korea,2020,25867467,26069416,216.2755,1.0038
+MKD,North Macedonia,2020,2111072,2093599,81.4218,0.9954
+NFK,Northern Mariana Islands,2020,49587,49551,106.7909,1.0014
+NOR,Norway,2020,5379839,5434319,16.7828,1.0058
+OMN,Oman,2020,4543399,4576298,14.7861,1.0123
+PAK,Pakistan,2020,227196741,235824862,267.4018,1.0191
+PLW,Palau,2020,17972,18055,39.3355,1.0017
+PSE,Palestine,2020,5019401,5250072,844.063,1.0227
+PAN,Panama,2020,4294396,4408581,58.4561,1.0132
+PNG,Papua New Guinea,2020,9749640,10142619,21.9139,1.0194
+PRY,Paraguay,2020,6618695,6780744,16.6705,1.0115
+PER,Peru,2020,33304756,34049588,26.4933,1.0099
+PHL,Philippines,2020,112190977,115559009,337.5434,1.0147
+POL,Poland,2020,38428366,39857145,127.4698,1.0404
+PRT,Portugal,2020,10298192,10270865,111.5307,0.9981
+PRI,Puerto Rico,2020,3271564,3252407,366.675,0.9989
+QAT,Qatar,2020,2760385,2695122,232.6189,1.0026
+COG,Republic of the Congo,2020,5702174,5970424,17.4574,1.0231
+REU,Reunion,2020,957822,974052,387.914,1.0082
+ROU,Romania,2020,19442038,19659267,82.4665,1.0171
+RUS,Russia,2020,145617329,144713314,8.4636,0.9973
+RWA,Rwanda,2020,13146362,13776698,523.0731,1.0234
+BLM,Saint Barthelemy,2020,10681,10967,522.2381,1.0098
+KNA,Saint Kitts and Nevis,2020,47642,47657,182.5939,1.0011
+LCA,Saint Lucia,2020,179237,179857,291.9756,1.0011
+MAF,Saint Martin,2020,32552,31791,599.8302,0.9951
+SPM,Saint Pierre and Miquelon,2020,5906,5862,24.2231,0.9964
+VCT,Saint Vincent and the Grenadines,2020,104632,103948,267.2185,0.9963
+WSM,Samoa,2020,214929,222382,78.2484,1.0165
+SMR,San Marino,2020,34007,33660,551.8033,0.9975
+STP,Sao Tome and Principe,2020,218641,227380,235.8714,1.0192
+SAU,Saudi Arabia,2020,35997107,36408820,16.9368,1.0128
+SEN,Senegal,2020,16436119,17316449,88.025,1.0261
+SRB,Serbia,2020,7358005,7221365,81.7257,0.9897
+SYC,Seychelles,2020,105530,107118,236.9867,1.0061
+SLE,Sierra Leone,2020,8233969,8605718,119.957,1.022
+SGP,Singapore,2020,5909869,5975689,8416.4634,1.0058
+SXM,Sint Maarten,2020,43621,44175,1299.2647,1.003
+SVK,Slovakia,2020,5456681,5643453,115.0856,1.0359
+SVN,Slovenia,2020,2117641,2119844,104.5649,1.0002
+SLB,Solomon Islands,2020,691191,724273,25.0648,1.0232
+SOM,Somalia,2020,16537016,17597511,27.5971,1.0312
+ZAF,South Africa,2020,58801927,59893885,49.0517,1.0084
+KOR,South Korea,2020,51844690,51815810,517.0722,0.9997
+SSD,South Sudan,2020,10606227,10913164,17.6091,1.0153
+ESP,Spain,2020,47363807,47558630,93.9909,1.0015
+LKA,Sri Lanka,2020,21715079,21832143,332.7563,1.0027
+SDN,Sudan,2020,44440486,46874204,24.8529,1.0267
+SUR,Suriname,2020,607065,618040,3.7727,1.0082
+SWE,Sweden,2020,10368969,10549347,23.4276,1.0079
+CHE,Switzerland,2020,8638613,8740472,211.7157,1.0056
+SYR,Syria,2020,20772595,22125249,119.4797,1.0376
+TWN,Taiwan,2020,23821464,23893394,660.1662,1.0014
+TJK,Tajikistan,2020,9543207,9952787,69.5513,1.0208
+TZA,Tanzania,2020,61704518,65497748,69.3034,1.03
+THA,Thailand,2020,71475664,71697030,139.7276,1.0013
+TLS,Timor-Leste,2020,1299995,1341296,90.1772,1.0154
+TGO,Togo,2020,8442580,8848699,155.8281,1.0236
+TKL,Tokelau,2020,1827,1871,155.9167,1.0119
+TON,Tonga,2020,105254,106858,143.0495,1.0079
+TTO,Trinidad and Tobago,2020,1518147,1531044,298.4491,1.0035
+TUN,Tunisia,2020,12161723,12356117,75.5218,1.0076
+TUR,Turkey,2020,84135428,85341241,108.9145,1.0067
+TKM,Turkmenistan,2020,6250438,6430770,13.1751,1.014
+TCA,Turks and Caicos Islands,2020,44276,45703,48.2099,1.0131
+TUV,Tuvalu,2020,11069,11312,435.0769,1.0096
+UGA,Uganda,2020,44404611,47249585,195.61,1.0304
+UKR,Ukraine,2020,43909666,39701739,65.7858,0.912
+ARE,United Arab Emirates,2020,9287289,9441129,112.9322,1.0081
+GBR,United Kingdom,2020,67059474,67508936,277.9289,1.0034
+USA,United States,2020,335942003,338289857,36.0935,1.0038
+VIR,United States Virgin Islands,2020,100442,99465,286.6427,0.9937
+URY,Uruguay,2020,3429086,3422794,18.9069,0.999
+UZB,Uzbekistan,2020,33526656,34627652,77.3975,1.016
+VUT,Vanuatu,2020,311685,326740,26.8061,1.0238
+VAT,Vatican City,2020,520,510,510.0,0.998
+VEN,Venezuela,2020,28490453,28301696,30.882,1.0036
+VNM,Vietnam,2020,96648685,98186856,296.4472,1.0074
+WLF,Wallis and Futuna,2020,11655,11572,81.493,0.9953
+ESH,Western Sahara,2020,556048,575986,2.1654,1.0184
+YEM,Yemen,2020,32284046,33696614,63.8232,1.0217
+ZMB,Zambia,2020,18927715,20017675,26.5976,1.028
+ZWE,Zimbabwe,2020,15669666,16320537,41.7665,1.0204

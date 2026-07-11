@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>传染病趋势预测与风险预警平台</title>
+  <title>基于机器学习的传染病发病趋势预测系统</title>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <link rel="icon" href="{{ url_for('static', filename='flutter-fill.png') }}" type="image/png">
 </head>
 <body>
   <div class="grid-bg" aria-hidden="true"></div>
@@ -13,7 +14,7 @@
   <header class="topbar">
     <div class="brand-mark">DT</div>
     <div>
-      <h1>基于机器学习的传染病趋势预测与可视化分析平台</h1>
+      <h1>基于机器学习的传染病发病趋势预测系统</h1>
       <p>HDFS 分层存储 · Spark 清洗建模 · Flask API · ECharts 大屏</p>
     </div>
     <div class="top-meta">
@@ -103,7 +104,7 @@
   </main>
 
   <footer>
-    教学演示，不构成公共卫生决策或医疗建议。风险指数是课程项目分析指标，并非官方疫情风险等级。
+    Project only for reference.
   </footer>
 
   <script src="{{ url_for('static', filename='js/api.js') }}"></script>
