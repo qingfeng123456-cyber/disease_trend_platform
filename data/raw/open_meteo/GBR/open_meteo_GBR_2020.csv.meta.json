@@ -1,0 +1,47 @@
+{
+  "source": "Open-Meteo archive API",
+  "source_url": "https://archive-api.open-meteo.com/v1/archive",
+  "request_url": "https://archive-api.open-meteo.com/v1/archive?latitude=51.5072&longitude=-0.1276&start_date=2020-01-22&end_date=2020-12-31&daily=temperature_2m_mean%2Ctemperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum%2Crelative_humidity_2m_mean%2Cwind_speed_10m_max&timezone=Europe%2FLondon",
+  "request_params": {
+    "latitude": "51.5072",
+    "longitude": "-0.1276",
+    "start_date": "2020-01-22",
+    "end_date": "2020-12-31",
+    "daily": "temperature_2m_mean,temperature_2m_max,temperature_2m_min,precipitation_sum,relative_humidity_2m_mean,wind_speed_10m_max",
+    "timezone": "Europe/London"
+  },
+  "downloaded_at": "2026-07-10T02:55:55.831867+00:00",
+  "location": "United Kingdom",
+  "location_code": "GBR",
+  "representative_city": "London",
+  "latitude": "51.5072",
+  "longitude": "-0.1276",
+  "start_date": "2020-01-22",
+  "end_date": "2020-12-31",
+  "record_count": 345,
+  "fields": [
+    "date",
+    "location",
+    "location_code",
+    "representative_city",
+    "latitude",
+    "longitude",
+    "temperature_mean",
+    "temperature_max",
+    "temperature_min",
+    "precipitation_sum",
+    "relative_humidity_mean",
+    "wind_speed_max",
+    "source",
+    "source_timezone",
+    "downloaded_at"
+  ],
+  "units": {
+    "temperature_mean": "°C",
+    "temperature_max": "°C",
+    "temperature_min": "°C",
+    "precipitation_sum": "mm",
+    "relative_humidity_mean": "%",
+    "wind_speed_max": "km/h"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "indicators": {
+    "SP.POP.TOTL": "population",
+    "SP.URB.TOTL.IN.ZS": "urban_population_ratio",
+    "NY.GDP.PCAP.CD": "gdp_per_capita"
+  },
+  "start_year": 2020,
+  "end_year": 2025,
+  "collected_at": "2026-07-10T05:20:27.720801+00:00"
+}

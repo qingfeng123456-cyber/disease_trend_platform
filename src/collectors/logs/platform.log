@@ -28,3 +28,49 @@
 2026-07-10 13:20:15,192 | collectors.who | INFO | WHO 未配置指标，跳过。可使用 --indicators 指定。
 2026-07-10 13:20:27,722 | collectors.world_bank | INFO | World Bank 已保存 1560 行: D:\大学学习\计算机专业课\专业实习\程序\disease_trend_platform_starter\disease_trend_platform\data\raw\world_bank\world_bank_2020_2025.csv
 2026-07-10 13:20:49,589 | collectors.who | INFO | WHO 未配置指标，跳过。可使用 --indicators 指定。
+2026-07-11 08:58:12,083 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\CHN\open_meteo_CHN_2020.csv
+2026-07-11 08:58:12,083 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\CHN\open_meteo_CHN_2021.csv
+2026-07-11 08:58:12,083 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\USA\open_meteo_USA_2020.csv
+2026-07-11 08:58:12,084 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\USA\open_meteo_USA_2021.csv
+2026-07-11 08:58:12,084 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\GBR\open_meteo_GBR_2020.csv
+2026-07-11 08:58:12,084 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\GBR\open_meteo_GBR_2021.csv
+2026-07-11 08:58:13,179 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/FRA/open_meteo_FRA_2020.csv
+2026-07-11 08:58:16,547 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/FRA/open_meteo_FRA_2021.csv
+2026-07-11 08:58:58,270 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\CHN\open_meteo_CHN_2020.csv
+2026-07-11 08:58:58,270 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\CHN\open_meteo_CHN_2021.csv
+2026-07-11 08:58:58,270 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\USA\open_meteo_USA_2020.csv
+2026-07-11 08:58:58,271 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\USA\open_meteo_USA_2021.csv
+2026-07-11 08:58:58,271 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\GBR\open_meteo_GBR_2020.csv
+2026-07-11 08:58:58,271 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\GBR\open_meteo_GBR_2021.csv
+2026-07-11 08:58:58,271 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\FRA\open_meteo_FRA_2020.csv
+2026-07-11 08:58:58,271 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\FRA\open_meteo_FRA_2021.csv
+2026-07-11 08:59:13,315 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\CHN\open_meteo_CHN_2020.csv
+2026-07-11 08:59:13,316 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\CHN\open_meteo_CHN_2021.csv
+2026-07-11 08:59:13,316 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\USA\open_meteo_USA_2020.csv
+2026-07-11 08:59:13,316 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\USA\open_meteo_USA_2021.csv
+2026-07-11 08:59:13,316 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\GBR\open_meteo_GBR_2020.csv
+2026-07-11 08:59:13,317 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\GBR\open_meteo_GBR_2021.csv
+2026-07-11 08:59:13,317 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\FRA\open_meteo_FRA_2020.csv
+2026-07-11 08:59:13,317 | collectors.open_meteo | INFO | Open-Meteo complete file exists: F:\PyCharmProjects\disease_trend_platform_5\data\raw\open_meteo\FRA\open_meteo_FRA_2021.csv
+2026-07-11 08:59:14,294 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/DEU/open_meteo_DEU_2020.csv
+2026-07-11 08:59:16,719 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/DEU/open_meteo_DEU_2021.csv
+2026-07-11 08:59:19,150 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/ITA/open_meteo_ITA_2020.csv
+2026-07-11 08:59:21,998 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/ITA/open_meteo_ITA_2021.csv
+2026-07-11 08:59:24,562 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/ESP/open_meteo_ESP_2020.csv
+2026-07-11 08:59:27,012 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/ESP/open_meteo_ESP_2021.csv
+2026-07-11 08:59:30,669 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/RUS/open_meteo_RUS_2020.csv
+2026-07-11 08:59:33,145 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/RUS/open_meteo_RUS_2021.csv
+2026-07-11 08:59:35,824 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/IND/open_meteo_IND_2020.csv
+2026-07-11 08:59:38,811 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/IND/open_meteo_IND_2021.csv
+2026-07-11 08:59:41,488 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/BRA/open_meteo_BRA_2020.csv
+2026-07-11 08:59:43,963 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/BRA/open_meteo_BRA_2021.csv
+2026-07-11 08:59:46,574 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/JPN/open_meteo_JPN_2020.csv
+2026-07-11 08:59:51,314 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/JPN/open_meteo_JPN_2021.csv
+2026-07-11 08:59:53,795 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/KOR/open_meteo_KOR_2020.csv
+2026-07-11 08:59:56,653 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/KOR/open_meteo_KOR_2021.csv
+2026-07-11 08:59:59,943 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/CAN/open_meteo_CAN_2020.csv
+2026-07-11 09:00:02,764 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/CAN/open_meteo_CAN_2021.csv
+2026-07-11 09:00:05,234 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/AUS/open_meteo_AUS_2020.csv
+2026-07-11 09:00:08,149 | collectors.open_meteo | INFO | Open-Meteo saved: data/raw/open_meteo/AUS/open_meteo_AUS_2021.csv
+2026-07-11 09:00:21,270 | collectors.who | INFO | WHO 未配置指标，跳过。可使用 --indicators 指定。
+2026-07-11 09:05:20,852 | collectors.who | INFO | WHO 未配置指标，跳过采集。可通过 --indicators 或 --disease 指定。
