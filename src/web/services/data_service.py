@@ -116,6 +116,7 @@ class DataService:
         latest_point = selected_points[-1] if selected_points else None
         first_point = selected_points[0] if selected_points else None
         risk_items = self.risk_map(disease=disease_name).get("items", [])
+        disease_metrics = self.model_metrics(disease=disease_name)
         return {
             **payload,
             "selected_location_code": location_code,
@@ -133,6 +134,8 @@ class DataService:
             "current_new_cases": latest_point.get("actual") if latest_point else summary.get("current_value"),
             "current_rolling_value": latest_point.get("rolling_7") if latest_point else summary.get("current_rolling_value"),
             "high_risk_regions": sum(1 for item in risk_items if item.get("risk_level") == "高风险"),
+            "best_model": disease_metrics.get("best_model"),
+            "best_model_mae": disease_metrics.get("mae"),
         }
 
     def options(self) -> dict[str, Any]:
@@ -140,6 +143,12 @@ class DataService:
 
     def source_status(self) -> dict[str, Any]:
         return self._read_json("source_status.json")
+
+    def who_indicators(self) -> dict[str, Any]:
+        return self._read_json("who_indicator_summary.json")
+
+    def model_coverage(self) -> dict[str, Any]:
+        return self._read_json("model_data_coverage.json")
 
     def risk_map(self, *, disease: str | None = None) -> dict[str, Any]:
         payload = self._read_json("risk_map.json")
@@ -160,9 +169,25 @@ class DataService:
             "forecast": [item for item in payload.get("forecast", []) if item.get("disease") == disease_name],
         }
 
-    def model_metrics(self) -> dict[str, Any]:
+    def model_metrics(self, *, disease: str | None = None) -> dict[str, Any]:
         metrics = self._read_json("model_metrics.json")
         comparison = self._read_json("model_comparison.json", required=False)
+        if disease:
+            disease_name = self._normalize_disease(disease, self.options())
+            summary = metrics.get("by_disease", {}).get(disease_name, {})
+            disease_comparison = (comparison or {}).get("by_disease", {}).get(disease_name, {})
+            model_names = self.options().get("availability", {}).get(disease_name, {}).get("models", [])
+            model_details = {
+                model_name: details
+                for model_name, details in metrics.get("models", {}).items()
+                if model_name in model_names
+            }
+            return {
+                **summary,
+                "data_mode": metrics.get("data_mode"),
+                "models": model_details,
+                "comparison": disease_comparison or summary.get("comparison", {}),
+            }
         if comparison:
             metrics = {**metrics, "comparison": comparison}
         return metrics
@@ -188,8 +213,10 @@ class DataService:
             end_date=end_date,
         )
         options = self.options()
-        default_model = str(options.get("default_model") or options.get("models", ["moving_average"])[0])
-        model_name = self._normalize_model(model or default_model, options)
+        disease_name = self._normalize_disease(disease or self.default_disease, options)
+        availability = options.get("availability", {}).get(disease_name, {})
+        default_model = str(availability.get("default_model") or options.get("default_model") or "moving_average")
+        model_name = self._normalize_model(model or default_model, options, disease_name)
         prepared_items = []
         prediction_key = f"prediction_{model_name}"
         for item in filtered.get("items", []):
@@ -282,8 +309,9 @@ class DataService:
         options = self.options()
         location_code = self._normalize_location(location or self.default_location, options)
         disease_name = self._normalize_disease(disease or self.default_disease, options)
-        default_model = str(options.get("default_model") or options.get("models", ["demo_trend_model"])[0])
-        model_name = self._normalize_model(model or default_model, options)
+        availability = options.get("availability", {}).get(disease_name, {})
+        default_model = str(availability.get("default_model") or options.get("default_model") or "moving_average")
+        model_name = self._normalize_model(model or default_model, options, disease_name)
         start = self._parse_optional_date(start_date, "start_date")
         end = self._parse_optional_date(end_date, "end_date")
         if start and end and start > end:
@@ -320,6 +348,33 @@ class DataService:
                 prepared["lower"] = max(0.0, prediction * 0.85) if prediction is not None else None
                 prepared["upper"] = prediction * 1.15 if prediction is not None else None
             points.append(prepared)
+        reporting_profile = None
+        if points and matched.get("frequency") == "daily":
+            observed_dates = {date.fromisoformat(point["date"]) for point in points}
+            expected_days = (max(observed_dates) - min(observed_dates)).days + 1
+            actual_values = [point.get("actual") for point in points]
+            numeric_values = [value for value in actual_values if isinstance(value, (int, float))]
+            zero_day_count = sum(math.isclose(float(value), 0.0, abs_tol=1e-12) for value in numeric_values)
+            zero_day_share = zero_day_count / len(numeric_values) if numeric_values else 0.0
+            date_gap_count = max(expected_days - len(observed_dates), 0)
+            sparse_reporting = (
+                date_gap_count == 0
+                and zero_day_share >= 0.5
+                and any(float(value) > 0 for value in numeric_values)
+            )
+            reporting_profile = {
+                "expected_calendar_days": expected_days,
+                "observed_rows": len(observed_dates),
+                "date_gap_count": date_gap_count,
+                "zero_day_count": zero_day_count,
+                "zero_day_share": round(zero_day_share, 4),
+                "sparse_reporting": sparse_reporting,
+                "note": (
+                    "日期连续，但该窗口来源值以批次方式更新；零值是来源中的当日报告值，不是清洗造成的缺行。"
+                    if sparse_reporting
+                    else ("日期存在缺行，请检查来源覆盖。" if date_gap_count else None)
+                ),
+            }
         return {
             "data_mode": payload.get("data_mode", "unknown"),
             "location_code": location_code,
@@ -332,6 +387,7 @@ class DataService:
             "rolling_label": matched.get("rolling_label"),
             "forecast_horizon_label": matched.get("forecast_horizon_label"),
             "source": matched.get("source"),
+            "reporting_profile": reporting_profile,
             "points": points,
         }
 
@@ -418,8 +474,12 @@ class DataService:
         raise ValidationError(f"disease 参数无效: {value}")
 
     @staticmethod
-    def _normalize_model(value: str, options: dict[str, Any]) -> str:
-        models = set(options.get("models", []))
+    def _normalize_model(value: str, options: dict[str, Any], disease: str | None = None) -> str:
+        if disease:
+            configured = options.get("availability", {}).get(disease, {}).get("models", [])
+            models = set(configured or options.get("models", []))
+        else:
+            models = set(options.get("models", []))
         if value == "naive_rolling_7" and "moving_average" in models:
             return "moving_average"
         if value in models:

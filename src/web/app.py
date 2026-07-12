@@ -81,7 +81,7 @@ def rankings():
 
 @app.get("/api/model-metrics")
 def model_metrics():
-    return api_ok(service.model_metrics())
+    return api_ok(service.model_metrics(disease=request.args.get("disease")))
 
 
 @app.get("/api/data-quality")
@@ -127,6 +127,16 @@ def disease_share():
 @app.get("/api/source-status")
 def source_status():
     return api_ok(service.source_status())
+
+
+@app.get("/api/who-indicators")
+def who_indicators():
+    return api_ok(service.who_indicators())
+
+
+@app.get("/api/model-coverage")
+def model_coverage():
+    return api_ok(service.model_coverage())
 
 
 @app.errorhandler(ValidationError)

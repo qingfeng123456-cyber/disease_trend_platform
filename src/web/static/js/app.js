@@ -14,6 +14,45 @@ const chartIds = [
 const charts = {};
 const state = { options: null };
 
+const diseaseTerminology = {
+  'COVID-19': {
+    term: '日新增病例与累计病例',
+    definition: '日新增病例是来源按日期发布并经清洗后的新增记录；累计病例是截至最后观测日的来源累计值，二者都不是网页访问当日的实时监测值。',
+    latestHint: '来源发布的日频病例指标；批次报告可能形成连续零值与集中高峰。'
+  },
+  Influenza: {
+    term: '流感周新增住院入院人数',
+    definition: '来源数据按周汇总流感相关的新住院入院人数，反映住院负担；不等同于社区新增感染人数，也不是当前在院人数。',
+    latestHint: '周新增住院入院人数，不是流感感染总数。'
+  },
+  RSV: {
+    term: 'RSV 周新增住院入院人数',
+    definition: 'RSV 指呼吸道合胞病毒；本页指标是来源按周汇总的新住院入院人数，不等同于社区新增感染人数或当前在院人数。',
+    latestHint: '周新增 RSV 相关住院入院人数，不是感染总数。'
+  },
+  Tuberculosis: {
+    term: '结核病估计发病率（每10万人）',
+    definition: '表示某年估计新发和复发结核病例数除以人口后换算到每10万人，是年估计率而非病例人数；例如 2.6 表示约每10万人 2.6 例。',
+    latestHint: '年度估计率，不是病例总人数或实时报告数。'
+  },
+  'HIV/AIDS': {
+    term: '年度新增 HIV 感染数',
+    definition: '表示该年估计新发生的 HIV 感染，不等同于现存 HIV 感染者人数、HIV 患病率或 AIDS 诊断人数。',
+    latestHint: '年度估计新增感染，不是现存感染者总数。'
+  },
+  'COVID-19 Hospital Admissions': {
+    term: '新冠周新增住院入院人数',
+    definition: '来源数据按周汇总新冠相关的新住院入院人数，反映住院负担；不等同于新冠新增感染人数，也不是当前在院人数。',
+    latestHint: '周新增住院入院人数，不是新增感染或当前在院人数。'
+  }
+};
+
+const frequencyDescriptions = {
+  daily: '日频表示每个自然日一条观测',
+  weekly: '周频表示每个报告周一条汇总观测',
+  annual: '年频表示每个统计年度一条观测'
+};
+
 function modelDisplayName(model) {
   const names = {
     naive_last_value: '最近值基线',
@@ -21,7 +60,65 @@ function modelDisplayName(model) {
     local_sklearn_gbdt: 'GBDT',
     local_pytorch_lstm: 'LSTM'
   };
+  if (String(model || '').startsWith('local_pytorch_lstm')) return 'LSTM';
   return names[model] || model || '--';
+}
+
+function diseaseProfile(disease, metricLabel) {
+  return diseaseTerminology[disease] || {
+    term: metricLabel || '当前指标',
+    definition: '当前图表保留来源数据的原始统计口径，不同疾病指标不能直接按数值大小比较。',
+    latestHint: metricLabel || '当前指标'
+  };
+}
+
+function renderTerminology(overview, trend) {
+  const profile = diseaseProfile(overview.selected_disease, overview.selected_metric_label);
+  const frequencyName = { daily: '日频', weekly: '周频', annual: '年频' }[overview.selected_frequency] || '原生频率';
+  const frequencyDescription = frequencyDescriptions[overview.selected_frequency] || '按来源原生时间频率保留观测';
+  const rollingLabel = trend.rolling_label || overview.selected_rolling_label || '移动平均';
+  const horizonLabel = trend.forecast_horizon_label || '下一预测周期';
+  const latestDate = overview.latest_date || '--';
+  const selectedModel = modelDisplayName(trend.model);
+  const items = [
+    {
+      term: profile.term,
+      definition: profile.definition
+    },
+    {
+      term: `${frequencyName}与最新观测`,
+      definition: `${frequencyDescription}。“最新”指清洗后序列截至 ${latestDate} 的最后一条记录，不表示今天的实时值。`
+    },
+    {
+      term: `${rollingLabel}与${horizonLabel}`,
+      definition: `${rollingLabel}用于平滑已有观测，不是预测；${horizonLabel}由当前所选模型生成。图中参考上下界只是教学波动范围，不是统计置信区间或保证范围。`
+    },
+    {
+      term: `模型与误差（当前：${selectedModel}）`,
+      definition: '最近值和移动平均是基线，GBDT 是树模型，LSTM 是序列神经网络。最佳模型按同病种测试集 MAE 选择，MAE 越低越好；不同疾病单位不同，不可直接比较。'
+    }
+  ];
+  const list = document.getElementById('terminologyList');
+  const nodes = items.map(item => {
+    const container = document.createElement('div');
+    const term = document.createElement('strong');
+    const definition = document.createElement('span');
+    container.className = 'terminology-item';
+    term.textContent = item.term;
+    definition.textContent = item.definition;
+    container.append(term, definition);
+    return container;
+  });
+  list.replaceChildren(...nodes);
+  document.getElementById('terminologyScope').textContent = [
+    overview.selected_disease,
+    overview.selected_location,
+    frequencyName,
+    `数据截至 ${latestDate}`
+  ].filter(Boolean).join(' · ');
+  const disclaimer = overview.disclaimer || '课程教学与数据工程演示，不构成诊断、医疗建议或官方疫情风险等级。';
+  document.getElementById('terminologyDisclaimer').textContent = disclaimer;
+  document.getElementById('footerDisclaimer').textContent = disclaimer;
 }
 
 function initCharts() {
@@ -55,10 +152,10 @@ function fillSelect(id, items, valueKey, labelKey, preferredValue = null) {
 async function loadOptions() {
   state.options = await apiGet('/api/options');
   fillSelect('diseaseSelect', state.options.diseases || [], 'code', 'name', 'COVID-19');
-  applyDiseaseAvailability(true);
+  applyDiseaseAvailability(true, true);
 }
 
-function applyDiseaseAvailability(preferDefaultLocation = false) {
+function applyDiseaseAvailability(preferDefaultLocation = false, preferDefaultModel = false) {
   const disease = document.getElementById('diseaseSelect').value;
   const availability = state.options?.availability?.[disease] || {};
   const locationSelect = document.getElementById('locationSelect');
@@ -68,7 +165,10 @@ function applyDiseaseAvailability(preferDefaultLocation = false) {
   if (!locationSelect.value && locationSelect.options.length) locationSelect.selectedIndex = 0;
   const modelSelect = document.getElementById('modelSelect');
   const currentModel = modelSelect.value;
-  fillSelect('modelSelect', availability.models || state.options.models || [], 'code', 'name', currentModel);
+  const preferredModel = preferDefaultModel
+    ? availability.default_model
+    : ((availability.models || []).includes(currentModel) ? currentModel : availability.default_model);
+  fillSelect('modelSelect', availability.models || state.options.models || [], 'code', 'name', preferredModel);
   applySeriesDateRange();
 }
 
@@ -129,20 +229,35 @@ function renderKpis(overview, metrics, quality) {
   const metricLabel = overview.selected_metric_label || '日新增病例';
   const frequencyNames = { daily: '日频', weekly: '周频', annual: '年频' };
   const isCaseSeries = overview.selected_metric === 'new_cases';
+  const metricDigits = overview.selected_metric === 'incidence_per_100k' ? 1 : 0;
+  const profile = diseaseProfile(overview.selected_disease, metricLabel);
   document.getElementById('kpiCasesLabel').textContent = isCaseSeries ? '累计病例' : '最新观测值';
-  document.getElementById('kpiCases').textContent = fmtNumber(isCaseSeries ? overview.current_total_cases : overview.current_new_cases);
-  document.getElementById('kpiCasesHint').textContent = metricLabel;
+  document.getElementById('kpiCases').textContent = fmtNumber(
+    isCaseSeries ? overview.current_total_cases : overview.current_new_cases,
+    metricDigits
+  );
+  document.getElementById('kpiCasesHint').textContent = isCaseSeries
+    ? `来源截至 ${overview.latest_date || '--'} 的累计值，非实时值`
+    : profile.latestHint;
   document.getElementById('kpiNewCasesLabel').textContent = overview.selected_rolling_label || '当前指标';
-  document.getElementById('kpiNewCases').textContent = fmtNumber(overview.current_rolling_value ?? overview.current_new_cases);
-  document.getElementById('kpiNewCasesHint').textContent = `${frequencyNames[overview.selected_frequency] || '--'} · ${overview.latest_date || '--'}`;
+  document.getElementById('kpiNewCases').textContent = fmtNumber(
+    overview.current_rolling_value ?? overview.current_new_cases,
+    metricDigits
+  );
+  document.getElementById('kpiNewCasesHint').textContent = `${frequencyNames[overview.selected_frequency] || '--'} · ${overview.latest_date || '--'} · 平滑已有观测`;
   document.getElementById('kpiDeathsLabel').textContent = overview.current_total_deaths == null ? '数据频率' : '累计/年度死亡';
   document.getElementById('kpiDeaths').textContent = overview.current_total_deaths == null ? (frequencyNames[overview.selected_frequency] || '--') : fmtNumber(overview.current_total_deaths);
-  document.getElementById('kpiDeathsHint').textContent = overview.current_total_deaths == null ? (frequencyNames[overview.selected_frequency] || '--') : '同一来源辅助指标';
+  document.getElementById('kpiDeathsHint').textContent = overview.current_total_deaths == null
+    ? '当前序列的原生时间频率'
+    : `${overview.selected_frequency === 'daily' ? '来源累计' : '同年度'}死亡辅助指标，不是当前预测目标`;
   document.getElementById('kpiHighRisk').textContent = fmtNumber(overview.high_risk_regions);
+  document.getElementById('kpiHighRiskHint').textContent = '0-100 课程合成分，非官方预警等级';
   const bestModelText = `${modelDisplayName(overview.best_model)} / ${fmtNumber(metrics.mae, 2)}`;
   document.getElementById('kpiBestModel').textContent = bestModelText;
   document.getElementById('kpiBestModel').title = `${overview.best_model || '--'} / MAE ${fmtNumber(metrics.mae, 2)}`;
+  document.getElementById('kpiBestModelHint').textContent = '同病种测试集 MAE，越低越好';
   document.getElementById('kpiQuality').textContent = fmtPercent(overview.data_completeness ?? 0);
+  document.getElementById('kpiQualityHint').textContent = '流水线关键字段完整率，不代表所有可选字段';
   if (quality?.warnings?.length) setMessage(quality.warnings[0]);
 }
 
@@ -179,10 +294,21 @@ function renderSources(sourceStatus) {
 
 function setCharts({ trend, risk, rankings, weather, metrics, quality, share, predictions }) {
   if (!window.echarts) return;
-  document.getElementById('trendPanelTitle').textContent = `${trend.metric_label || '指标'}与${trend.forecast_horizon_label || '预测'}`;
+  const reportingSuffix = trend.reporting_profile?.sparse_reporting ? '（日期连续，批次报告）' : '';
+  const trendPanelTitle = document.getElementById('trendPanelTitle');
+  trendPanelTitle.textContent = `${trend.metric_label || '指标'}与${trend.forecast_horizon_label || '预测'}${reportingSuffix}`;
+  trendPanelTitle.title = [trend.source, trend.reporting_profile?.note].filter(Boolean).join('；');
+  document.getElementById('trendPanelNote').textContent = trend.reporting_profile?.note
+    || '观测值和移动平均来自历史数据，虚线为所选模型对下一目标周期的预测。';
   document.getElementById('averagePanelTitle').textContent = trend.rolling_label || '移动平均';
+  document.getElementById('averagePanelNote').textContent = `${trend.rolling_label || '移动平均'}仅用于平滑已有观测，不是新增数据或未来预测。`;
   document.getElementById('weatherPanelTitle').textContent = `温湿度与${trend.metric_label || '指标'}关联`;
+  document.getElementById('weatherPanelNote').textContent = weather.fallback_used
+    ? '所选窗口无同期天气，图中已回退到可匹配期；r 表示线性相关，相关不代表因果。'
+    : 'r 为皮尔逊线性相关系数，n 为匹配样本数；相关不代表因果。';
   document.getElementById('growthPanelTitle').textContent = `${trend.metric_label || '指标'}增长率`;
+  const periodName = { daily: '日', weekly: '周', annual: '年' }[trend.frequency] || '原生周期';
+  document.getElementById('growthPanelNote').textContent = `按相邻${periodName}度观测计算变化率；不同频率之间不能直接比较。`;
   charts.trendChart.setOption(lineTrendOption(trend), true);
   charts.riskMapChart.setOption(riskMapOption(risk), true);
   charts.avgChart.setOption(avgOption(trend), true);
@@ -193,6 +319,9 @@ function setCharts({ trend, risk, rankings, weather, metrics, quality, share, pr
   charts.growthChart.setOption(growthOption(trend), true);
   charts.shareChart.setOption(shareOption(share), true);
   charts.errorChart.setOption(errorOption(predictions), true);
+  window.requestAnimationFrame(() => {
+    Object.values(charts).forEach(chart => chart.resize());
+  });
 }
 
 async function refreshDashboard() {
@@ -207,13 +336,14 @@ async function refreshDashboard() {
       apiGet('/api/risk-map', params),
       apiGet('/api/rankings', params),
       loadWeatherCorrelation(params),
-      apiGet('/api/model-metrics'),
+      apiGet('/api/model-metrics', { disease: params.disease }),
       apiGet('/api/data-quality'),
       apiGet('/api/disease-share'),
       apiGet('/api/predictions', params),
       apiGet('/api/source-status')
     ]);
     renderKpis(overview, metrics, quality);
+    renderTerminology(overview, trend);
     renderSources(sources);
     setCharts({ trend, risk, rankings, weather, metrics, quality, share, predictions });
     if (!quality?.warnings?.length) setMessage('');
@@ -231,7 +361,7 @@ async function bootstrap() {
   await loadOptions();
   await refreshDashboard();
   document.getElementById('diseaseSelect').addEventListener('change', async () => {
-    applyDiseaseAvailability(false);
+    applyDiseaseAvailability(false, true);
     await refreshDashboard();
   });
   document.getElementById('locationSelect').addEventListener('change', async () => {

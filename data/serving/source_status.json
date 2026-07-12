@@ -4,49 +4,49 @@
     {
       "name": "OWID COVID-19 daily (primary)",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 21920,
       "detail": "COVID 日频主表，已完成字段、日期和国家代码标准化。"
     },
     {
       "name": "Kaggle COVID-19 (cross-check)",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 4879,
       "detail": "仅用于与 OWID 交叉核验，避免重复叠加病例。"
     },
     {
       "name": "Kaggle Tuberculosis annual indicators",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 230,
       "detail": "结核病年发病率及辅助指标，保留原统计口径。"
     },
     {
       "name": "US weekly respiratory hospital metrics",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 507,
       "detail": "美国全国周频住院指标，未重复汇总州级行。"
     },
     {
       "name": "Open-Meteo same-period daily weather",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
-      "rows": 5142,
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 8600,
       "detail": "与疫情同期的代表城市日频天气。"
     },
     {
       "name": "World Bank + Kaggle population",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 560,
       "detail": "按 ISO3 和年份合并，缺年仅在相邻已知年份之间插值。"
     },
     {
       "name": "China CDC cleaned report index",
       "status": "info",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 27,
       "raw_rows": 27,
       "detail": "网页索引、周次、附件完整性及高置信摘要字段已清洗；原 HTML/PDF 保留，复杂表格暂不作为模型标签。"
@@ -54,32 +54,67 @@
     {
       "name": "WHO GHO indicators and HIV annual series",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 117492,
       "raw_rows": 122169,
-      "detail": "105 个本地 CSV 已清洗（24 个接口返回空表）；HIV 年度主序列 96 行，WHO 结核病指标作为辅助字段。"
+      "detail": "105 个 CSV、80 个指标；合并 4677 条跨主题完全重复副本，冲突 0 组；HIV 主序列 96 行，结核病辅助指标 18 个。"
     },
     {
       "name": "Kaggle 2012-2017 historical weather",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
-      "rows": 6,
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 1887,
       "raw_rows": 45253,
-      "detail": "小时数据已聚合为美国 2012-2017 年天气，用于同年结核病探索性关联，不与 COVID 强行拼接。"
+      "detail": "27 个美国城市的小时观测聚合为 1,887 条国家日记录；另派生 6 条年度记录，仅用于同年结核病探索性关联，不与 COVID 强行拼接。"
     },
     {
       "name": "Local sklearn GBDT model",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 21750,
-      "detail": "模型已训练并导出预测结果。"
+      "detail": "COVID 日频特征已训练；train/validation/test=15,220/3,260/3,270，输入特征=28 个。"
     },
     {
-      "name": "Local PyTorch LSTM model",
+      "name": "COVID-19 PyTorch LSTM (daily)",
       "status": "ok",
-      "updated_at": "2026-07-11T03:54:02.238144+00:00",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
       "rows": 21550,
-      "detail": "模型已训练并导出预测结果。"
+      "detail": "COVID-19 独立 daily 窗口；train/validation/test=15,080/3,230/3,240，轮次=40/40，窗口=28。"
+    },
+    {
+      "name": "Influenza PyTorch LSTM (weekly)",
+      "status": "ok",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 212,
+      "detail": "Influenza 独立 weekly 窗口；train/validation/test=148/32/32，轮次=40/40，窗口=12。"
+    },
+    {
+      "name": "RSV PyTorch LSTM (weekly)",
+      "status": "ok",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 51,
+      "detail": "RSV 独立 weekly 窗口；train/validation/test=35/8/8，轮次=40/40，窗口=8。"
+    },
+    {
+      "name": "Tuberculosis PyTorch LSTM (annual)",
+      "status": "ok",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 180,
+      "detail": "Tuberculosis 独立 annual 窗口；train/validation/test=120/30/30，轮次=40/40，窗口=5。"
+    },
+    {
+      "name": "HIV/AIDS PyTorch LSTM (annual)",
+      "status": "ok",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 80,
+      "detail": "HIV/AIDS 独立 annual 窗口；train/validation/test=50/14/16，轮次=40/40，窗口=3。"
+    },
+    {
+      "name": "COVID-19 Hospital Admissions PyTorch LSTM (weekly)",
+      "status": "ok",
+      "updated_at": "2026-07-12T08:42:53.522817+00:00",
+      "rows": 212,
+      "detail": "COVID-19 Hospital Admissions 独立 weekly 窗口；train/validation/test=148/32/32，轮次=40/40，窗口=12。"
     }
   ]
 }

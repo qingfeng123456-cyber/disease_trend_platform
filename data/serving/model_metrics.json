@@ -1,12 +1,12 @@
 {
   "model": "naive_last_value",
   "data_mode": "real_local_multi_source",
-  "mae": 24.532504,
-  "rmse": 98.925756,
-  "r2": 0.934833,
-  "mape": 0.481492,
-  "smape": 0.239651,
-  "scope": "COVID-19 daily t+7 test partition",
+  "mae": 24.435626,
+  "rmse": 98.846461,
+  "r2": 0.932236,
+  "mape": 0.483649,
+  "smape": 0.239915,
+  "scope": "COVID-19 daily test partition",
   "note": "Selected by lowest test MAE among the trained models and baselines.",
   "best_model": "naive_last_value",
   "models": {
@@ -23,11 +23,11 @@
       "train_rows": 15220,
       "validation_rows": 3260,
       "test_rows": 3270,
-      "mae": 595.83942,
-      "rmse": 6696.049729,
-      "r2": -297.571457,
-      "mape": 1514.345632,
-      "smape": 1.554152,
+      "mae": 617.741717,
+      "rmse": 7043.494365,
+      "r2": -329.359872,
+      "mape": 1522.645646,
+      "smape": 1.543422,
       "baseline_mae": 24.532504,
       "beats_baseline": false,
       "feature_list": [
@@ -66,38 +66,818 @@
     },
     "local_pytorch_lstm": {
       "model": "local_pytorch_lstm",
+      "disease": "COVID-19",
+      "frequency": "daily",
       "status": "trained",
       "framework": "PyTorch",
       "device": "cuda",
       "forecast_horizon": 7,
+      "forecast_horizon_unit": "day",
       "window": 28,
       "hidden_size": 32,
-      "epochs_requested": 20,
-      "epochs_trained": 10,
+      "epochs_requested": 40,
+      "epochs_trained": 40,
+      "patience": 0,
+      "early_stopping_enabled": false,
+      "early_stopped": false,
+      "best_epoch": 2,
+      "best_validation_loss": 0.01699471,
+      "best_validation_mae": 31.75844574,
+      "model_selection_metric": "validation_mae_original_scale",
+      "training_loss": "SmoothL1Loss on standardized log1p target",
       "batch_size": 128,
-      "train_start": "2020-01-04",
-      "train_end": "2024-03-09",
-      "validation_end": "2025-01-30",
+      "train_batches_per_epoch": 118,
+      "parameter_count": 5737,
+      "total_windows": 21620,
+      "calendar_rows_inserted": 0,
+      "input_values_imputed": 0,
+      "windows_skipped_nonfinite": 0,
+      "location_count": 10,
+      "location_codes": [
+        "AUS",
+        "BRA",
+        "CHN",
+        "DEU",
+        "FRA",
+        "GBR",
+        "IND",
+        "JPN",
+        "KOR",
+        "USA"
+      ],
+      "training_seconds": 16.254,
+      "input_features": [
+        "previous 28 daily new_cases_smoothed values",
+        "location embedding"
+      ],
+      "target_column": "new_cases_smoothed",
+      "uses_external_covariates": false,
+      "train_start": "2020-01-31",
+      "train_end": "2024-03-17",
+      "validation_end": "2025-02-03",
       "test_end": "2025-12-24",
-      "train_rows": 15000,
-      "validation_rows": 3270,
-      "test_rows": 3280,
-      "mae": 27.010495,
-      "rmse": 109.92026,
-      "r2": 0.920584,
-      "mape": 0.494898,
-      "smape": 1.054456,
-      "baseline_mae": 24.563458,
+      "train_rows": 15080,
+      "validation_rows": 3230,
+      "test_rows": 3240,
+      "mae": 30.25277,
+      "rmse": 116.383204,
+      "r2": 0.906058,
+      "mape": 0.489396,
+      "smape": 0.659872,
+      "baseline_metrics": {
+        "naive_last_value": {
+          "mae": 24.435626,
+          "rmse": 98.846461,
+          "r2": 0.932236,
+          "mape": 0.483649,
+          "smape": 0.239915
+        },
+        "moving_average": {
+          "mae": 30.789455,
+          "rmse": 127.139849,
+          "r2": 0.88789,
+          "mape": 0.482775,
+          "smape": 0.247932
+        }
+      },
+      "best_baseline": "naive_last_value",
+      "baseline_mae": 24.435626,
       "beats_baseline": false,
       "model_path": "D:/大学学习/计算机专业课/专业实习/程序/disease_trend_platform_starter/disease_trend_platform/data/models/local/local_pytorch_lstm.pt",
-      "scope": "COVID-19 daily smoothed cases only",
-      "note": "Past-window LSTM with location embedding; chronological split; no random split leakage."
+      "scope": "COVID-19 daily new_cases_smoothed target only",
+      "note": "Disease-specific native-frequency LSTM with location embedding and chronological split. Only bounded input gaps may be interpolated; future targets must be observed. The best checkpoint is selected by validation MAE on the original target scale."
+    },
+    "local_pytorch_lstm_influenza": {
+      "model": "local_pytorch_lstm_influenza",
+      "disease": "Influenza",
+      "frequency": "weekly",
+      "status": "trained",
+      "framework": "PyTorch",
+      "device": "cuda",
+      "forecast_horizon": 1,
+      "forecast_horizon_unit": "week",
+      "window": 12,
+      "hidden_size": 16,
+      "epochs_requested": 40,
+      "epochs_trained": 40,
+      "patience": 0,
+      "early_stopping_enabled": false,
+      "early_stopped": false,
+      "best_epoch": 40,
+      "best_validation_loss": 0.01850446,
+      "best_validation_mae": 2215.18798828,
+      "model_selection_metric": "validation_mae_original_scale",
+      "training_loss": "SmoothL1Loss on standardized log1p target",
+      "batch_size": 32,
+      "train_batches_per_epoch": 5,
+      "parameter_count": 1539,
+      "total_windows": 213,
+      "calendar_rows_inserted": 0,
+      "input_values_imputed": 0,
+      "windows_skipped_nonfinite": 0,
+      "location_count": 1,
+      "location_codes": [
+        "USA"
+      ],
+      "training_seconds": 0.521,
+      "input_features": [
+        "previous 12 weekly value values",
+        "location embedding"
+      ],
+      "target_column": "value",
+      "uses_external_covariates": false,
+      "train_start": "2020-10-24",
+      "train_end": "2023-08-23",
+      "validation_end": "2024-04-01",
+      "test_end": "2024-11-09",
+      "train_rows": 148,
+      "validation_rows": 32,
+      "test_rows": 32,
+      "mae": 284.251605,
+      "rmse": 483.060217,
+      "r2": 0.756611,
+      "mape": 0.309729,
+      "smape": 0.302621,
+      "baseline_metrics": {
+        "naive_last_value": {
+          "mae": 244.84375,
+          "rmse": 420.256506,
+          "r2": 0.815784,
+          "mape": 0.210261,
+          "smape": 0.208673
+        },
+        "moving_average": {
+          "mae": 587.039062,
+          "rmse": 964.141811,
+          "r2": 0.030427,
+          "mape": 0.490405,
+          "smape": 0.40545
+        }
+      },
+      "best_baseline": "naive_last_value",
+      "baseline_mae": 244.84375,
+      "beats_baseline": false,
+      "model_path": "D:/大学学习/计算机专业课/专业实习/程序/disease_trend_platform_starter/disease_trend_platform/data/models/local/local_pytorch_lstm_influenza.pt",
+      "scope": "Influenza weekly value target only",
+      "note": "Disease-specific native-frequency LSTM with location embedding and chronological split. Only bounded input gaps may be interpolated; future targets must be observed. The best checkpoint is selected by validation MAE on the original target scale."
+    },
+    "local_pytorch_lstm_rsv": {
+      "model": "local_pytorch_lstm_rsv",
+      "disease": "RSV",
+      "frequency": "weekly",
+      "status": "trained",
+      "framework": "PyTorch",
+      "device": "cuda",
+      "forecast_horizon": 1,
+      "forecast_horizon_unit": "week",
+      "window": 8,
+      "hidden_size": 12,
+      "epochs_requested": 40,
+      "epochs_trained": 40,
+      "patience": 0,
+      "early_stopping_enabled": false,
+      "early_stopped": false,
+      "best_epoch": 40,
+      "best_validation_loss": 0.5864377,
+      "best_validation_mae": 24.43969727,
+      "model_selection_metric": "validation_mae_original_scale",
+      "training_loss": "SmoothL1Loss on standardized log1p target",
+      "batch_size": 16,
+      "train_batches_per_epoch": 3,
+      "parameter_count": 915,
+      "total_windows": 52,
+      "calendar_rows_inserted": 0,
+      "input_values_imputed": 0,
+      "windows_skipped_nonfinite": 0,
+      "location_count": 1,
+      "location_codes": [
+        "USA"
+      ],
+      "training_seconds": 0.332,
+      "input_features": [
+        "previous 8 weekly value values",
+        "location embedding"
+      ],
+      "target_column": "value",
+      "uses_external_covariates": false,
+      "train_start": "2023-11-25",
+      "train_end": "2024-07-26",
+      "validation_end": "2024-09-17",
+      "test_end": "2024-11-09",
+      "train_rows": 35,
+      "validation_rows": 8,
+      "test_rows": 8,
+      "mae": 908.634577,
+      "rmse": 1440.586185,
+      "r2": -0.573392,
+      "mape": 4.819644,
+      "smape": 1.654062,
+      "baseline_metrics": {
+        "naive_last_value": {
+          "mae": 398.75,
+          "rmse": 633.872621,
+          "r2": 0.695377,
+          "mape": 0.997958,
+          "smape": 0.939526
+        },
+        "moving_average": {
+          "mae": 707.3125,
+          "rmse": 1088.704864,
+          "r2": 0.101374,
+          "mape": 1.415398,
+          "smape": 1.249027
+        }
+      },
+      "best_baseline": "naive_last_value",
+      "baseline_mae": 398.75,
+      "beats_baseline": false,
+      "model_path": "D:/大学学习/计算机专业课/专业实习/程序/disease_trend_platform_starter/disease_trend_platform/data/models/local/local_pytorch_lstm_rsv.pt",
+      "scope": "RSV weekly value target only",
+      "note": "Disease-specific native-frequency LSTM with location embedding and chronological split. Only bounded input gaps may be interpolated; future targets must be observed. The best checkpoint is selected by validation MAE on the original target scale."
+    },
+    "local_pytorch_lstm_tuberculosis": {
+      "model": "local_pytorch_lstm_tuberculosis",
+      "disease": "Tuberculosis",
+      "frequency": "annual",
+      "status": "trained",
+      "framework": "PyTorch",
+      "device": "cuda",
+      "forecast_horizon": 1,
+      "forecast_horizon_unit": "year",
+      "window": 5,
+      "hidden_size": 12,
+      "epochs_requested": 40,
+      "epochs_trained": 40,
+      "patience": 0,
+      "early_stopping_enabled": false,
+      "early_stopped": false,
+      "best_epoch": 27,
+      "best_validation_loss": 0.01396704,
+      "best_validation_mae": 5.46855879,
+      "model_selection_metric": "validation_mae_original_scale",
+      "training_loss": "SmoothL1Loss on standardized log1p target",
+      "batch_size": 32,
+      "train_batches_per_epoch": 4,
+      "parameter_count": 977,
+      "total_windows": 190,
+      "calendar_rows_inserted": 0,
+      "input_values_imputed": 0,
+      "windows_skipped_nonfinite": 0,
+      "location_count": 10,
+      "location_codes": [
+        "AUS",
+        "BRA",
+        "CHN",
+        "DEU",
+        "FRA",
+        "GBR",
+        "IND",
+        "JPN",
+        "KOR",
+        "USA"
+      ],
+      "training_seconds": 0.525,
+      "input_features": [
+        "previous 5 annual value values",
+        "location embedding"
+      ],
+      "target_column": "value",
+      "uses_external_covariates": false,
+      "train_start": "2004-12-31",
+      "train_end": "2016-11-24",
+      "validation_end": "2019-06-13",
+      "test_end": "2021-12-31",
+      "train_rows": 120,
+      "validation_rows": 30,
+      "test_rows": 30,
+      "mae": 4.64553,
+      "rmse": 7.615108,
+      "r2": 0.981979,
+      "mape": 0.25526,
+      "smape": 0.20641,
+      "baseline_metrics": {
+        "naive_last_value": {
+          "mae": 1.633333,
+          "rmse": 2.668083,
+          "r2": 0.997788,
+          "mape": 0.082935,
+          "smape": 0.079034
+        },
+        "moving_average": {
+          "mae": 2.95,
+          "rmse": 5.039904,
+          "r2": 0.992106,
+          "mape": 0.127172,
+          "smape": 0.115744
+        }
+      },
+      "best_baseline": "naive_last_value",
+      "baseline_mae": 1.633333,
+      "beats_baseline": false,
+      "model_path": "D:/大学学习/计算机专业课/专业实习/程序/disease_trend_platform_starter/disease_trend_platform/data/models/local/local_pytorch_lstm_tuberculosis.pt",
+      "scope": "Tuberculosis annual value target only",
+      "note": "Disease-specific native-frequency LSTM with location embedding and chronological split. Only bounded input gaps may be interpolated; future targets must be observed. The best checkpoint is selected by validation MAE on the original target scale."
+    },
+    "local_pytorch_lstm_hiv": {
+      "model": "local_pytorch_lstm_hiv",
+      "disease": "HIV/AIDS",
+      "frequency": "annual",
+      "status": "trained",
+      "framework": "PyTorch",
+      "device": "cuda",
+      "forecast_horizon": 1,
+      "forecast_horizon_unit": "year",
+      "window": 3,
+      "hidden_size": 12,
+      "epochs_requested": 40,
+      "epochs_trained": 40,
+      "patience": 0,
+      "early_stopping_enabled": false,
+      "early_stopped": false,
+      "best_epoch": 39,
+      "best_validation_loss": 0.14799801,
+      "best_validation_mae": 4633.76464844,
+      "model_selection_metric": "validation_mae_original_scale",
+      "training_loss": "SmoothL1Loss on standardized log1p target",
+      "batch_size": 16,
+      "train_batches_per_epoch": 4,
+      "parameter_count": 943,
+      "total_windows": 85,
+      "calendar_rows_inserted": 0,
+      "input_values_imputed": 0,
+      "windows_skipped_nonfinite": 0,
+      "location_count": 6,
+      "location_codes": [
+        "AUS",
+        "BRA",
+        "DEU",
+        "FRA",
+        "GBR",
+        "IND"
+      ],
+      "training_seconds": 0.524,
+      "input_features": [
+        "previous 3 annual value values",
+        "location embedding"
+      ],
+      "target_column": "value",
+      "uses_external_covariates": false,
+      "train_start": "2002-12-31",
+      "train_end": "2017-09-12",
+      "validation_end": "2020-11-05",
+      "test_end": "2023-12-31",
+      "train_rows": 50,
+      "validation_rows": 14,
+      "test_rows": 16,
+      "mae": 3348.744751,
+      "rmse": 4426.985264,
+      "r2": 0.968767,
+      "mape": 1.173469,
+      "smape": 0.580274,
+      "baseline_metrics": {
+        "naive_last_value": {
+          "mae": 785.0,
+          "rmse": 1442.931045,
+          "r2": 0.996682,
+          "mape": 0.067938,
+          "smape": 0.06702
+        },
+        "moving_average": {
+          "mae": 1435.624756,
+          "rmse": 2579.370858,
+          "r2": 0.989397,
+          "mape": 0.132643,
+          "smape": 0.125948
+        }
+      },
+      "best_baseline": "naive_last_value",
+      "baseline_mae": 785.0,
+      "beats_baseline": false,
+      "model_path": "D:/大学学习/计算机专业课/专业实习/程序/disease_trend_platform_starter/disease_trend_platform/data/models/local/local_pytorch_lstm_hiv.pt",
+      "scope": "HIV/AIDS annual value target only",
+      "note": "Disease-specific native-frequency LSTM with location embedding and chronological split. Only bounded input gaps may be interpolated; future targets must be observed. The best checkpoint is selected by validation MAE on the original target scale."
+    },
+    "local_pytorch_lstm_hospital": {
+      "model": "local_pytorch_lstm_hospital",
+      "disease": "COVID-19 Hospital Admissions",
+      "frequency": "weekly",
+      "status": "trained",
+      "framework": "PyTorch",
+      "device": "cuda",
+      "forecast_horizon": 1,
+      "forecast_horizon_unit": "week",
+      "window": 12,
+      "hidden_size": 16,
+      "epochs_requested": 40,
+      "epochs_trained": 40,
+      "patience": 0,
+      "early_stopping_enabled": false,
+      "early_stopped": false,
+      "best_epoch": 38,
+      "best_validation_loss": 0.02072188,
+      "best_validation_mae": 2585.70947266,
+      "model_selection_metric": "validation_mae_original_scale",
+      "training_loss": "SmoothL1Loss on standardized log1p target",
+      "batch_size": 32,
+      "train_batches_per_epoch": 5,
+      "parameter_count": 1539,
+      "total_windows": 213,
+      "calendar_rows_inserted": 0,
+      "input_values_imputed": 0,
+      "windows_skipped_nonfinite": 0,
+      "location_count": 1,
+      "location_codes": [
+        "USA"
+      ],
+      "training_seconds": 0.682,
+      "input_features": [
+        "previous 12 weekly value values",
+        "location embedding"
+      ],
+      "target_column": "value",
+      "uses_external_covariates": false,
+      "train_start": "2020-10-24",
+      "train_end": "2023-08-23",
+      "validation_end": "2024-04-01",
+      "test_end": "2024-11-09",
+      "train_rows": 148,
+      "validation_rows": 32,
+      "test_rows": 32,
+      "mae": 3470.590958,
+      "rmse": 3821.994516,
+      "r2": -2.2599,
+      "mape": 1.021719,
+      "smape": 0.569856,
+      "baseline_metrics": {
+        "naive_last_value": {
+          "mae": 746.15625,
+          "rmse": 1014.48372,
+          "r2": 0.770325,
+          "mape": 0.184684,
+          "smape": 0.169075
+        },
+        "moving_average": {
+          "mae": 1697.953125,
+          "rmse": 2025.253618,
+          "r2": 0.084659,
+          "mape": 0.42747,
+          "smape": 0.356618
+        }
+      },
+      "best_baseline": "naive_last_value",
+      "baseline_mae": 746.15625,
+      "beats_baseline": false,
+      "model_path": "D:/大学学习/计算机专业课/专业实习/程序/disease_trend_platform_starter/disease_trend_platform/data/models/local/local_pytorch_lstm_hospital.pt",
+      "scope": "COVID-19 Hospital Admissions weekly value target only",
+      "note": "Disease-specific native-frequency LSTM with location embedding and chronological split. Only bounded input gaps may be interpolated; future targets must be observed. The best checkpoint is selected by validation MAE on the original target scale."
     }
   },
   "available_models": [
     "naive_last_value",
     "moving_average",
     "local_sklearn_gbdt",
-    "local_pytorch_lstm"
-  ]
+    "local_pytorch_lstm",
+    "local_pytorch_lstm_influenza",
+    "local_pytorch_lstm_rsv",
+    "local_pytorch_lstm_tuberculosis",
+    "local_pytorch_lstm_hiv",
+    "local_pytorch_lstm_hospital"
+  ],
+  "models_by_disease": {
+    "COVID-19": [
+      "naive_last_value",
+      "moving_average",
+      "local_sklearn_gbdt",
+      "local_pytorch_lstm"
+    ],
+    "Influenza": [
+      "naive_last_value",
+      "moving_average",
+      "local_pytorch_lstm_influenza"
+    ],
+    "RSV": [
+      "naive_last_value",
+      "moving_average",
+      "local_pytorch_lstm_rsv"
+    ],
+    "Tuberculosis": [
+      "naive_last_value",
+      "moving_average",
+      "local_pytorch_lstm_tuberculosis"
+    ],
+    "HIV/AIDS": [
+      "naive_last_value",
+      "moving_average",
+      "local_pytorch_lstm_hiv"
+    ],
+    "COVID-19 Hospital Admissions": [
+      "naive_last_value",
+      "moving_average",
+      "local_pytorch_lstm_hospital"
+    ]
+  },
+  "by_disease": {
+    "COVID-19": {
+      "disease": "COVID-19",
+      "frequency": "daily",
+      "model": "naive_last_value",
+      "best_model": "naive_last_value",
+      "mae": 24.435626,
+      "rmse": 98.846461,
+      "r2": 0.932236,
+      "mape": 0.483649,
+      "smape": 0.239915,
+      "available_models": [
+        "naive_last_value",
+        "moving_average",
+        "local_sklearn_gbdt",
+        "local_pytorch_lstm"
+      ],
+      "comparison": {
+        "data_mode": "real_local_multi_source",
+        "best_model": "naive_last_value",
+        "items": [
+          {
+            "model": "naive_last_value",
+            "mae": 24.435626,
+            "rmse": 98.846461,
+            "r2": 0.932236,
+            "mape": 0.483649,
+            "smape": 0.239915
+          },
+          {
+            "model": "moving_average",
+            "mae": 30.789455,
+            "rmse": 127.139849,
+            "r2": 0.88789,
+            "mape": 0.482775,
+            "smape": 0.247932
+          },
+          {
+            "model": "local_sklearn_gbdt",
+            "mae": 617.741717,
+            "rmse": 7043.494365,
+            "r2": -329.359872,
+            "mape": 1522.645646,
+            "smape": 1.543422
+          },
+          {
+            "model": "local_pytorch_lstm",
+            "mae": 30.25277,
+            "rmse": 116.383204,
+            "r2": 0.906058,
+            "mape": 0.489396,
+            "smape": 0.659872
+          }
+        ],
+        "disease": "COVID-19",
+        "frequency": "daily"
+      }
+    },
+    "Influenza": {
+      "disease": "Influenza",
+      "frequency": "weekly",
+      "model": "naive_last_value",
+      "best_model": "naive_last_value",
+      "mae": 244.84375,
+      "rmse": 420.256506,
+      "r2": 0.815784,
+      "mape": 0.210261,
+      "smape": 0.208673,
+      "available_models": [
+        "naive_last_value",
+        "moving_average",
+        "local_pytorch_lstm_influenza"
+      ],
+      "comparison": {
+        "data_mode": "real_local_multi_source",
+        "disease": "Influenza",
+        "frequency": "weekly",
+        "best_model": "naive_last_value",
+        "test_rows": 34,
+        "items": [
+          {
+            "model": "naive_last_value",
+            "mae": 244.84375,
+            "rmse": 420.256506,
+            "r2": 0.815784,
+            "mape": 0.210261,
+            "smape": 0.208673
+          },
+          {
+            "model": "moving_average",
+            "mae": 587.039062,
+            "rmse": 964.141811,
+            "r2": 0.030427,
+            "mape": 0.490405,
+            "smape": 0.40545
+          },
+          {
+            "model": "local_pytorch_lstm_influenza",
+            "mae": 284.251605,
+            "rmse": 483.060217,
+            "r2": 0.756611,
+            "mape": 0.309729,
+            "smape": 0.302621
+          }
+        ]
+      }
+    },
+    "RSV": {
+      "disease": "RSV",
+      "frequency": "weekly",
+      "model": "naive_last_value",
+      "best_model": "naive_last_value",
+      "mae": 398.75,
+      "rmse": 633.872621,
+      "r2": 0.695377,
+      "mape": 0.997958,
+      "smape": 0.939526,
+      "available_models": [
+        "naive_last_value",
+        "moving_average",
+        "local_pytorch_lstm_rsv"
+      ],
+      "comparison": {
+        "data_mode": "real_local_multi_source",
+        "disease": "RSV",
+        "frequency": "weekly",
+        "best_model": "naive_last_value",
+        "test_rows": 9,
+        "items": [
+          {
+            "model": "naive_last_value",
+            "mae": 398.75,
+            "rmse": 633.872621,
+            "r2": 0.695377,
+            "mape": 0.997958,
+            "smape": 0.939526
+          },
+          {
+            "model": "moving_average",
+            "mae": 707.3125,
+            "rmse": 1088.704864,
+            "r2": 0.101374,
+            "mape": 1.415398,
+            "smape": 1.249027
+          },
+          {
+            "model": "local_pytorch_lstm_rsv",
+            "mae": 908.634577,
+            "rmse": 1440.586185,
+            "r2": -0.573392,
+            "mape": 4.819644,
+            "smape": 1.654062
+          }
+        ]
+      }
+    },
+    "Tuberculosis": {
+      "disease": "Tuberculosis",
+      "frequency": "annual",
+      "model": "naive_last_value",
+      "best_model": "naive_last_value",
+      "mae": 1.633333,
+      "rmse": 2.668083,
+      "r2": 0.997788,
+      "mape": 0.082935,
+      "smape": 0.079034,
+      "available_models": [
+        "naive_last_value",
+        "moving_average",
+        "local_pytorch_lstm_tuberculosis"
+      ],
+      "comparison": {
+        "data_mode": "real_local_multi_source",
+        "disease": "Tuberculosis",
+        "frequency": "annual",
+        "best_model": "naive_last_value",
+        "test_rows": 40,
+        "items": [
+          {
+            "model": "naive_last_value",
+            "mae": 1.633333,
+            "rmse": 2.668083,
+            "r2": 0.997788,
+            "mape": 0.082935,
+            "smape": 0.079034
+          },
+          {
+            "model": "moving_average",
+            "mae": 2.95,
+            "rmse": 5.039904,
+            "r2": 0.992106,
+            "mape": 0.127172,
+            "smape": 0.115744
+          },
+          {
+            "model": "local_pytorch_lstm_tuberculosis",
+            "mae": 4.64553,
+            "rmse": 7.615108,
+            "r2": 0.981979,
+            "mape": 0.25526,
+            "smape": 0.20641
+          }
+        ]
+      }
+    },
+    "HIV/AIDS": {
+      "disease": "HIV/AIDS",
+      "frequency": "annual",
+      "model": "naive_last_value",
+      "best_model": "naive_last_value",
+      "mae": 785.0,
+      "rmse": 1442.931045,
+      "r2": 0.996682,
+      "mape": 0.067938,
+      "smape": 0.06702,
+      "available_models": [
+        "naive_last_value",
+        "moving_average",
+        "local_pytorch_lstm_hiv"
+      ],
+      "comparison": {
+        "data_mode": "real_local_multi_source",
+        "disease": "HIV/AIDS",
+        "frequency": "annual",
+        "best_model": "naive_last_value",
+        "test_rows": 16,
+        "items": [
+          {
+            "model": "naive_last_value",
+            "mae": 785.0,
+            "rmse": 1442.931045,
+            "r2": 0.996682,
+            "mape": 0.067938,
+            "smape": 0.06702
+          },
+          {
+            "model": "moving_average",
+            "mae": 1435.624756,
+            "rmse": 2579.370858,
+            "r2": 0.989397,
+            "mape": 0.132643,
+            "smape": 0.125948
+          },
+          {
+            "model": "local_pytorch_lstm_hiv",
+            "mae": 3348.744751,
+            "rmse": 4426.985264,
+            "r2": 0.968767,
+            "mape": 1.173469,
+            "smape": 0.580274
+          }
+        ]
+      }
+    },
+    "COVID-19 Hospital Admissions": {
+      "disease": "COVID-19 Hospital Admissions",
+      "frequency": "weekly",
+      "model": "naive_last_value",
+      "best_model": "naive_last_value",
+      "mae": 746.15625,
+      "rmse": 1014.48372,
+      "r2": 0.770325,
+      "mape": 0.184684,
+      "smape": 0.169075,
+      "available_models": [
+        "naive_last_value",
+        "moving_average",
+        "local_pytorch_lstm_hospital"
+      ],
+      "comparison": {
+        "data_mode": "real_local_multi_source",
+        "disease": "COVID-19 Hospital Admissions",
+        "frequency": "weekly",
+        "best_model": "naive_last_value",
+        "test_rows": 34,
+        "items": [
+          {
+            "model": "naive_last_value",
+            "mae": 746.15625,
+            "rmse": 1014.48372,
+            "r2": 0.770325,
+            "mape": 0.184684,
+            "smape": 0.169075
+          },
+          {
+            "model": "moving_average",
+            "mae": 1697.953125,
+            "rmse": 2025.253618,
+            "r2": 0.084659,
+            "mape": 0.42747,
+            "smape": 0.356618
+          },
+          {
+            "model": "local_pytorch_lstm_hospital",
+            "mae": 3470.590958,
+            "rmse": 3821.994516,
+            "r2": -2.2599,
+            "mape": 1.021719,
+            "smape": 0.569856
+          }
+        ]
+      }
+    }
+  }
 }

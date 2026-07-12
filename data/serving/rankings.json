@@ -14,7 +14,7 @@
       "risk_level": "高风险",
       "recent_cases_per_million": 1990.0,
       "growth_rate_7": -0.005008347245409015,
-      "forecast_cases": 198.66666666666666,
+      "forecast_cases": 199.0,
       "quality_flag": "ok"
     },
     {
@@ -26,11 +26,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 73.21,
+      "risk_score": 72.17,
       "risk_level": "较高风险",
       "recent_cases_per_million": 259.4357085601704,
       "growth_rate_7": -0.048913043478260865,
-      "forecast_cases": 58333.333333333336,
+      "forecast_cases": 55000.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -42,11 +42,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 42.63,
+      "risk_score": 42.72,
       "risk_level": "中风险",
       "recent_cases_per_million": 490.0,
       "growth_rate_7": 0.02127659574468085,
-      "forecast_cases": 48.0,
+      "forecast_cases": 49.0,
       "quality_flag": "ok"
     },
     {
@@ -58,11 +58,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 27.11,
+      "risk_score": 27.17,
       "risk_level": "低风险",
       "recent_cases_per_million": 26.3420707307828,
       "growth_rate_7": 0.08620689655172419,
-      "forecast_cases": 2100.0,
+      "forecast_cases": 2200.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -154,11 +154,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 19.19,
+      "risk_score": 18.86,
       "risk_level": "低风险",
       "recent_cases_per_million": 520.0,
       "growth_rate_7": -0.03508771929824561,
-      "forecast_cases": 55.0,
+      "forecast_cases": 52.0,
       "quality_flag": "ok"
     },
     {
@@ -170,11 +170,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 17.51,
+      "risk_score": 17.61,
       "risk_level": "低风险",
       "recent_cases_per_million": 54.11549352028394,
       "growth_rate_7": 0.029702970297029705,
-      "forecast_cases": 3466.6666666666665,
+      "forecast_cases": 3700.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -186,11 +186,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 14.39,
+      "risk_score": 13.9,
       "risk_level": "低风险",
       "recent_cases_per_million": 390.0,
       "growth_rate_7": -0.1266666666666667,
-      "forecast_cases": 43.666666666666664,
+      "forecast_cases": 39.0,
       "quality_flag": "ok"
     },
     {
@@ -202,11 +202,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 2.78,
+      "risk_score": 2.63,
       "risk_level": "低风险",
       "recent_cases_per_million": 95.0,
       "growth_rate_7": -0.09722222222222217,
-      "forecast_cases": 10.833333333333334,
+      "forecast_cases": 9.5,
       "quality_flag": "ok"
     },
     {
@@ -222,7 +222,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 76.0,
       "growth_rate_7": -0.021645021645021568,
-      "forecast_cases": 7.533333333333334,
+      "forecast_cases": 7.6,
       "quality_flag": "ok"
     },
     {
@@ -234,11 +234,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 1.82,
+      "risk_score": 1.76,
       "risk_level": "低风险",
       "recent_cases_per_million": 72.0,
       "growth_rate_7": -0.07600000000000004,
-      "forecast_cases": 7.7,
+      "forecast_cases": 7.2,
       "quality_flag": "ok"
     },
     {
@@ -254,7 +254,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 24.808102034264365,
       "growth_rate_7": -0.06896551724137927,
-      "forecast_cases": 1800.0,
+      "forecast_cases": 1700.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -266,11 +266,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 1.24,
+      "risk_score": 1.15,
       "risk_level": "低风险",
       "recent_cases_per_million": 56.0,
       "growth_rate_7": -0.058536585365853586,
-      "forecast_cases": 6.433333333333334,
+      "forecast_cases": 5.6,
       "quality_flag": "ok"
     },
     {
@@ -282,11 +282,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 0.97,
+      "risk_score": 0.95,
       "risk_level": "低风险",
       "recent_cases_per_million": 51.0,
       "growth_rate_7": -0.06097560975609752,
-      "forecast_cases": 5.133333333333333,
+      "forecast_cases": 5.1,
       "quality_flag": "ok"
     },
     {
@@ -398,7 +398,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 21.958578303759353,
       "growth_rate_7": 0.31422431317883487,
-      "forecast_cases": 5656.75,
+      "forecast_cases": 7466.0,
       "quality_flag": "ok"
     },
     {
@@ -414,7 +414,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 19.216932300400163,
       "growth_rate_7": -0.11675126903553294,
-      "forecast_cases": 580.0,
+      "forecast_cases": 500.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -430,7 +430,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 8.505787363309945,
       "growth_rate_7": 0.4180488674870697,
-      "forecast_cases": 1987.75,
+      "forecast_cases": 2892.0,
       "quality_flag": "ok"
     },
     {
@@ -446,7 +446,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 9.373424732665558,
       "growth_rate_7": 0.6864326375711575,
-      "forecast_cases": 1777.5,
+      "forecast_cases": 3187.0,
       "quality_flag": "ok"
     },
     {
@@ -462,7 +462,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 26.0,
       "growth_rate_7": -0.03846153846153849,
-      "forecast_cases": 2.5,
+      "forecast_cases": 2.6,
       "quality_flag": "ok"
     }
   ],
@@ -496,7 +496,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 9.373424732665558,
       "growth_rate_7": 0.6864326375711575,
-      "forecast_cases": 1777.5,
+      "forecast_cases": 3187.0,
       "quality_flag": "ok"
     },
     {
@@ -512,7 +512,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 8.505787363309945,
       "growth_rate_7": 0.4180488674870697,
-      "forecast_cases": 1987.75,
+      "forecast_cases": 2892.0,
       "quality_flag": "ok"
     },
     {
@@ -528,7 +528,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 21.958578303759353,
       "growth_rate_7": 0.31422431317883487,
-      "forecast_cases": 5656.75,
+      "forecast_cases": 7466.0,
       "quality_flag": "ok"
     },
     {
@@ -588,11 +588,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 27.11,
+      "risk_score": 27.17,
       "risk_level": "低风险",
       "recent_cases_per_million": 26.3420707307828,
       "growth_rate_7": 0.08620689655172419,
-      "forecast_cases": 2100.0,
+      "forecast_cases": 2200.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -604,11 +604,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 17.51,
+      "risk_score": 17.61,
       "risk_level": "低风险",
       "recent_cases_per_million": 54.11549352028394,
       "growth_rate_7": 0.029702970297029705,
-      "forecast_cases": 3466.6666666666665,
+      "forecast_cases": 3700.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -620,11 +620,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 42.63,
+      "risk_score": 42.72,
       "risk_level": "中风险",
       "recent_cases_per_million": 490.0,
       "growth_rate_7": 0.02127659574468085,
-      "forecast_cases": 48.0,
+      "forecast_cases": 49.0,
       "quality_flag": "ok"
     },
     {
@@ -736,7 +736,7 @@
       "risk_level": "高风险",
       "recent_cases_per_million": 1990.0,
       "growth_rate_7": -0.005008347245409015,
-      "forecast_cases": 198.66666666666666,
+      "forecast_cases": 199.0,
       "quality_flag": "ok"
     },
     {
@@ -752,7 +752,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 76.0,
       "growth_rate_7": -0.021645021645021568,
-      "forecast_cases": 7.533333333333334,
+      "forecast_cases": 7.6,
       "quality_flag": "ok"
     },
     {
@@ -764,11 +764,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 19.19,
+      "risk_score": 18.86,
       "risk_level": "低风险",
       "recent_cases_per_million": 520.0,
       "growth_rate_7": -0.03508771929824561,
-      "forecast_cases": 55.0,
+      "forecast_cases": 52.0,
       "quality_flag": "ok"
     },
     {
@@ -784,7 +784,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 26.0,
       "growth_rate_7": -0.03846153846153849,
-      "forecast_cases": 2.5,
+      "forecast_cases": 2.6,
       "quality_flag": "ok"
     },
     {
@@ -796,11 +796,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 73.21,
+      "risk_score": 72.17,
       "risk_level": "较高风险",
       "recent_cases_per_million": 259.4357085601704,
       "growth_rate_7": -0.048913043478260865,
-      "forecast_cases": 58333.333333333336,
+      "forecast_cases": 55000.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -812,11 +812,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 1.24,
+      "risk_score": 1.15,
       "risk_level": "低风险",
       "recent_cases_per_million": 56.0,
       "growth_rate_7": -0.058536585365853586,
-      "forecast_cases": 6.433333333333334,
+      "forecast_cases": 5.6,
       "quality_flag": "ok"
     },
     {
@@ -828,11 +828,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 0.97,
+      "risk_score": 0.95,
       "risk_level": "低风险",
       "recent_cases_per_million": 51.0,
       "growth_rate_7": -0.06097560975609752,
-      "forecast_cases": 5.133333333333333,
+      "forecast_cases": 5.1,
       "quality_flag": "ok"
     },
     {
@@ -848,7 +848,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 24.808102034264365,
       "growth_rate_7": -0.06896551724137927,
-      "forecast_cases": 1800.0,
+      "forecast_cases": 1700.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -860,11 +860,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 1.82,
+      "risk_score": 1.76,
       "risk_level": "低风险",
       "recent_cases_per_million": 72.0,
       "growth_rate_7": -0.07600000000000004,
-      "forecast_cases": 7.7,
+      "forecast_cases": 7.2,
       "quality_flag": "ok"
     },
     {
@@ -876,11 +876,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 2.78,
+      "risk_score": 2.63,
       "risk_level": "低风险",
       "recent_cases_per_million": 95.0,
       "growth_rate_7": -0.09722222222222217,
-      "forecast_cases": 10.833333333333334,
+      "forecast_cases": 9.5,
       "quality_flag": "ok"
     },
     {
@@ -896,7 +896,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 19.216932300400163,
       "growth_rate_7": -0.11675126903553294,
-      "forecast_cases": 580.0,
+      "forecast_cases": 500.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -908,11 +908,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 14.39,
+      "risk_score": 13.9,
       "risk_level": "低风险",
       "recent_cases_per_million": 390.0,
       "growth_rate_7": -0.1266666666666667,
-      "forecast_cases": 43.666666666666664,
+      "forecast_cases": 39.0,
       "quality_flag": "ok"
     },
     {
@@ -958,11 +958,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 73.21,
+      "risk_score": 72.17,
       "risk_level": "较高风险",
       "recent_cases_per_million": 259.4357085601704,
       "growth_rate_7": -0.048913043478260865,
-      "forecast_cases": 58333.333333333336,
+      "forecast_cases": 55000.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -978,7 +978,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 21.958578303759353,
       "growth_rate_7": 0.31422431317883487,
-      "forecast_cases": 5656.75,
+      "forecast_cases": 7466.0,
       "quality_flag": "ok"
     },
     {
@@ -990,59 +990,11 @@
       "disease": "HIV/AIDS",
       "metric": "new_infections",
       "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 17.51,
+      "risk_score": 17.61,
       "risk_level": "低风险",
       "recent_cases_per_million": 54.11549352028394,
       "growth_rate_7": 0.029702970297029705,
-      "forecast_cases": 3466.6666666666665,
-      "quality_flag": "who_estimate_with_interval"
-    },
-    {
-      "date": "2024-12-31T00:00:00",
-      "location": "Germany",
-      "location_code": "DEU",
-      "latitude": 52.52,
-      "longitude": 13.405,
-      "disease": "HIV/AIDS",
-      "metric": "new_infections",
-      "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 27.11,
-      "risk_level": "低风险",
-      "recent_cases_per_million": 26.3420707307828,
-      "growth_rate_7": 0.08620689655172419,
-      "forecast_cases": 2100.0,
-      "quality_flag": "who_estimate_with_interval"
-    },
-    {
-      "date": "2024-11-16T00:00:00",
-      "location": "United States",
-      "location_code": "USA",
-      "latitude": 38.9072,
-      "longitude": -77.0369,
-      "disease": "Influenza",
-      "metric": "hospital_admissions",
-      "metric_label": "每周新增住院入院人数",
-      "risk_score": 0.0,
-      "risk_level": "低风险",
-      "recent_cases_per_million": 8.505787363309945,
-      "growth_rate_7": 0.4180488674870697,
-      "forecast_cases": 1987.75,
-      "quality_flag": "ok"
-    },
-    {
-      "date": "2023-12-31T00:00:00",
-      "location": "United Kingdom",
-      "location_code": "GBR",
-      "latitude": 51.5072,
-      "longitude": -0.1276,
-      "disease": "HIV/AIDS",
-      "metric": "new_infections",
-      "metric_label": "年度新增 HIV 感染数",
-      "risk_score": 1.66,
-      "risk_level": "低风险",
-      "recent_cases_per_million": 24.808102034264365,
-      "growth_rate_7": -0.06896551724137927,
-      "forecast_cases": 1800.0,
+      "forecast_cases": 3700.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -1058,8 +1010,56 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 9.373424732665558,
       "growth_rate_7": 0.6864326375711575,
-      "forecast_cases": 1777.5,
+      "forecast_cases": 3187.0,
       "quality_flag": "ok"
+    },
+    {
+      "date": "2024-11-16T00:00:00",
+      "location": "United States",
+      "location_code": "USA",
+      "latitude": 38.9072,
+      "longitude": -77.0369,
+      "disease": "Influenza",
+      "metric": "hospital_admissions",
+      "metric_label": "每周新增住院入院人数",
+      "risk_score": 0.0,
+      "risk_level": "低风险",
+      "recent_cases_per_million": 8.505787363309945,
+      "growth_rate_7": 0.4180488674870697,
+      "forecast_cases": 2892.0,
+      "quality_flag": "ok"
+    },
+    {
+      "date": "2024-12-31T00:00:00",
+      "location": "Germany",
+      "location_code": "DEU",
+      "latitude": 52.52,
+      "longitude": 13.405,
+      "disease": "HIV/AIDS",
+      "metric": "new_infections",
+      "metric_label": "年度新增 HIV 感染数",
+      "risk_score": 27.17,
+      "risk_level": "低风险",
+      "recent_cases_per_million": 26.3420707307828,
+      "growth_rate_7": 0.08620689655172419,
+      "forecast_cases": 2200.0,
+      "quality_flag": "who_estimate_with_interval"
+    },
+    {
+      "date": "2023-12-31T00:00:00",
+      "location": "United Kingdom",
+      "location_code": "GBR",
+      "latitude": 51.5072,
+      "longitude": -0.1276,
+      "disease": "HIV/AIDS",
+      "metric": "new_infections",
+      "metric_label": "年度新增 HIV 感染数",
+      "risk_score": 1.66,
+      "risk_level": "低风险",
+      "recent_cases_per_million": 24.808102034264365,
+      "growth_rate_7": -0.06896551724137927,
+      "forecast_cases": 1700.0,
+      "quality_flag": "who_estimate_with_interval"
     },
     {
       "date": "2022-12-31T00:00:00",
@@ -1074,7 +1074,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 19.216932300400163,
       "growth_rate_7": -0.11675126903553294,
-      "forecast_cases": 580.0,
+      "forecast_cases": 500.0,
       "quality_flag": "who_estimate_with_interval"
     },
     {
@@ -1090,7 +1090,7 @@
       "risk_level": "高风险",
       "recent_cases_per_million": 1990.0,
       "growth_rate_7": -0.005008347245409015,
-      "forecast_cases": 198.66666666666666,
+      "forecast_cases": 199.0,
       "quality_flag": "ok"
     },
     {
@@ -1150,11 +1150,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 19.19,
+      "risk_score": 18.86,
       "risk_level": "低风险",
       "recent_cases_per_million": 520.0,
       "growth_rate_7": -0.03508771929824561,
-      "forecast_cases": 55.0,
+      "forecast_cases": 52.0,
       "quality_flag": "ok"
     },
     {
@@ -1166,11 +1166,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 42.63,
+      "risk_score": 42.72,
       "risk_level": "中风险",
       "recent_cases_per_million": 490.0,
       "growth_rate_7": 0.02127659574468085,
-      "forecast_cases": 48.0,
+      "forecast_cases": 49.0,
       "quality_flag": "ok"
     },
     {
@@ -1182,11 +1182,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 14.39,
+      "risk_score": 13.9,
       "risk_level": "低风险",
       "recent_cases_per_million": 390.0,
       "growth_rate_7": -0.1266666666666667,
-      "forecast_cases": 43.666666666666664,
+      "forecast_cases": 39.0,
       "quality_flag": "ok"
     },
     {
@@ -1198,27 +1198,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 2.78,
+      "risk_score": 2.63,
       "risk_level": "低风险",
       "recent_cases_per_million": 95.0,
       "growth_rate_7": -0.09722222222222217,
-      "forecast_cases": 10.833333333333334,
-      "quality_flag": "ok"
-    },
-    {
-      "date": "2022-12-31T00:00:00",
-      "location": "France",
-      "location_code": "FRA",
-      "latitude": 48.8566,
-      "longitude": 2.3522,
-      "disease": "Tuberculosis",
-      "metric": "incidence_per_100k",
-      "metric_label": "估计发病率（每10万人）",
-      "risk_score": 1.82,
-      "risk_level": "低风险",
-      "recent_cases_per_million": 72.0,
-      "growth_rate_7": -0.07600000000000004,
-      "forecast_cases": 7.7,
+      "forecast_cases": 9.5,
       "quality_flag": "ok"
     },
     {
@@ -1234,7 +1218,23 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 76.0,
       "growth_rate_7": -0.021645021645021568,
-      "forecast_cases": 7.533333333333334,
+      "forecast_cases": 7.6,
+      "quality_flag": "ok"
+    },
+    {
+      "date": "2022-12-31T00:00:00",
+      "location": "France",
+      "location_code": "FRA",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "disease": "Tuberculosis",
+      "metric": "incidence_per_100k",
+      "metric_label": "估计发病率（每10万人）",
+      "risk_score": 1.76,
+      "risk_level": "低风险",
+      "recent_cases_per_million": 72.0,
+      "growth_rate_7": -0.07600000000000004,
+      "forecast_cases": 7.2,
       "quality_flag": "ok"
     },
     {
@@ -1246,11 +1246,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 1.24,
+      "risk_score": 1.15,
       "risk_level": "低风险",
       "recent_cases_per_million": 56.0,
       "growth_rate_7": -0.058536585365853586,
-      "forecast_cases": 6.433333333333334,
+      "forecast_cases": 5.6,
       "quality_flag": "ok"
     },
     {
@@ -1262,11 +1262,11 @@
       "disease": "Tuberculosis",
       "metric": "incidence_per_100k",
       "metric_label": "估计发病率（每10万人）",
-      "risk_score": 0.97,
+      "risk_score": 0.95,
       "risk_level": "低风险",
       "recent_cases_per_million": 51.0,
       "growth_rate_7": -0.06097560975609752,
-      "forecast_cases": 5.133333333333333,
+      "forecast_cases": 5.1,
       "quality_flag": "ok"
     },
     {
@@ -1282,7 +1282,7 @@
       "risk_level": "低风险",
       "recent_cases_per_million": 26.0,
       "growth_rate_7": -0.03846153846153849,
-      "forecast_cases": 2.5,
+      "forecast_cases": 2.6,
       "quality_flag": "ok"
     },
     {

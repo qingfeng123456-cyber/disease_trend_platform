@@ -74,7 +74,12 @@
     "naive_last_value",
     "moving_average",
     "local_sklearn_gbdt",
-    "local_pytorch_lstm"
+    "local_pytorch_lstm",
+    "local_pytorch_lstm_influenza",
+    "local_pytorch_lstm_rsv",
+    "local_pytorch_lstm_tuberculosis",
+    "local_pytorch_lstm_hiv",
+    "local_pytorch_lstm_hospital"
   ],
   "default_model": "naive_last_value",
   "date_range": {
@@ -158,75 +163,76 @@
         "local_sklearn_gbdt",
         "local_pytorch_lstm"
       ],
+      "default_model": "naive_last_value",
       "location_date_ranges": {
         "AUS": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2023-05-20",
-          "default_end": "2024-05-19",
+          "default_start": "2020-01-04",
+          "default_end": "2025-12-31",
           "last_nonzero_date": "2024-05-13"
         },
         "BRA": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2024-12-31",
+          "default_start": "2020-01-04",
           "default_end": "2025-12-31",
           "last_nonzero_date": "2025-12-30"
         },
         "CHN": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2024-01-17",
-          "default_end": "2025-01-16",
+          "default_start": "2020-01-04",
+          "default_end": "2025-12-31",
           "last_nonzero_date": "2025-01-10"
         },
         "DEU": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2024-12-31",
+          "default_start": "2020-01-04",
           "default_end": "2025-12-31",
           "last_nonzero_date": "2025-12-29"
         },
         "FRA": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2024-12-31",
+          "default_start": "2020-01-04",
           "default_end": "2025-12-31",
           "last_nonzero_date": "2025-12-29"
         },
         "GBR": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2024-12-31",
+          "default_start": "2020-01-04",
           "default_end": "2025-12-31",
           "last_nonzero_date": "2025-12-29"
         },
         "IND": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2024-12-22",
-          "default_end": "2025-12-22",
+          "default_start": "2020-01-04",
+          "default_end": "2025-12-31",
           "last_nonzero_date": "2025-12-16"
         },
         "JPN": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2022-05-18",
-          "default_end": "2023-05-18",
+          "default_start": "2020-01-04",
+          "default_end": "2025-12-31",
           "last_nonzero_date": "2023-05-12"
         },
         "KOR": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2022-09-10",
-          "default_end": "2023-09-10",
+          "default_start": "2020-01-04",
+          "default_end": "2025-12-31",
           "last_nonzero_date": "2023-09-04"
         },
         "USA": {
           "full_start": "2020-01-04",
           "full_end": "2025-12-31",
-          "default_start": "2022-05-20",
-          "default_end": "2023-05-20",
+          "default_start": "2020-01-04",
+          "default_end": "2025-12-31",
           "last_nonzero_date": "2023-05-14"
         }
       }
@@ -249,15 +255,17 @@
       "metric_label": "每周新增住院入院人数",
       "models": [
         "naive_last_value",
-        "moving_average"
+        "moving_average",
+        "local_pytorch_lstm_influenza"
       ],
+      "default_model": "naive_last_value",
       "location_date_ranges": {
         "USA": {
           "full_start": "2020-08-08",
           "full_end": "2024-11-16",
           "default_start": "2020-08-08",
           "default_end": "2024-11-16",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2024-11-16"
         }
       }
     },
@@ -279,15 +287,17 @@
       "metric_label": "每周新增住院入院人数",
       "models": [
         "naive_last_value",
-        "moving_average"
+        "moving_average",
+        "local_pytorch_lstm_rsv"
       ],
+      "default_model": "naive_last_value",
       "location_date_ranges": {
         "USA": {
           "full_start": "2023-10-07",
           "full_end": "2024-11-16",
           "default_start": "2023-10-07",
           "default_end": "2024-11-16",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2024-11-16"
         }
       }
     },
@@ -363,78 +373,80 @@
       "metric_label": "估计发病率（每10万人）",
       "models": [
         "naive_last_value",
-        "moving_average"
+        "moving_average",
+        "local_pytorch_lstm_tuberculosis"
       ],
+      "default_model": "naive_last_value",
       "location_date_ranges": {
         "AUS": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "BRA": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "CHN": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "DEU": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "FRA": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "GBR": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "IND": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "JPN": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "KOR": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "USA": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         }
       }
     },
@@ -486,50 +498,52 @@
       "metric_label": "年度新增 HIV 感染数",
       "models": [
         "naive_last_value",
-        "moving_average"
+        "moving_average",
+        "local_pytorch_lstm_hiv"
       ],
+      "default_model": "naive_last_value",
       "location_date_ranges": {
         "AUS": {
           "full_start": "2000-12-31",
           "full_end": "2022-12-31",
           "default_start": "2000-12-31",
           "default_end": "2022-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2022-12-31"
         },
         "BRA": {
           "full_start": "2000-12-31",
           "full_end": "2024-12-31",
           "default_start": "2000-12-31",
           "default_end": "2024-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2024-12-31"
         },
         "DEU": {
           "full_start": "2010-12-31",
           "full_end": "2024-12-31",
           "default_start": "2010-12-31",
           "default_end": "2024-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2024-12-31"
         },
         "FRA": {
           "full_start": "2000-12-31",
           "full_end": "2023-12-31",
           "default_start": "2000-12-31",
           "default_end": "2023-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2023-12-31"
         },
         "GBR": {
           "full_start": "2016-12-31",
           "full_end": "2023-12-31",
           "default_start": "2016-12-31",
           "default_end": "2023-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2023-12-31"
         },
         "IND": {
           "full_start": "2024-12-31",
           "full_end": "2024-12-31",
           "default_start": "2024-12-31",
           "default_end": "2024-12-31",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2024-12-31"
         }
       }
     },
@@ -551,15 +565,17 @@
       "metric_label": "每周新增住院入院人数",
       "models": [
         "naive_last_value",
-        "moving_average"
+        "moving_average",
+        "local_pytorch_lstm_hospital"
       ],
+      "default_model": "naive_last_value",
       "location_date_ranges": {
         "USA": {
           "full_start": "2020-08-08",
           "full_end": "2024-11-16",
           "default_start": "2020-08-08",
           "default_end": "2024-11-16",
-          "last_nonzero_date": null
+          "last_nonzero_date": "2024-11-16"
         }
       }
     }

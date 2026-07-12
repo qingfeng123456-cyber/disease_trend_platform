@@ -5,6 +5,9 @@ param(
     [int]$LstmEpochs = 20,
     [int]$LstmWindow = 28,
     [int]$LstmBatchSize = 128,
+    [int]$LstmHiddenSize = 32,
+    [int]$LstmPatience = 5,
+    [switch]$DisableLstmEarlyStopping,
     [switch]$LstmNoBatchProgress,
     [switch]$BuildOnly
 )
@@ -25,6 +28,9 @@ if ($EnableLstm) {
         Write-Host "conda run --no-capture-output -n $CondaEnv python -m pip install torch --index-url https://download.pytorch.org/whl/cpu"
         exit 1
     }
+    if ($LstmPatience -lt 0) {
+        throw "LstmPatience must be zero or a positive integer."
+    }
 }
 
 Write-Host "[1/2] Build real local serving JSON from raw CSV files"
@@ -33,11 +39,18 @@ $buildArgs = @(
     "--config", $Config
 )
 if ($EnableLstm) {
+    $effectivePatience = $LstmPatience
+    if ($DisableLstmEarlyStopping) {
+        $effectivePatience = 0
+    }
+    Write-Host "LSTM config: six disease-specific native-frequency models, epochs=$LstmEpochs, COVID window=$LstmWindow, max batch=$LstmBatchSize, max hidden=$LstmHiddenSize, patience=$effectivePatience"
     $buildArgs += @(
         "--lstm",
         "--lstm-epochs", $LstmEpochs,
         "--lstm-window", $LstmWindow,
-        "--lstm-batch-size", $LstmBatchSize
+        "--lstm-batch-size", $LstmBatchSize,
+        "--lstm-hidden-size", $LstmHiddenSize,
+        "--lstm-patience", $effectivePatience
     )
     if ($LstmNoBatchProgress) {
         $buildArgs += "--lstm-no-batch-progress"

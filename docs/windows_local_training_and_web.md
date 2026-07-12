@@ -70,9 +70,9 @@ powershell -ExecutionPolicy Bypass -File scripts\run_local_real_pipeline.ps1 -En
 2. 清洗 OWID、Kaggle、结核病、呼吸系统、人口和天气数据；
 3. 生成 Silver 与 Gold 表；
 4. 训练并保存 GBDT；
-5. 构造过去 28 天窗口并训练 LSTM；
-6. 比较朴素值、移动平均、GBDT、LSTM 的测试集 MAE；
-7. 把每个模型的预测导出到 serving JSON；
+5. 按疾病原生频率构造序列窗口，依次训练 6 个独立 LSTM；
+6. 分疾病比较朴素值、移动平均、GBDT（仅 COVID）和对应 LSTM 的测试集 MAE；
+7. 把每个疾病模型的预测导出到 serving JSON；
 8. 在 5000 端口启动 Flask。
 
 快速验证流程时可以先跑 2 轮：
@@ -81,7 +81,7 @@ powershell -ExecutionPolicy Bypass -File scripts\run_local_real_pipeline.ps1 -En
 powershell -ExecutionPolicy Bypass -File scripts\run_local_real_pipeline.ps1 -EnableLstm -LstmEpochs 2 -BuildOnly
 ```
 
-正式结果再使用 20 至 30 轮。早停会在验证集连续 5 轮没有改善时自动结束。
+正式结果再使用 20 至 30 轮。早停会在原始目标单位的验证集 MAE 连续 5 轮没有改善时自动结束。
 
 ## 5. 在 PyCharm 中按两个运行配置执行
 
@@ -102,7 +102,7 @@ Python interpreter: intership
 ```text
 [GBDT] ... 020/120 ... 120/120
 [LSTM] Prepared windows=...
-[LSTM] Epoch 01/20 ... train_loss=... val_loss=... eta=...
+[LSTM] Epoch 01/20 ... train_loss=... val_loss=... val_mae=... eta=...
 [LSTM] Training complete ... model=data/models/local/local_pytorch_lstm.pt
 ```
 
@@ -158,12 +158,13 @@ $url = 'http://127.0.0.1:5000/api/trend?location=CHN&disease=COVID-19&model=loca
 (Invoke-RestMethod $url).data.points | Select-Object -Last 5
 ```
 
-只有 `.pt` 文件、指标 JSON、API 模型选项和趋势预测四项同时存在，才算 LSTM 真正完成“训练 -> 接口 -> 网页”闭环。
+只有 6 个 `.pt` 文件、逐疾病指标 JSON、API 模型选项和逐疾病趋势预测同时存在，才算 LSTM 真正完成“训练 -> 接口 -> 网页”闭环。也可以直接运行 `conda run --no-capture-output -n intership python scripts\verify_local_pipeline.py` 做全链路检查。
 
 ## 7. 重要口径
 
-- LSTM 和 GBDT 只训练 COVID-19 国家级日频数据。
-- 输入为过去 28 天的平滑新增病例，标签为第 `t+7` 天平滑新增病例。
-- 训练、验证、测试按日期 70%/15%/15% 切分，不能随机拆分时间序列。
-- 结核病、WHO HIV/AIDS 年频数据和流感/RSV 周住院数据仍可在网页展示并使用各自频率的基线预测，但不会混入 COVID 日频 LSTM。
-- 网页默认展示测试 MAE 最低的模型；复杂模型不保证优于朴素基线。
+- GBDT 只训练 COVID-19 国家级日频数据；LSTM 则为每个疾病单独训练一个模型。
+- COVID 输入过去 28 天并预测第 `t+7` 天；流感/新冠住院输入 12 周、RSV 输入 8 周并预测下一周；结核病输入 5 年、HIV/AIDS 输入 3 年并预测下一年。
+- 每个疾病都独立按日期约 70%/15%/15% 切分训练、验证、测试，不能随机拆分时间序列。
+- 仅在模型输入历史窗口中对很短的内部缺口做有限插值，预测标签必须是原始观测值；周频和年频数据不会扩成日频。
+- 每种疾病仍保留朴素值和移动平均作对照，复杂模型不保证优于朴素基线。
+- 网页默认展示该疾病测试 MAE 最低的可用模型。

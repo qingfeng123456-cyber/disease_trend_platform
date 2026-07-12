@@ -26,6 +26,10 @@
 
 预测目标 `target_t_plus_7` 不作为输入特征：日频表示未来第 7 天，周频表示下一周，年频表示下一年。字段名为兼容既有接口而保留。
 
+## 历史天气日表
+
+`historical_weather_daily_clean.csv` 将 27 个美国城市的小时观测按自然日聚合，主键为 `location_code + date`。`temperature_mean`、`relative_humidity_mean`、`pressure_mean_hpa`、`wind_speed_mean` 是全部有效城市小时观测的日均值；对应的 `*_observations` 记录实际参与聚合的观测数，温度和风速还保留日极值。`historical_weather_annual_clean.csv` 是用于 USA 结核病同年探索性关联的精确观测加权年度派生表，不代表只清洗出了 6 条原始数据。
+
 ## WHO 指标表
 
 | 字段 | 说明 |
@@ -41,8 +45,11 @@
 | usage_class | 主 HIV 序列、辅助特征、特殊人群参考、误匹配或目录保留 |
 | quality_flag | 无数值、未来年份、关键词误匹配等质量标记 |
 | duplicate_source_count | 同一 WHO 记录在采集文件中出现的副本数量 |
+| duplicate_source_files / duplicate_collector_topics | 同一记录出现过的全部 Raw 文件和采集主题 |
+| duplicate_content_variant_count | 同一 WHO 记录 ID 对应的不同内容版本数 |
+| duplicate_content_conflict | 同一记录 ID 是否存在字段冲突；冲突时保留更新时间较新的版本并标记 |
 
-WHO HIV 主序列另外保留 `who_estimate_low`、`who_estimate_high` 和 `hiv_prevalence_adults_percent`；结核病特征表增加 `who_tb_deaths_rate_per_100k`、`who_tb_treatment_coverage_percent`、`who_tb_new_relapse_cases`。
+WHO HIV 主序列另外保留 `who_estimate_low`、`who_estimate_high` 和 `hiv_prevalence_adults_percent`。结核病特征表现有 18 个 WHO 国家年度辅助指标，覆盖死亡、发病、通知、治疗覆盖、治疗成功、HIV 共病、MDR/RR 检测与治疗；每个指标同时保留可用的 `_low`、`_high` 区间字段。完整字段可查看 `data/silver/local/who_tuberculosis_auxiliary_clean.csv`。
 
 ## 风险指数
 

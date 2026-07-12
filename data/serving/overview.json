@@ -1,7 +1,7 @@
 {
   "data_mode": "real_local_multi_source",
   "demo_mode": false,
-  "last_update": "2026-07-11T03:54:02.238144+00:00",
+  "last_update": "2026-07-12T08:42:53.522817+00:00",
   "latest_date": "2025-12-31",
   "start_date": "2000-12-31",
   "end_date": "2025-12-31",
@@ -13,7 +13,7 @@
   "current_new_cases": 0.0,
   "high_risk_regions": 0,
   "best_model": "naive_last_value",
-  "best_model_mae": 24.532504,
+  "best_model_mae": 24.435626,
   "data_completeness": 1.0,
   "series": [
     {
@@ -32,7 +32,7 @@
       "current_rolling_value": 0.0,
       "current_total_cases": 11861161.0,
       "current_total_deaths": 25236.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -51,7 +51,7 @@
       "current_rolling_value": 580.0,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "WHO GHO HIV_0000000026"
     },
     {
@@ -70,7 +70,7 @@
       "current_rolling_value": 6.433333333333334,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {
@@ -89,7 +89,7 @@
       "current_rolling_value": 149.42857142857142,
       "current_total_cases": 37944353.0,
       "current_total_deaths": 703681.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -108,7 +108,7 @@
       "current_rolling_value": 58333.333333333336,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 1,
+      "weather_points": 3,
       "source": "WHO GHO HIV_0000000026"
     },
     {
@@ -127,7 +127,7 @@
       "current_rolling_value": 48.0,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {
@@ -184,7 +184,7 @@
       "current_rolling_value": 0.42857142857142855,
       "current_total_cases": 38437941.0,
       "current_total_deaths": 174979.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -203,7 +203,7 @@
       "current_rolling_value": 2100.0,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 1,
+      "weather_points": 3,
       "source": "WHO GHO HIV_0000000026"
     },
     {
@@ -222,7 +222,7 @@
       "current_rolling_value": 5.133333333333333,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {
@@ -241,7 +241,7 @@
       "current_rolling_value": 73.85714285714286,
       "current_total_cases": 39056215.0,
       "current_total_deaths": 168194.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -260,7 +260,7 @@
       "current_rolling_value": 3466.6666666666665,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "WHO GHO HIV_0000000026"
     },
     {
@@ -279,7 +279,7 @@
       "current_rolling_value": 7.7,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {
@@ -355,7 +355,7 @@
       "current_rolling_value": 0.0,
       "current_total_cases": 45056206.0,
       "current_total_deaths": 533849.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -393,7 +393,7 @@
       "current_rolling_value": 198.66666666666666,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {
@@ -412,7 +412,7 @@
       "current_rolling_value": 0.0,
       "current_total_cases": 33803572.0,
       "current_total_deaths": 74694.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -431,7 +431,7 @@
       "current_rolling_value": 10.833333333333334,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {
@@ -450,7 +450,7 @@
       "current_rolling_value": 0.0,
       "current_total_cases": 34571873.0,
       "current_total_deaths": 35934.0,
-      "weather_points": 366,
+      "weather_points": 860,
       "source": "Our World in Data COVID compact"
     },
     {
@@ -469,7 +469,7 @@
       "current_rolling_value": 43.666666666666664,
       "current_total_cases": null,
       "current_total_deaths": null,
-      "weather_points": 0,
+      "weather_points": 2,
       "source": "Kaggle Tuberculosis / Our World in Data indicators"
     },
     {

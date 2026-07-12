@@ -5,14 +5,34 @@ import json
 import pandas as pd
 
 from scripts.build_local_serving_from_raw import (
+    add_time_features,
     build_source_status,
     clean_china_cdc_metadata,
     clean_historical_weather,
     clean_who,
+    summarize_who_indicators,
 )
 
 
-def test_historical_weather_is_aggregated_by_supported_country_and_year(tmp_path):
+def test_annual_forecast_target_uses_raw_observation_not_rolling_mean():
+    frame = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2020-12-31", "2021-12-31", "2022-12-31"]),
+            "frequency": "annual",
+            "value": [10.0, 20.0, 30.0],
+            "published_smoothed": [float("nan"), float("nan"), float("nan")],
+        }
+    )
+
+    featured = add_time_features(frame)
+
+    assert featured.loc[0, "new_cases_smoothed"] == 10.0
+    assert featured.loc[1, "new_cases_smoothed"] == 15.0
+    assert featured.loc[0, "target_t_plus_7"] == 20.0
+    assert featured.loc[1, "target_t_plus_7"] == 30.0
+
+
+def test_historical_weather_preserves_daily_rows_and_derives_annual_rows(tmp_path):
     pd.DataFrame(
         [
             {"City": "New York", "Country": "United States", "Latitude": 40.7, "Longitude": -74.0},
@@ -32,14 +52,19 @@ def test_historical_weather_is_aggregated_by_supported_country_and_year(tmp_path
             index=False,
         )
 
-    cleaned, quality = clean_historical_weather(tmp_path, {"USA"})
+    annual, daily, quality = clean_historical_weather(tmp_path, {"USA"})
 
-    assert cleaned["location_code"].unique().tolist() == ["USA"]
-    assert cleaned["year"].tolist() == [2012, 2013]
-    assert cleaned.loc[cleaned["year"].eq(2012), "temperature_mean"].iloc[0] == 11.0
-    assert cleaned.loc[cleaned["year"].eq(2013), "temperature_mean"].iloc[0] == 20.0
+    assert annual["location_code"].unique().tolist() == ["USA"]
+    assert annual["year"].tolist() == [2012, 2013]
+    assert annual.loc[annual["year"].eq(2012), "temperature_mean"].iloc[0] == 11.0
+    assert annual.loc[annual["year"].eq(2013), "temperature_mean"].iloc[0] == 20.0
+    assert daily["date"].dt.strftime("%Y-%m-%d").tolist() == ["2012-01-01", "2012-06-01", "2013-01-01"]
+    assert daily["temperature_mean"].tolist() == [10.0, 12.0, 20.0]
+    assert daily["temperature_mean_observations"].tolist() == [1, 1, 1]
     assert quality["input_rows"] == 3
     assert quality["output_rows"] == 2
+    assert quality["annual_output_rows"] == 2
+    assert quality["daily_output_rows"] == 3
 
 
 def test_china_cdc_metadata_keeps_raw_references_and_extracts_safe_summary(tmp_path):
@@ -86,7 +111,7 @@ def test_source_status_does_not_report_intentional_states_as_warnings():
         "population": {"output_rows": 10},
         "china_cdc": {"input_rows": 27, "output_rows": 27},
         "who": {"input_files": 105, "input_rows": 122169, "output_rows": 117492, "hiv_observation_rows": 96},
-        "historical_weather": {"input_rows": 45253, "output_rows": 6},
+        "historical_weather": {"input_rows": 45253, "output_rows": 6, "annual_output_rows": 6, "daily_output_rows": 1887},
         "models": {},
     }
 
@@ -97,6 +122,9 @@ def test_source_status_does_not_report_intentional_states_as_warnings():
     assert status_by_name["WHO GHO indicators and HIV annual series"] == "ok"
     assert status_by_name["Kaggle 2012-2017 historical weather"] == "ok"
     assert all(item["status"] != "warn" for item in items)
+    historical = next(item for item in items if item["name"] == "Kaggle 2012-2017 historical weather")
+    assert historical["rows"] == 1887
+    assert historical["raw_rows"] == 45253
 
 
 def test_who_cleaning_curates_hiv_and_keeps_false_matches_catalog_only(tmp_path):
@@ -168,11 +196,15 @@ def test_who_cleaning_curates_hiv_and_keeps_false_matches_catalog_only(tmp_path)
         "MDG_0000000029",
         [row("MDG_0000000029", "Prevalence of HIV among adults aged 15 to 49 (%)", 2020, 0.2, 3)],
     )
-    write_file(
-        "tuberculosis",
+    tb_death_row = row(
         "MDG_0000000017",
-        [row("MDG_0000000017", "Deaths due to tuberculosis among HIV-negative people (per 100 000 population)", 2020, 0.3, 4)],
+        "Deaths due to tuberculosis among HIV-negative people (per 100 000 population)",
+        2020,
+        0.3,
+        4,
     )
+    write_file("tuberculosis", "MDG_0000000017", [tb_death_row])
+    write_file("hiv", "MDG_0000000017", [dict(tb_death_row)])
     write_file(
         "tuberculosis",
         "TB_1",
@@ -182,6 +214,16 @@ def test_who_cleaning_curates_hiv_and_keeps_false_matches_catalog_only(tmp_path)
         "tuberculosis",
         "TB_c_newinc",
         [row("TB_c_newinc", "Tuberculosis - new and relapse cases", 2020, 1400.0, 6)],
+    )
+    write_file(
+        "tuberculosis",
+        "TB_e_mort_exc_tbhiv_num",
+        [row("TB_e_mort_exc_tbhiv_num", "Number of deaths due to tuberculosis, excluding HIV", 2020, 40.0, 8)],
+    )
+    write_file(
+        "tuberculosis",
+        "TB_c_mdr_tsr",
+        [row("TB_c_mdr_tsr", "Treatment success rate for patients treated for MDR-TB (%)", 2020, 68.0, 9)],
     )
     write_file(
         "influenza",
@@ -199,8 +241,22 @@ def test_who_cleaning_curates_hiv_and_keeps_false_matches_catalog_only(tmp_path)
     assert hiv.iloc[0]["hiv_prevalence_adults_percent"] == 0.2
     assert len(tb_auxiliary) == 1
     assert tb_auxiliary.iloc[0]["who_tb_new_relapse_cases"] == 1400.0
+    assert tb_auxiliary.iloc[0]["who_tb_deaths_excluding_hiv_count"] == 40.0
+    assert tb_auxiliary.iloc[0]["who_tb_mdr_treatment_success_percent"] == 68.0
+    duplicate = catalog[catalog["indicator_code"].eq("MDG_0000000017")].iloc[0]
+    assert duplicate["duplicate_source_count"] == 2
+    assert duplicate["duplicate_content_variant_count"] == 1
+    assert not duplicate["duplicate_content_conflict"]
+    assert "who_hiv_MDG_0000000017" in duplicate["duplicate_source_files"]
+    assert "who_tuberculosis_MDG_0000000017" in duplicate["duplicate_source_files"]
     false_match = catalog[catalog["indicator_code"].eq("EMFLIMITMAGNETIC")].iloc[0]
     assert false_match["usage_class"] == "keyword_false_positive"
     assert false_match["sex"] == "SEX_MLE"
     assert quality["primary_no_data_rows"] == 1
     assert quality["hiv_observation_rows"] == 1
+    assert quality["duplicate_rows_removed"] == 1
+    assert quality["duplicate_content_conflict_groups"] == 0
+    assert quality["tb_auxiliary_indicator_count"] == 18
+    summary = summarize_who_indicators(catalog)
+    tb_summary = summary[summary["indicator_code"].eq("MDG_0000000017")].iloc[0]
+    assert tb_summary["duplicate_raw_rows"] == 1

@@ -42,6 +42,65 @@ def test_prepare_lstm_windows_uses_chronological_partitions():
     assert bundle.dates[bundle.test_mask].min() > np.datetime64(bundle.validation_cut)
 
 
+def test_prepare_weekly_windows_regularizes_input_gap_without_creating_target_label():
+    dates = pd.date_range("2023-01-07", periods=60, freq="W-SAT")
+    rows = []
+    for index, day in enumerate(dates):
+        if index == 20:
+            continue
+        rows.append(
+            {
+                "date": day,
+                "location_code": "USA",
+                "disease": "Influenza",
+                "frequency": "weekly",
+                "value": float(index + 1),
+                "new_cases_smoothed": float(index + 1),
+                "rolling_mean_7": float(index + 1),
+                "target_t_plus_7": np.nan,
+            }
+        )
+    bundle = prepare_windows(
+        pd.DataFrame(rows),
+        disease="Influenza",
+        frequency="weekly",
+        window=8,
+        horizon_steps=1,
+        max_imputation_gap=1,
+    )
+    assert bundle.calendar_rows_inserted == 1
+    assert bundle.input_values_imputed == 1
+    assert bundle.train_mask.sum() > 0
+    assert bundle.validation_mask.sum() > 0
+    assert bundle.test_mask.sum() > 0
+
+
+def test_prepare_weekly_windows_targets_native_observations_not_rolling_mean():
+    dates = pd.date_range("2023-01-07", periods=60, freq="W-SAT")
+    frame = pd.DataFrame(
+        {
+            "date": dates,
+            "location_code": "USA",
+            "disease": "Influenza",
+            "frequency": "weekly",
+            "value": np.arange(1, 61, dtype=float),
+            "new_cases_smoothed": np.arange(1001, 1061, dtype=float),
+            "rolling_mean_7": np.arange(2001, 2061, dtype=float),
+            "target_t_plus_7": np.nan,
+        }
+    )
+    bundle = prepare_windows(
+        frame,
+        disease="Influenza",
+        frequency="weekly",
+        window=8,
+        horizon_steps=1,
+    )
+    assert bundle.series_column == "value"
+    assert bundle.current_raw.max() <= 60
+    assert bundle.targets_raw[np.isfinite(bundle.targets_raw)].max() <= 60
+
+
 def test_missing_pytorch_error_contains_install_command():
     if pytorch_available():
         require_pytorch()

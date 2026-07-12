@@ -24,24 +24,6 @@ function chartBase() {
   };
 }
 
-function hasSignal(value) {
-  return Number.isFinite(Number(value)) && Math.abs(Number(value)) > 1e-9;
-}
-
-function lastSignalIndex(items, predicate) {
-  for (let index = items.length - 1; index >= 0; index -= 1) {
-    if (predicate(items[index])) return index;
-  }
-  return Math.max(0, items.length - 1);
-}
-
-function smartWindow(items, limit, predicate) {
-  if (items.length <= limit) return items;
-  const signalIndex = lastSignalIndex(items, predicate);
-  const endIndex = Math.min(items.length, signalIndex + 1);
-  return items.slice(Math.max(0, endIndex - limit), endIndex);
-}
-
 function chartModelName(model) {
   const names = {
     naive_last_value: '最近值',
@@ -49,47 +31,65 @@ function chartModelName(model) {
     local_sklearn_gbdt: 'GBDT',
     local_pytorch_lstm: 'LSTM'
   };
+  if (String(model || '').startsWith('local_pytorch_lstm')) return 'LSTM';
   return names[model] || model;
 }
 
 function lineTrendOption(trend) {
   const points = trend.points || [];
-  const dates = points.map(p => p.date);
+  const actualByDate = new Map(points.map(point => [point.date, point]));
+  const forecastByDate = new Map();
+  points.forEach(point => {
+    const targetDate = point.forecast_target_date || point.date;
+    if (targetDate && Number.isFinite(point.prediction)) forecastByDate.set(targetDate, point);
+  });
+  const dates = Array.from(new Set([
+    ...points.map(point => point.date),
+    ...forecastByDate.keys()
+  ])).filter(Boolean).sort();
   const actualName = trend.metric_label || '实际值';
   const rollingName = trend.rolling_label || '移动平均';
   const predictionName = `${trend.forecast_horizon_label || '未来'}预测`;
-  const signalIndex = lastSignalIndex(
-    points,
-    point => [point.actual, point.rolling_7, point.prediction, point.growth_rate_7].some(hasSignal)
-  );
-  const visibleCount = 420;
-  const zoomEndIndex = Math.min(points.length - 1, signalIndex + 7);
-  const zoomStartIndex = Math.max(0, zoomEndIndex - visibleCount + 1);
+  const sparseReporting = Boolean(trend.reporting_profile?.sparse_reporting);
   return {
     ...chartBase(),
-    legend: { top: 8, textStyle: { color: palette.text }, data: [actualName, rollingName, predictionName, '置信下界', '置信上界'] },
+    legend: {
+      type: 'scroll',
+      top: 6,
+      left: 12,
+      right: 12,
+      textStyle: { color: palette.text },
+      pageTextStyle: { color: palette.muted },
+      pageIconColor: palette.cyan,
+      pageIconInactiveColor: palette.grid,
+      data: [actualName, rollingName, predictionName, '参考下界', '参考上界']
+    },
     xAxis: { type: 'category', data: dates, axisLabel: { color: palette.muted, hideOverlap: true } },
     yAxis: { type: 'value', scale: true, axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
     dataZoom: [
-      { type: 'inside', startValue: dates[zoomStartIndex], endValue: dates[zoomEndIndex] },
-      { type: 'slider', startValue: dates[zoomStartIndex], endValue: dates[zoomEndIndex], bottom: 8, height: 16, textStyle: { color: palette.muted } }
+      { type: 'inside', start: 0, end: 100 },
+      { type: 'slider', start: 0, end: 100, bottom: 8, height: 16, textStyle: { color: palette.muted } }
     ],
     series: [
-      { name: actualName, type: 'line', showSymbol: points.length < 80, data: points.map(p => p.actual), lineStyle: { width: 1, opacity: .55 }, itemStyle: { color: '#9ab4c5' } },
-      { name: rollingName, type: 'line', showSymbol: false, smooth: true, data: points.map(p => p.rolling_7), lineStyle: { width: 2 }, itemStyle: { color: palette.cyan }, areaStyle: { opacity: .08 } },
-      { name: predictionName, type: 'line', showSymbol: false, smooth: true, data: points.map(p => p.prediction), lineStyle: { width: 2, type: 'dashed' }, itemStyle: { color: palette.red } },
-      { name: '置信下界', type: 'line', showSymbol: false, data: points.map(p => p.lower), lineStyle: { opacity: 0 }, stack: 'confidence', itemStyle: { color: 'transparent' } },
-      { name: '置信上界', type: 'line', showSymbol: false, data: points.map(p => Number.isFinite(p.upper) && Number.isFinite(p.lower) ? p.upper - p.lower : null), lineStyle: { opacity: 0 }, areaStyle: { color: 'rgba(255,107,107,.12)' }, stack: 'confidence', itemStyle: { color: 'transparent' } }
+      {
+        name: actualName,
+        type: sparseReporting ? 'bar' : 'line',
+        showSymbol: !sparseReporting && points.length < 80,
+        barMaxWidth: 7,
+        data: dates.map(date => actualByDate.get(date)?.actual ?? null),
+        lineStyle: { width: 1, opacity: .55 },
+        itemStyle: { color: '#9ab4c5', opacity: sparseReporting ? .7 : 1 }
+      },
+      { name: rollingName, type: 'line', showSymbol: false, smooth: true, data: dates.map(date => actualByDate.get(date)?.rolling_7 ?? null), lineStyle: { width: 2 }, itemStyle: { color: palette.cyan }, areaStyle: { opacity: .08 } },
+      { name: predictionName, type: 'line', showSymbol: false, smooth: true, connectNulls: false, data: dates.map(date => forecastByDate.get(date)?.prediction ?? null), lineStyle: { width: 2, type: 'dashed' }, itemStyle: { color: palette.red } },
+      { name: '参考下界', type: 'line', showSymbol: false, data: dates.map(date => forecastByDate.get(date)?.lower ?? null), lineStyle: { opacity: 0 }, stack: 'reference-range', itemStyle: { color: 'transparent' } },
+      { name: '参考上界', type: 'line', showSymbol: false, data: dates.map(date => { const point = forecastByDate.get(date); return Number.isFinite(point?.upper) && Number.isFinite(point?.lower) ? point.upper - point.lower : null; }), lineStyle: { opacity: 0 }, areaStyle: { color: 'rgba(255,107,107,.12)' }, stack: 'reference-range', itemStyle: { color: 'transparent' } }
     ]
   };
 }
 
 function avgOption(trend) {
-  const points = smartWindow(
-    trend.points || [],
-    365,
-    point => hasSignal(point.rolling_7) || hasSignal(point.actual)
-  );
+  const points = trend.points || [];
   return {
     ...chartBase(),
     xAxis: { type: 'category', data: points.map(p => p.date), axisLabel: { color: palette.muted, hideOverlap: true } },
@@ -199,7 +199,7 @@ function qualityOption(report) {
 }
 
 function growthOption(trend) {
-  const points = smartWindow(trend.points || [], 240, point => hasSignal(point.growth_rate_7));
+  const points = trend.points || [];
   return {
     ...chartBase(),
     xAxis: { type: 'category', data: points.map(p => p.date), axisLabel: { color: palette.muted, hideOverlap: true } },
@@ -226,14 +226,22 @@ function shareOption(data) {
       type: 'pie',
       radius: ['42%', '68%'],
       center: ['50%', '44%'],
-      label: { color: palette.text },
+      avoidLabelOverlap: true,
+      label: {
+        color: palette.text,
+        fontSize: 11,
+        width: 96,
+        overflow: 'truncate'
+      },
+      labelLine: { length: 8, length2: 6 },
+      labelLayout: { hideOverlap: true },
       data: items.map(x => ({ name: x.disease, value: x.record_count ?? x.total_cases ?? 0 }))
     }]
   };
 }
 
 function errorOption(predictions) {
-  const items = smartWindow(predictions.items || [], 180, item => hasSignal(item.error));
+  const items = predictions.items || [];
   if (!items.length) {
     return {
       title: { text: '当前序列没有可计算的预测误差', left: 'center', top: '42%', textStyle: { color: palette.muted, fontSize: 13, fontWeight: 'normal' } },
@@ -242,10 +250,15 @@ function errorOption(predictions) {
       series: []
     };
   }
+  const dates = items.map(item => String(item.date || '').slice(0, 10));
   return {
     ...chartBase(),
-    xAxis: { type: 'category', data: items.map(x => x.date), axisLabel: { color: palette.muted, hideOverlap: true } },
+    xAxis: { type: 'category', data: dates, axisLabel: { color: palette.muted, hideOverlap: true } },
     yAxis: { type: 'value', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
+    dataZoom: [
+      { type: 'inside', start: 0, end: 100 },
+      { type: 'slider', start: 0, end: 100, bottom: 8, height: 16, textStyle: { color: palette.muted } }
+    ],
     series: [{ name: '预测误差', type: 'bar', data: items.map(x => x.error), itemStyle: { color: value => value.data >= 0 ? palette.red : palette.green } }]
   };
 }

@@ -173,6 +173,81 @@ button:disabled {
   font-size: 13px;
 }
 
+.terminology {
+  position: relative;
+  z-index: 1;
+  margin: 4px 18px 0;
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid rgba(57, 213, 255, 0.18);
+  background: rgba(7, 18, 31, 0.72);
+}
+
+.terminology-header,
+.terminology-heading {
+  display: flex;
+  align-items: center;
+}
+
+.terminology-header {
+  gap: 12px;
+  min-width: 0;
+}
+
+.terminology-heading {
+  gap: 8px;
+  flex: 0 0 auto;
+  color: #d7f2ff;
+  font-size: 13px;
+}
+
+.terminology-header > small {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.terminology-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 9px;
+}
+
+.terminology-item {
+  min-width: 0;
+  padding: 0 12px;
+  border-left: 1px solid rgba(57, 213, 255, 0.18);
+}
+
+.terminology-item strong,
+.terminology-item span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.terminology-item strong {
+  margin-bottom: 3px;
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.terminology-item span {
+  color: #91aebe;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.terminology-disclaimer {
+  margin: 9px 0 0;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255, 189, 89, 0.16);
+  color: #c2a875;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 .dashboard {
   position: relative;
   z-index: 1;
@@ -228,27 +303,56 @@ button:disabled {
   display: block;
   margin-top: 4px;
   color: #7f95a8;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .panel {
-  height: 300px;
+  height: 330px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
 }
 
 .panel.wide {
   grid-column: span 2;
-  height: 380px;
+  height: 410px;
+}
+
+.panel-header {
+  min-width: 0;
+  min-height: 62px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 8px 13px;
+  border-bottom: 1px solid rgba(57, 213, 255, 0.16);
 }
 
 .panel-title {
-  height: 42px;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 13px;
-  border-bottom: 1px solid rgba(57, 213, 255, 0.16);
   color: #d7f2ff;
   font-weight: 700;
   font-size: 14px;
+  line-height: 1.3;
+}
+
+.panel-title > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.panel-note {
+  display: block;
+  margin-left: 16px;
+  color: #819eaf;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .dot {
@@ -265,11 +369,13 @@ button:disabled {
 
 .chart {
   width: 100%;
-  height: calc(100% - 42px);
+  height: 100%;
+  min-height: 0;
 }
 
 .source-list {
-  height: calc(100% - 42px);
+  height: 100%;
+  min-height: 0;
   padding: 12px;
   display: grid;
   gap: 8px;
@@ -338,6 +444,11 @@ footer {
   .kpis {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .terminology-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 10px;
+  }
 }
 
 @media (max-width: 860px) {
@@ -372,6 +483,69 @@ footer {
   .panel,
   .panel.wide {
     grid-column: 1;
-    height: 330px;
+    height: 350px;
+  }
+
+  .terminology-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    padding: 14px 16px;
+  }
+
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: 14px;
+  }
+
+  .filters label:nth-child(1),
+  .filters label:nth-child(2),
+  .filters label:nth-child(5),
+  .filters button,
+  .demo-badge {
+    grid-column: 1 / -1;
+  }
+
+  .message {
+    padding-inline: 14px;
+  }
+
+  .terminology {
+    margin-inline: 14px;
+  }
+
+  .terminology-list {
+    grid-template-columns: 1fr;
+  }
+
+  .terminology-item {
+    padding: 0 8px;
+  }
+
+  .dashboard {
+    padding-inline: 14px;
+  }
+
+  .kpi {
+    min-height: 122px;
+    padding: 12px;
+  }
+
+  .kpi strong {
+    font-size: 23px;
+  }
+
+  #kpiBestModel {
+    font-size: 18px;
+  }
+
+  .panel,
+  .panel.wide {
+    height: 370px;
   }
 }

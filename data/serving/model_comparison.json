@@ -4,35 +4,244 @@
   "items": [
     {
       "model": "naive_last_value",
-      "mae": 24.532504,
-      "rmse": 98.925756,
-      "r2": 0.934833,
-      "mape": 0.481492,
-      "smape": 0.239651
+      "mae": 24.435626,
+      "rmse": 98.846461,
+      "r2": 0.932236,
+      "mape": 0.483649,
+      "smape": 0.239915
     },
     {
       "model": "moving_average",
-      "mae": 24.532504,
-      "rmse": 98.92576,
-      "r2": 0.934833,
-      "mape": 0.481492,
-      "smape": 0.239651
+      "mae": 30.789455,
+      "rmse": 127.139849,
+      "r2": 0.88789,
+      "mape": 0.482775,
+      "smape": 0.247932
     },
     {
       "model": "local_sklearn_gbdt",
-      "mae": 595.83942,
-      "rmse": 6696.049729,
-      "r2": -297.571457,
-      "mape": 1514.345632,
-      "smape": 1.554152
+      "mae": 617.741717,
+      "rmse": 7043.494365,
+      "r2": -329.359872,
+      "mape": 1522.645646,
+      "smape": 1.543422
     },
     {
       "model": "local_pytorch_lstm",
-      "mae": 27.010495,
-      "rmse": 109.92026,
-      "r2": 0.920584,
-      "mape": 0.494898,
-      "smape": 1.054456
+      "mae": 30.25277,
+      "rmse": 116.383204,
+      "r2": 0.906058,
+      "mape": 0.489396,
+      "smape": 0.659872
     }
-  ]
+  ],
+  "disease": "COVID-19",
+  "frequency": "daily",
+  "by_disease": {
+    "COVID-19": {
+      "data_mode": "real_local_multi_source",
+      "best_model": "naive_last_value",
+      "items": [
+        {
+          "model": "naive_last_value",
+          "mae": 24.435626,
+          "rmse": 98.846461,
+          "r2": 0.932236,
+          "mape": 0.483649,
+          "smape": 0.239915
+        },
+        {
+          "model": "moving_average",
+          "mae": 30.789455,
+          "rmse": 127.139849,
+          "r2": 0.88789,
+          "mape": 0.482775,
+          "smape": 0.247932
+        },
+        {
+          "model": "local_sklearn_gbdt",
+          "mae": 617.741717,
+          "rmse": 7043.494365,
+          "r2": -329.359872,
+          "mape": 1522.645646,
+          "smape": 1.543422
+        },
+        {
+          "model": "local_pytorch_lstm",
+          "mae": 30.25277,
+          "rmse": 116.383204,
+          "r2": 0.906058,
+          "mape": 0.489396,
+          "smape": 0.659872
+        }
+      ],
+      "disease": "COVID-19",
+      "frequency": "daily"
+    },
+    "Influenza": {
+      "data_mode": "real_local_multi_source",
+      "disease": "Influenza",
+      "frequency": "weekly",
+      "best_model": "naive_last_value",
+      "test_rows": 34,
+      "items": [
+        {
+          "model": "naive_last_value",
+          "mae": 244.84375,
+          "rmse": 420.256506,
+          "r2": 0.815784,
+          "mape": 0.210261,
+          "smape": 0.208673
+        },
+        {
+          "model": "moving_average",
+          "mae": 587.039062,
+          "rmse": 964.141811,
+          "r2": 0.030427,
+          "mape": 0.490405,
+          "smape": 0.40545
+        },
+        {
+          "model": "local_pytorch_lstm_influenza",
+          "mae": 284.251605,
+          "rmse": 483.060217,
+          "r2": 0.756611,
+          "mape": 0.309729,
+          "smape": 0.302621
+        }
+      ]
+    },
+    "RSV": {
+      "data_mode": "real_local_multi_source",
+      "disease": "RSV",
+      "frequency": "weekly",
+      "best_model": "naive_last_value",
+      "test_rows": 9,
+      "items": [
+        {
+          "model": "naive_last_value",
+          "mae": 398.75,
+          "rmse": 633.872621,
+          "r2": 0.695377,
+          "mape": 0.997958,
+          "smape": 0.939526
+        },
+        {
+          "model": "moving_average",
+          "mae": 707.3125,
+          "rmse": 1088.704864,
+          "r2": 0.101374,
+          "mape": 1.415398,
+          "smape": 1.249027
+        },
+        {
+          "model": "local_pytorch_lstm_rsv",
+          "mae": 908.634577,
+          "rmse": 1440.586185,
+          "r2": -0.573392,
+          "mape": 4.819644,
+          "smape": 1.654062
+        }
+      ]
+    },
+    "Tuberculosis": {
+      "data_mode": "real_local_multi_source",
+      "disease": "Tuberculosis",
+      "frequency": "annual",
+      "best_model": "naive_last_value",
+      "test_rows": 40,
+      "items": [
+        {
+          "model": "naive_last_value",
+          "mae": 1.633333,
+          "rmse": 2.668083,
+          "r2": 0.997788,
+          "mape": 0.082935,
+          "smape": 0.079034
+        },
+        {
+          "model": "moving_average",
+          "mae": 2.95,
+          "rmse": 5.039904,
+          "r2": 0.992106,
+          "mape": 0.127172,
+          "smape": 0.115744
+        },
+        {
+          "model": "local_pytorch_lstm_tuberculosis",
+          "mae": 4.64553,
+          "rmse": 7.615108,
+          "r2": 0.981979,
+          "mape": 0.25526,
+          "smape": 0.20641
+        }
+      ]
+    },
+    "HIV/AIDS": {
+      "data_mode": "real_local_multi_source",
+      "disease": "HIV/AIDS",
+      "frequency": "annual",
+      "best_model": "naive_last_value",
+      "test_rows": 16,
+      "items": [
+        {
+          "model": "naive_last_value",
+          "mae": 785.0,
+          "rmse": 1442.931045,
+          "r2": 0.996682,
+          "mape": 0.067938,
+          "smape": 0.06702
+        },
+        {
+          "model": "moving_average",
+          "mae": 1435.624756,
+          "rmse": 2579.370858,
+          "r2": 0.989397,
+          "mape": 0.132643,
+          "smape": 0.125948
+        },
+        {
+          "model": "local_pytorch_lstm_hiv",
+          "mae": 3348.744751,
+          "rmse": 4426.985264,
+          "r2": 0.968767,
+          "mape": 1.173469,
+          "smape": 0.580274
+        }
+      ]
+    },
+    "COVID-19 Hospital Admissions": {
+      "data_mode": "real_local_multi_source",
+      "disease": "COVID-19 Hospital Admissions",
+      "frequency": "weekly",
+      "best_model": "naive_last_value",
+      "test_rows": 34,
+      "items": [
+        {
+          "model": "naive_last_value",
+          "mae": 746.15625,
+          "rmse": 1014.48372,
+          "r2": 0.770325,
+          "mape": 0.184684,
+          "smape": 0.169075
+        },
+        {
+          "model": "moving_average",
+          "mae": 1697.953125,
+          "rmse": 2025.253618,
+          "r2": 0.084659,
+          "mape": 0.42747,
+          "smape": 0.356618
+        },
+        {
+          "model": "local_pytorch_lstm_hospital",
+          "mae": 3470.590958,
+          "rmse": 3821.994516,
+          "r2": -2.2599,
+          "mape": 1.021719,
+          "smape": 0.569856
+        }
+      ]
+    }
+  }
 }

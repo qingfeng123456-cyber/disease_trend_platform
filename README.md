@@ -236,6 +236,14 @@ powershell -ExecutionPolicy Bypass -File scripts\install_lstm_dependencies.ps1
 powershell -ExecutionPolicy Bypass -File scripts\run_local_real_pipeline.ps1 -EnableLstm -LstmEpochs 20
 ```
 
+`LstmEpochs` 是最大轮次。默认按还原到原始单位后的验证集 MAE 判断，连续 5 轮不改善就早停；要强制跑满 40 轮：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\run_local_real_pipeline.ps1 -EnableLstm -LstmEpochs 40 -DisableLstmEarlyStopping
+```
+
+也可用 `-LstmPatience 10` 调整早停耐心值。流水线会为 6 种疾病分别训练独立 LSTM：COVID-19 使用日频窗口并预测 `new_cases_smoothed`，流感、RSV 和新冠住院使用周频原始观测值，结核病和 HIV/AIDS 使用年频原始观测值。各模型拥有独立的时间切分、标准化器、权重文件和测试指标，不会把周频或年频记录伪造扩展成日频，也不会混合不同疾病的目标单位。训练日志同时显示变换空间的 `val_loss` 和原始单位的 `val_mae`；最佳权重及早停由后者决定。真实覆盖可查看 `data/serving/model_data_coverage.json` 或 `GET /api/model-coverage`。
+
 同一流程也可以直接用 Python 运行：
 
 ```powershell
@@ -243,10 +251,10 @@ conda run --no-capture-output -n intership python scripts\build_local_serving_fr
 conda run --no-capture-output -n intership python -m src.web.app
 ```
 
-真实 LSTM 读取 `data/gold/local/forecast_features.csv`，模型保存到
-`data/models/local/local_pytorch_lstm.pt`，预测会进入 Flask 的
+真实 LSTM 读取 `data/gold/local/forecast_features.csv`，模型分别保存到
+`data/models/local/local_pytorch_lstm*.pt`，预测会进入 Flask 的
 `trend.json`、`predictions.json`、`model_metrics.json` 和 `model_comparison.json`。
-没有成功训练时，网页不会伪造 LSTM 选项。
+网页切换疾病时只显示该疾病可用的模型；没有成功训练时不会伪造 LSTM 选项。
 
 本地朴素基线：
 
@@ -287,6 +295,7 @@ GET /api/rankings
 GET /api/model-metrics
 GET /api/data-quality
 GET /api/options
+GET /api/model-coverage
 ```
 
 所有接口统一返回：
@@ -318,6 +327,7 @@ GET /api/options
 ```bash
 python -m compileall src tests
 pytest -q
+python scripts/verify_local_pipeline.py
 ```
 
 这些测试不依赖 Hadoop 集群。

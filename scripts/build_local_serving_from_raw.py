@@ -48,6 +48,68 @@ LSTM_MODEL_NAME = "local_pytorch_lstm"
 MOVING_AVERAGE_MODEL = "moving_average"
 BASELINE_MODEL = MOVING_AVERAGE_MODEL
 MODEL_OPTIONS = ["naive_last_value", MOVING_AVERAGE_MODEL, MODEL_NAME]
+LSTM_DISEASE_CONFIGS = {
+    COVID_DISEASE: {
+        "model": LSTM_MODEL_NAME,
+        "frequency": "daily",
+        "window": 28,
+        "horizon_steps": 7,
+        "hidden_size": 32,
+        "batch_size": 128,
+        "max_imputation_gap": 3,
+        "artifact": "local_pytorch_lstm.pt",
+    },
+    INFLUENZA_DISEASE: {
+        "model": "local_pytorch_lstm_influenza",
+        "frequency": "weekly",
+        "window": 12,
+        "horizon_steps": 1,
+        "hidden_size": 16,
+        "batch_size": 32,
+        "max_imputation_gap": 2,
+        "artifact": "local_pytorch_lstm_influenza.pt",
+    },
+    RSV_DISEASE: {
+        "model": "local_pytorch_lstm_rsv",
+        "frequency": "weekly",
+        "window": 8,
+        "horizon_steps": 1,
+        "hidden_size": 12,
+        "batch_size": 16,
+        "max_imputation_gap": 2,
+        "artifact": "local_pytorch_lstm_rsv.pt",
+    },
+    COVID_HOSPITAL_DISEASE: {
+        "model": "local_pytorch_lstm_hospital",
+        "frequency": "weekly",
+        "window": 12,
+        "horizon_steps": 1,
+        "hidden_size": 16,
+        "batch_size": 32,
+        "max_imputation_gap": 2,
+        "artifact": "local_pytorch_lstm_hospital.pt",
+    },
+    TUBERCULOSIS_DISEASE: {
+        "model": "local_pytorch_lstm_tuberculosis",
+        "frequency": "annual",
+        "window": 5,
+        "horizon_steps": 1,
+        "hidden_size": 12,
+        "batch_size": 32,
+        "max_imputation_gap": 1,
+        "artifact": "local_pytorch_lstm_tuberculosis.pt",
+    },
+    HIV_DISEASE: {
+        "model": "local_pytorch_lstm_hiv",
+        "frequency": "annual",
+        "window": 3,
+        "horizon_steps": 1,
+        "hidden_size": 12,
+        "batch_size": 16,
+        "max_imputation_gap": 1,
+        "artifact": "local_pytorch_lstm_hiv.pt",
+    },
+}
 ISO3_PATTERN = re.compile(r"^[A-Z]{3}$")
 WHO_HIV_PRIMARY_INDICATOR = "HIV_0000000026"
 WHO_HIV_PREVALENCE_INDICATOR = "MDG_0000000029"
@@ -55,6 +117,41 @@ WHO_TB_AUXILIARY_INDICATORS = {
     "MDG_0000000017": "who_tb_deaths_rate_per_100k",
     "TB_1": "who_tb_treatment_coverage_percent",
     "TB_c_newinc": "who_tb_new_relapse_cases",
+    "TB_e_mort_exc_tbhiv_num": "who_tb_deaths_excluding_hiv_count",
+    "TB_e_inc_tbhiv_num": "who_tb_incident_hiv_positive_count",
+    "TB_e_inc_tbhiv_100k": "who_tb_incident_hiv_positive_per_100k",
+    "TB_c_ret_tsr": "who_tb_treatment_success_previously_treated_percent",
+    "TB_c_mdr_tsr": "who_tb_mdr_treatment_success_percent",
+    "MDG_0000000031": "who_tb_smear_positive_treatment_success_percent",
+    "TB_hivtest_pct": "who_tb_hiv_status_known_percent",
+    "TB_hivtest_pos_pct": "who_tb_hiv_positive_percent",
+    "TB_c_notified": "who_tb_notified_cases_count",
+    "TB_hiv_art_pct": "who_tb_hiv_positive_on_art_percent",
+    "MDG_0000000030": "who_tb_smear_positive_case_detection_percent",
+    "TB_e_inc_rr_num": "who_tb_mdr_rr_incident_count",
+    "TB_c_mdr_tx": "who_tb_mdr_treatment_started_count",
+    "TB_c_dst_rlt_new_pct": "who_tb_new_cases_rr_mdr_tested_percent",
+    "TB_c_dst_rlt_ret_pct": "who_tb_previously_treated_rr_mdr_tested_percent",
+}
+WHO_TB_AUXILIARY_UNITS = {
+    "MDG_0000000017": "per_100k",
+    "TB_1": "percent",
+    "TB_c_newinc": "count",
+    "TB_e_mort_exc_tbhiv_num": "count",
+    "TB_e_inc_tbhiv_num": "count",
+    "TB_e_inc_tbhiv_100k": "per_100k",
+    "TB_c_ret_tsr": "percent",
+    "TB_c_mdr_tsr": "percent",
+    "MDG_0000000031": "percent",
+    "TB_hivtest_pct": "percent",
+    "TB_hivtest_pos_pct": "percent",
+    "TB_c_notified": "count",
+    "TB_hiv_art_pct": "percent",
+    "MDG_0000000030": "percent",
+    "TB_e_inc_rr_num": "count",
+    "TB_c_mdr_tx": "count",
+    "TB_c_dst_rlt_new_pct": "percent",
+    "TB_c_dst_rlt_ret_pct": "percent",
 }
 
 warnings.filterwarnings("ignore", message="Could not find the number of physical cores.*", category=UserWarning)
@@ -138,6 +235,20 @@ def iso_date(value: Any) -> str | None:
     if value is None or pd.isna(value):
         return None
     return pd.Timestamp(value).date().isoformat()
+
+
+def forecast_target_date(value: Any, frequency: str, horizon_steps: Any) -> str | None:
+    if value is None or pd.isna(value):
+        return None
+    timestamp = pd.Timestamp(value)
+    steps = max(int(horizon_steps or 1), 1)
+    if frequency == "annual":
+        target = timestamp + pd.DateOffset(years=steps)
+    elif frequency == "weekly":
+        target = timestamp + pd.Timedelta(weeks=steps)
+    else:
+        target = timestamp + pd.Timedelta(days=steps)
+    return target.date().isoformat()
 
 
 def numeric_or_none(value: Any) -> float | None:
@@ -743,10 +854,83 @@ def _annual_city_metric(
     return pd.DataFrame(rows), quality
 
 
+def _daily_city_metric(
+    path: Path,
+    city_columns: list[str],
+    *,
+    value_name: str,
+    value_offset: float = 0.0,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    daily: dict[pd.Timestamp, dict[str, float]] = {}
+    input_rows = 0
+    date_min: pd.Timestamp | None = None
+    date_max: pd.Timestamp | None = None
+    for chunk in pd.read_csv(path, usecols=["datetime", *city_columns], chunksize=5000):
+        dates = pd.to_datetime(chunk.pop("datetime"), errors="coerce")
+        values = chunk.apply(pd.to_numeric, errors="coerce")
+        input_rows += len(values)
+        valid_dates = dates.dropna()
+        if not valid_dates.empty:
+            chunk_min = valid_dates.min()
+            chunk_max = valid_dates.max()
+            date_min = chunk_min if date_min is None else min(date_min, chunk_min)
+            date_max = chunk_max if date_max is None else max(date_max, chunk_max)
+
+        chunk_daily = pd.DataFrame(
+            {
+                "date": dates.dt.normalize(),
+                "value_sum": values.sum(axis=1, min_count=1),
+                "value_count": values.count(axis=1),
+                "value_min": values.min(axis=1, skipna=True),
+                "value_max": values.max(axis=1, skipna=True),
+            }
+        )
+        chunk_daily = chunk_daily.dropna(subset=["date"])
+        chunk_daily = chunk_daily[chunk_daily["value_count"].gt(0)]
+        if chunk_daily.empty:
+            continue
+        chunk_daily = chunk_daily.groupby("date", as_index=False).agg(
+            value_sum=("value_sum", "sum"),
+            value_count=("value_count", "sum"),
+            value_min=("value_min", "min"),
+            value_max=("value_max", "max"),
+        )
+        for row in chunk_daily.itertuples(index=False):
+            day = pd.Timestamp(row.date)
+            bucket = daily.setdefault(
+                day,
+                {"sum": 0.0, "count": 0.0, "min": math.inf, "max": -math.inf},
+            )
+            bucket["sum"] += float(row.value_sum)
+            bucket["count"] += float(row.value_count)
+            bucket["min"] = min(bucket["min"], float(row.value_min))
+            bucket["max"] = max(bucket["max"], float(row.value_max))
+
+    rows = [
+        {
+            "date": day,
+            value_name: bucket["sum"] / bucket["count"] + value_offset,
+            f"{value_name}_min": bucket["min"] + value_offset,
+            f"{value_name}_max": bucket["max"] + value_offset,
+            f"{value_name}_observations": int(bucket["count"]),
+        }
+        for day, bucket in sorted(daily.items())
+    ]
+    quality = {
+        "input_path": safe_relative(path),
+        "input_rows": input_rows,
+        "date_min": iso_date(date_min),
+        "date_max": iso_date(date_max),
+        "daily_rows": len(rows),
+        "non_null_observations": int(sum(bucket["count"] for bucket in daily.values())),
+    }
+    return pd.DataFrame(rows), quality
+
+
 def clean_historical_weather(
     weather_root: Path,
     selected_codes: set[str],
-) -> tuple[pd.DataFrame, dict[str, Any]]:
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
     city_path = weather_root / "city_attributes.csv"
     metric_specs = {
         "temperature.csv": ("temperature_mean", -273.15),
@@ -765,7 +949,7 @@ def clean_historical_weather(
             "output_rows": 0,
             "country_count": 0,
         }
-        return pd.DataFrame(), quality
+        return pd.DataFrame(), pd.DataFrame(), quality
 
     cities = pd.read_csv(city_path)
     supported_country_codes = {"United States": "USA"}
@@ -780,24 +964,33 @@ def clean_historical_weather(
             "country_count": 0,
             "available_countries": sorted(pd.read_csv(city_path)["Country"].dropna().unique().tolist()),
         }
-        return pd.DataFrame(), quality
+        return pd.DataFrame(), pd.DataFrame(), quality
 
-    country_frames: list[pd.DataFrame] = []
+    annual_country_frames: list[pd.DataFrame] = []
+    daily_country_frames: list[pd.DataFrame] = []
     metric_quality: dict[str, Any] = {}
     raw_rows = 0
     for country_code, country_cities in cities.groupby("location_code", sort=True):
         city_columns = country_cities["City"].dropna().astype(str).tolist()
         annual: pd.DataFrame | None = None
+        daily: pd.DataFrame | None = None
         for file_name, (value_name, offset) in metric_specs.items():
-            metric_frame, metric_profile = _annual_city_metric(
+            annual_metric, annual_profile = _annual_city_metric(
                 weather_root / file_name,
                 city_columns,
                 value_name=value_name,
                 value_offset=offset,
             )
-            raw_rows = max(raw_rows, int(metric_profile["input_rows"]))
-            metric_quality[file_name] = metric_profile
-            annual = metric_frame if annual is None else annual.merge(metric_frame, on="year", how="outer")
+            daily_metric, daily_profile = _daily_city_metric(
+                weather_root / file_name,
+                city_columns,
+                value_name=value_name,
+                value_offset=offset,
+            )
+            raw_rows = max(raw_rows, int(daily_profile["input_rows"]))
+            metric_quality[file_name] = {"annual": annual_profile, "daily": daily_profile}
+            annual = annual_metric if annual is None else annual.merge(annual_metric, on="year", how="outer")
+            daily = daily_metric if daily is None else daily.merge(daily_metric, on="date", how="outer")
         if annual is None or annual.empty:
             continue
         annual["date"] = pd.to_datetime(annual["year"].astype("Int64").astype(str) + "-12-31", errors="coerce")
@@ -810,27 +1003,66 @@ def clean_historical_weather(
         annual["wind_speed_max"] = np.nan
         annual["weather_match_level"] = "historical_hourly_annual_city_mean"
         annual["source"] = "Kaggle historical hourly weather (annual city mean)"
-        country_frames.append(annual)
+        annual_country_frames.append(annual)
 
-    cleaned = pd.concat(country_frames, ignore_index=True, sort=False) if country_frames else pd.DataFrame()
-    if not cleaned.empty:
-        cleaned = cleaned.sort_values(["location_code", "year"]).drop_duplicates(["location_code", "year"], keep="last")
+        if daily is not None and not daily.empty:
+            daily = daily.rename(
+                columns={
+                    "temperature_mean_min": "temperature_min",
+                    "temperature_mean_max": "temperature_max",
+                    "wind_speed_mean_max": "wind_speed_max",
+                }
+            )
+            daily["year"] = pd.to_datetime(daily["date"], errors="coerce").dt.year
+            daily["location_code"] = country_code
+            daily["location"] = "United States" if country_code == "USA" else country_code
+            daily["city_count"] = len(city_columns)
+            daily["precipitation_sum"] = np.nan
+            daily["weather_match_level"] = "historical_hourly_daily_city_mean"
+            daily["source"] = "Kaggle historical hourly weather (daily city mean)"
+            daily_country_frames.append(daily)
+
+    annual_cleaned = (
+        pd.concat(annual_country_frames, ignore_index=True, sort=False)
+        if annual_country_frames
+        else pd.DataFrame()
+    )
+    daily_cleaned = (
+        pd.concat(daily_country_frames, ignore_index=True, sort=False)
+        if daily_country_frames
+        else pd.DataFrame()
+    )
+    if not annual_cleaned.empty:
+        annual_cleaned = annual_cleaned.sort_values(["location_code", "year"]).drop_duplicates(
+            ["location_code", "year"], keep="last"
+        )
+    if not daily_cleaned.empty:
+        daily_cleaned = daily_cleaned.sort_values(["location_code", "date"]).drop_duplicates(
+            ["location_code", "date"], keep="last"
+        )
     quality = {
         "input_root": safe_relative(weather_root),
-        "status": "cleaned" if not cleaned.empty else "empty",
+        "status": "cleaned" if not annual_cleaned.empty and not daily_cleaned.empty else "empty",
         "input_rows": raw_rows,
-        "output_rows": len(cleaned),
-        "country_count": int(cleaned["location_code"].nunique()) if not cleaned.empty else 0,
+        "output_rows": len(annual_cleaned),
+        "annual_output_rows": len(annual_cleaned),
+        "daily_output_rows": len(daily_cleaned),
+        "country_count": int(annual_cleaned["location_code"].nunique()) if not annual_cleaned.empty else 0,
         "city_count": int(cities["City"].nunique()),
-        "date_min": iso_date(cleaned["date"].min()) if not cleaned.empty else None,
-        "date_max": iso_date(cleaned["date"].max()) if not cleaned.empty else None,
+        "date_min": iso_date(daily_cleaned["date"].min()) if not daily_cleaned.empty else None,
+        "date_max": iso_date(daily_cleaned["date"].max()) if not daily_cleaned.empty else None,
+        "annual_date_min": iso_date(annual_cleaned["date"].min()) if not annual_cleaned.empty else None,
+        "annual_date_max": iso_date(annual_cleaned["date"].max()) if not annual_cleaned.empty else None,
         "temperature_input_unit": "Kelvin",
         "temperature_output_unit": "Celsius",
         "humidity_unit": "percent",
-        "usage": "USA annual weather enrichment for same-year Tuberculosis observations; never joined to COVID dates.",
+        "usage": (
+            "Country-day Silver rows retain daily variation; exact observation-weighted annual means enrich "
+            "same-year USA Tuberculosis rows; neither table is forced onto non-overlapping COVID dates."
+        ),
         "metric_profiles": metric_quality,
     }
-    return cleaned, quality
+    return annual_cleaned, daily_cleaned, quality
 
 
 def _cdc_report_category(title: str) -> str:
@@ -1154,9 +1386,7 @@ def clean_who(
         explicit_units = {
             WHO_HIV_PRIMARY_INDICATOR: "count",
             WHO_HIV_PREVALENCE_INDICATOR: "percent",
-            "MDG_0000000017": "per_100k",
-            "TB_1": "percent",
-            "TB_c_newinc": "count",
+            **WHO_TB_AUXILIARY_UNITS,
         }
         explicit_unit_values = frame["indicator_code"].map(explicit_units)
         frame["unit"] = frame["unit"].where(explicit_unit_values.isna(), explicit_unit_values)
@@ -1242,14 +1472,71 @@ def clean_who(
         + "|id:"
         + pd.to_numeric(catalog.loc[record_id_mask, "who_record_id"], errors="coerce").astype("Int64").astype(str)
     )
-    catalog["duplicate_source_count"] = catalog.groupby("_dedup_key")["_dedup_key"].transform("size")
+    content_signature_columns = [
+        "indicator_code",
+        "indicator_name",
+        "location_type",
+        "location_code",
+        "year",
+        "value",
+        "numeric_value_clean",
+        "low",
+        "high",
+        "unit",
+        "sex",
+        "age",
+        "publish_state",
+        "dimension_1_type",
+        "dimension_1_value",
+        "dimension_2_type",
+        "dimension_2_value",
+        "dimension_3_type",
+        "dimension_3_value",
+        "who_record_updated_at",
+    ]
+    catalog["_dedup_content_signature"] = (
+        catalog[content_signature_columns].astype("string").fillna("").agg("|".join, axis=1)
+    )
+    duplicate_provenance = catalog.groupby("_dedup_key", as_index=False).agg(
+        duplicate_source_count=("_dedup_key", "size"),
+        duplicate_source_files=(
+            "source_file",
+            lambda values: " | ".join(sorted(set(values.dropna().astype(str)))),
+        ),
+        duplicate_collector_topics=(
+            "collector_topic",
+            lambda values: " | ".join(sorted(set(values.dropna().astype(str)))),
+        ),
+        duplicate_content_variant_count=("_dedup_content_signature", "nunique"),
+    )
+    catalog = catalog.merge(duplicate_provenance, on="_dedup_key", how="left", validate="many_to_one")
+    catalog["duplicate_content_conflict"] = catalog["duplicate_content_variant_count"].gt(1)
+    catalog["_who_updated_sort"] = pd.to_datetime(catalog["who_record_updated_at"], errors="coerce", utc=True)
     catalog = (
-        catalog.sort_values(["_dedup_key", "collector_topic_match", "source_file"])
+        catalog.sort_values(
+            ["_dedup_key", "_who_updated_sort", "collector_topic_match", "source_file"],
+            na_position="first",
+        )
         .drop_duplicates("_dedup_key", keep="last")
-        .drop(columns="_dedup_key")
+        .drop(columns=["_dedup_key", "_dedup_content_signature", "_who_updated_sort"])
         .reset_index(drop=True)
     )
     duplicate_rows_removed = input_rows - len(catalog)
+    duplicate_key_groups = int(catalog["duplicate_source_count"].gt(1).sum())
+    duplicate_content_conflict_groups = int(catalog["duplicate_content_conflict"].sum())
+    duplicate_rows_by_indicator = (
+        (catalog["duplicate_source_count"] - 1)
+        .groupby(catalog["indicator_code"])
+        .sum()
+    )
+    duplicate_rows_by_indicator = {
+        str(code): int(count)
+        for code, count in duplicate_rows_by_indicator[duplicate_rows_by_indicator.gt(0)].items()
+    }
+    catalog.loc[
+        catalog["duplicate_content_conflict"] & catalog["quality_flag"].eq("ok"),
+        "quality_flag",
+    ] = "duplicate_content_conflict_latest_kept"
 
     location_lookup = location_catalog.set_index("location_code")["location"].to_dict()
     primary_candidates = catalog[
@@ -1355,6 +1642,9 @@ def clean_who(
         "input_rows": input_rows,
         "output_rows": len(catalog),
         "duplicate_rows_removed": duplicate_rows_removed,
+        "duplicate_key_groups": duplicate_key_groups,
+        "duplicate_content_conflict_groups": duplicate_content_conflict_groups,
+        "duplicate_rows_by_indicator": duplicate_rows_by_indicator,
         "invalid_raw_json_rows": invalid_raw_json_rows,
         "empty_file_count": len(empty_files),
         "empty_files": empty_files,
@@ -1364,6 +1654,19 @@ def clean_who(
         "location_types": catalog.groupby("location_type").size().to_dict(),
         "files_by_topic_rows": file_rows_by_topic,
         "usage_rows": catalog.groupby("usage_class").size().to_dict(),
+        "selected_country_numeric_rows": int(
+            (catalog["is_selected_country"] & catalog["numeric_value_clean"].notna()).sum()
+        ),
+        "auxiliary_indicator_count": int(
+            catalog.loc[catalog["usage_class"].eq("auxiliary_feature"), "indicator_code"].nunique()
+        ),
+        "selected_country_auxiliary_numeric_rows": int(
+            (
+                catalog["is_selected_country"]
+                & catalog["usage_class"].eq("auxiliary_feature")
+                & catalog["numeric_value_clean"].notna()
+            ).sum()
+        ),
         "false_keyword_match_files": sorted(false_keyword_files),
         "future_date_rows": int(catalog["year"].gt(datetime.now().year).sum()),
         "date_min": iso_date(catalog["date"].min()),
@@ -1379,9 +1682,61 @@ def clean_who(
         "hiv_internal_year_gap_count": hiv_year_gap_count,
         "tb_auxiliary_rows": len(tb_auxiliary),
         "tb_auxiliary_country_count": int(tb_auxiliary["location_code"].nunique()) if not tb_auxiliary.empty else 0,
-        "important_rule": "Only HIV_0000000026 becomes a disease observation. TB indicators are auxiliary; prison and keyword false-positive indicators remain catalog-only.",
+        "tb_auxiliary_indicator_count": len(WHO_TB_AUXILIARY_INDICATORS),
+        "important_rule": "HIV_0000000026 is the HIV/AIDS observation target. Curated scalar country-year TB indicators are auxiliary features; dimensioned, special-population and false-positive records remain catalog-only.",
     }
     return catalog.sort_values(["indicator_code", "location_type", "location_code", "year"]), hiv, tb_auxiliary, quality
+
+
+def summarize_who_indicators(catalog: pd.DataFrame) -> pd.DataFrame:
+    if catalog.empty:
+        return pd.DataFrame()
+    frame = catalog.copy()
+    frame["_numeric_row"] = frame["numeric_value_clean"].notna().astype(int)
+    frame["_selected_country_row"] = frame["is_selected_country"].astype(bool).astype(int)
+    frame["_selected_country_numeric_row"] = (
+        frame["is_selected_country"].astype(bool) & frame["numeric_value_clean"].notna()
+    ).astype(int)
+    frame["_country_code"] = frame["location_code"].where(frame["location_type"].eq("COUNTRY"))
+    frame["_selected_country_code"] = frame["location_code"].where(frame["is_selected_country"].astype(bool))
+    frame["_duplicate_raw_rows"] = (frame["duplicate_source_count"] - 1).clip(lower=0)
+
+    def join_unique(values: pd.Series) -> str:
+        return " | ".join(sorted({str(value) for value in values.dropna() if str(value).strip()}))
+
+    summary = frame.groupby("indicator_code", as_index=False).agg(
+        indicator_name=("indicator_name", "first"),
+        usage_class=("usage_class", join_unique),
+        rows=("indicator_code", "size"),
+        numeric_rows=("_numeric_row", "sum"),
+        selected_country_rows=("_selected_country_row", "sum"),
+        selected_country_numeric_rows=("_selected_country_numeric_row", "sum"),
+        country_count=("_country_code", "nunique"),
+        selected_country_count=("_selected_country_code", "nunique"),
+        year_min=("year", "min"),
+        year_max=("year", "max"),
+        units=("unit", join_unique),
+        collector_topics=("collector_topic", join_unique),
+        source_file_count=("source_file", "nunique"),
+        duplicate_raw_rows=("_duplicate_raw_rows", "sum"),
+        duplicate_content_conflict_groups=("duplicate_content_conflict", "sum"),
+    )
+    for column in [
+        "rows",
+        "numeric_rows",
+        "selected_country_rows",
+        "selected_country_numeric_rows",
+        "country_count",
+        "selected_country_count",
+        "source_file_count",
+        "duplicate_raw_rows",
+        "duplicate_content_conflict_groups",
+    ]:
+        summary[column] = summary[column].astype(int)
+    return summary.sort_values(
+        ["selected_country_numeric_rows", "numeric_rows", "indicator_code"],
+        ascending=[False, False, True],
+    ).reset_index(drop=True)
 
 
 WEATHER_VALUE_COLUMNS = [
@@ -1447,7 +1802,14 @@ def add_time_features(group: pd.DataFrame) -> pd.DataFrame:
     prior = group["new_cases_smoothed"].shift(growth_steps)
     group["growth_rate_1"] = (group["new_cases_smoothed"] - group["lag_1"]) / group["lag_1"].abs().clip(lower=1.0)
     group["growth_rate_7"] = (group["new_cases_smoothed"] - prior) / prior.abs().clip(lower=1.0)
-    group["target_t_plus_7"] = group["new_cases_smoothed"].shift(-horizon_steps)
+    if frequency == "annual":
+        target_dates = group["date"] + pd.DateOffset(years=horizon_steps)
+    else:
+        period_days = 1 if frequency == "daily" else 7
+        target_dates = group["date"] + pd.to_timedelta(horizon_steps * period_days, unit="D")
+    target_column = "new_cases_smoothed" if frequency == "daily" else "value"
+    value_by_date = group.set_index("date")[target_column]
+    group["target_t_plus_7"] = target_dates.map(value_by_date)
     return group
 
 
@@ -1619,8 +1981,9 @@ def fit_predict(
     show_progress: bool = True,
 ) -> tuple[pd.DataFrame, dict[str, Any], dict[str, Any]]:
     data = features.copy()
-    data["prediction_naive_last_value"] = data["new_cases_smoothed"].fillna(0.0)
-    data["prediction_moving_average"] = data["rolling_mean_7"].fillna(data["new_cases_smoothed"]).fillna(0.0)
+    native_observation = data["new_cases_smoothed"].where(data["frequency"].eq("daily"), data["value"])
+    data["prediction_naive_last_value"] = native_observation.fillna(0.0)
+    data["prediction_moving_average"] = data["rolling_mean_7"].fillna(native_observation).fillna(0.0)
     data["prediction_local_sklearn_gbdt"] = data["prediction_moving_average"]
     data["prediction_t_plus_7"] = data["prediction_moving_average"]
     scope = data[data["model_eligible"]].copy()
@@ -1773,6 +2136,61 @@ def fit_predict(
     return data, metrics, comparison
 
 
+def _baseline_comparison(features: pd.DataFrame, disease: str) -> dict[str, Any]:
+    scope = features[features["disease"].eq(disease)].dropna(subset=["target_t_plus_7"]).sort_values("date")
+    if scope.empty:
+        empty_metrics = {"mae": 0.0, "rmse": 0.0, "r2": 0.0, "mape": 0.0, "smape": 0.0}
+        return {
+            "data_mode": "real_local_multi_source",
+            "disease": disease,
+            "best_model": MOVING_AVERAGE_MODEL,
+            "test_rows": 0,
+            "items": [
+                {"model": "naive_last_value", **empty_metrics},
+                {"model": MOVING_AVERAGE_MODEL, **empty_metrics},
+            ],
+        }
+    min_date = scope["date"].min()
+    max_date = scope["date"].max()
+    cutoff = min_date + pd.Timedelta(days=int(max((max_date - min_date).days, 1) * 0.85))
+    test = scope[scope["date"].gt(cutoff)]
+    if test.empty:
+        test = scope.tail(max(1, int(math.ceil(len(scope) * 0.15))))
+    actual = test["target_t_plus_7"].astype(float).tolist()
+    native_observation = test["new_cases_smoothed"].where(test["frequency"].eq("daily"), test["value"])
+    naive = regression_metrics(actual, native_observation.astype(float).tolist())
+    moving = regression_metrics(actual, test["rolling_mean_7"].astype(float).tolist())
+    items = [
+        {"model": "naive_last_value", **naive},
+        {"model": MOVING_AVERAGE_MODEL, **moving},
+    ]
+    best = min(items, key=lambda item: float(item["mae"]))
+    return {
+        "data_mode": "real_local_multi_source",
+        "disease": disease,
+        "frequency": str(scope["frequency"].iloc[0]),
+        "best_model": best["model"],
+        "test_rows": int(len(test)),
+        "items": items,
+    }
+
+
+def _select_best_comparison_item(comparison: dict[str, Any]) -> dict[str, Any]:
+    valid_items = [
+        item
+        for item in comparison.get("items", [])
+        if isinstance(item.get("mae"), (int, float)) and math.isfinite(float(item["mae"]))
+    ]
+    return min(valid_items, key=lambda item: float(item["mae"])) if valid_items else {
+        "model": MOVING_AVERAGE_MODEL,
+        "mae": 0.0,
+        "rmse": 0.0,
+        "r2": 0.0,
+        "mape": 0.0,
+        "smape": 0.0,
+    }
+
+
 def complete_model_training(
     features: pd.DataFrame,
     gbdt_metrics: dict[str, Any],
@@ -1793,6 +2211,21 @@ def complete_model_training(
     data = features.copy()
     model_details: dict[str, dict[str, Any]] = {MODEL_NAME: gbdt_metrics}
     available_models = ["naive_last_value", MOVING_AVERAGE_MODEL, MODEL_NAME]
+    present_diseases = [disease for disease in DISEASE_ORDER if disease in set(data["disease"])]
+    comparisons_by_disease: dict[str, dict[str, Any]] = {
+        disease: _baseline_comparison(data, disease) for disease in present_diseases
+    }
+    comparisons_by_disease[COVID_DISEASE] = {
+        **comparison,
+        "disease": COVID_DISEASE,
+        "frequency": "daily",
+        "items": [dict(item) for item in comparison.get("items", [])],
+    }
+    models_by_disease: dict[str, list[str]] = {
+        disease: ["naive_last_value", MOVING_AVERAGE_MODEL] for disease in present_diseases
+    }
+    models_by_disease[COVID_DISEASE].append(MODEL_NAME)
+    lstm_prediction_frames: list[pd.DataFrame] = []
 
     if enable_lstm:
         from src.models.lstm_optional import (
@@ -1807,52 +2240,121 @@ def complete_model_training(
                 "LSTM training was requested, but PyTorch is not installed in the intership environment.\n"
                 f"Run this command first:\n  {PYTORCH_INSTALL_COMMAND}"
             )
-        lstm_prediction, lstm_metrics, lstm_rows = train_lstm_forecaster(
-            data,
-            model_output=model_dir / "local_pytorch_lstm.pt",
-            window=lstm_window,
-            epochs=lstm_epochs,
-            batch_size=lstm_batch_size,
-            hidden_size=lstm_hidden_size,
-            patience=lstm_patience,
-            seed=seed,
-            show_batch_progress=show_lstm_batch_progress,
-        )
-        data["prediction_local_pytorch_lstm"] = lstm_prediction
-        model_details[PYTORCH_LSTM_MODEL_NAME] = lstm_metrics
-        available_models.append(PYTORCH_LSTM_MODEL_NAME)
-        comparison["items"].append(
-            {
-                "model": PYTORCH_LSTM_MODEL_NAME,
+        configs_to_train = [
+            (disease, LSTM_DISEASE_CONFIGS[disease])
+            for disease in present_diseases
+            if disease in LSTM_DISEASE_CONFIGS
+        ]
+        for model_number, (disease, config) in enumerate(configs_to_train, start=1):
+            model_name = str(config["model"])
+            effective_window = lstm_window if disease == COVID_DISEASE else int(config["window"])
+            effective_hidden = lstm_hidden_size if disease == COVID_DISEASE else min(
+                lstm_hidden_size,
+                int(config["hidden_size"]),
+            )
+            effective_batch = min(lstm_batch_size, int(config["batch_size"]))
+            if show_progress:
+                print(
+                    f"[LSTM] Disease model {model_number}/{len(configs_to_train)}: {disease} "
+                    f"({config['frequency']}, window={effective_window})",
+                    flush=True,
+                )
+            try:
+                lstm_prediction, lstm_metrics, lstm_rows = train_lstm_forecaster(
+                    data,
+                    model_output=model_dir / str(config["artifact"]),
+                    disease=disease,
+                    frequency=str(config["frequency"]),
+                    model_name=model_name,
+                    horizon_steps=int(config["horizon_steps"]),
+                    max_imputation_gap=int(config["max_imputation_gap"]),
+                    window=effective_window,
+                    epochs=lstm_epochs,
+                    batch_size=effective_batch,
+                    hidden_size=effective_hidden,
+                    patience=lstm_patience,
+                    seed=seed + model_number - 1,
+                    show_batch_progress=show_lstm_batch_progress,
+                )
+            except ValueError as exc:
+                model_details[model_name] = {
+                    "model": model_name,
+                    "disease": disease,
+                    "frequency": config["frequency"],
+                    "status": "insufficient_data",
+                    "reason": str(exc),
+                    "train_rows": 0,
+                    "validation_rows": 0,
+                    "test_rows": 0,
+                }
+                print(f"[LSTM][{disease}] Skipped: {exc}", flush=True)
+                continue
+            data[f"prediction_{model_name}"] = lstm_prediction
+            model_details[model_name] = lstm_metrics
+            available_models.append(model_name)
+            models_by_disease[disease].append(model_name)
+            baseline_items = [
+                {"model": baseline_name, **baseline_values}
+                for baseline_name, baseline_values in lstm_metrics.get("baseline_metrics", {}).items()
+            ]
+            retained_items = [
+                item
+                for item in comparisons_by_disease[disease].get("items", [])
+                if item.get("model") not in {"naive_last_value", MOVING_AVERAGE_MODEL, model_name}
+            ]
+            lstm_item = {
+                "model": model_name,
                 **{
                     key: lstm_metrics.get(key)
                     for key in ["mae", "rmse", "r2", "mape", "smape"]
                 },
             }
-        )
-        gold_dir.mkdir(parents=True, exist_ok=True)
-        lstm_rows.to_csv(gold_dir / "lstm_predictions.csv", index=False, encoding="utf-8-sig")
+            comparisons_by_disease[disease]["items"] = [*baseline_items, *retained_items, lstm_item]
+            gold_dir.mkdir(parents=True, exist_ok=True)
+            lstm_rows.to_csv(gold_dir / f"{model_name}_predictions.csv", index=False, encoding="utf-8-sig")
+            lstm_prediction_frames.append(lstm_rows)
 
-    valid_items = [
-        item
-        for item in comparison.get("items", [])
-        if isinstance(item.get("mae"), (int, float)) and math.isfinite(float(item["mae"]))
-    ]
-    best_item = min(valid_items, key=lambda item: float(item["mae"])) if valid_items else {"model": MOVING_AVERAGE_MODEL, "mae": 0.0}
-    best_model = str(best_item["model"])
-    comparison["best_model"] = best_model
+        if lstm_prediction_frames:
+            pd.concat(lstm_prediction_frames, ignore_index=True, sort=False).to_csv(
+                gold_dir / "lstm_predictions.csv",
+                index=False,
+                encoding="utf-8-sig",
+            )
 
-    best_prediction_column = f"prediction_{best_model}"
-    if best_prediction_column in data.columns:
-        data["prediction_t_plus_7"] = data[best_prediction_column].fillna(data["prediction_moving_average"])
-    else:
-        data["prediction_t_plus_7"] = data["prediction_moving_average"]
+    data["prediction_t_plus_7"] = data["prediction_moving_average"]
+    disease_metric_summaries: dict[str, dict[str, Any]] = {}
+    for disease, disease_comparison in comparisons_by_disease.items():
+        best_item = _select_best_comparison_item(disease_comparison)
+        best_model = str(best_item["model"])
+        disease_comparison["best_model"] = best_model
+        best_prediction_column = f"prediction_{best_model}"
+        disease_mask = data["disease"].eq(disease)
+        if best_prediction_column in data.columns:
+            data.loc[disease_mask, "prediction_t_plus_7"] = data.loc[
+                disease_mask,
+                best_prediction_column,
+            ].fillna(data.loc[disease_mask, "prediction_moving_average"])
+        disease_metric_summaries[disease] = {
+            "disease": disease,
+            "frequency": disease_comparison.get("frequency"),
+            "model": best_model,
+            "best_model": best_model,
+            **{key: best_item.get(key) for key in ["mae", "rmse", "r2", "mape", "smape"]},
+            "available_models": models_by_disease[disease],
+            "comparison": disease_comparison,
+        }
 
+    covid_comparison = comparisons_by_disease[COVID_DISEASE]
+    comparison.clear()
+    comparison.update({**covid_comparison, "by_disease": comparisons_by_disease})
+    covid_summary = disease_metric_summaries[COVID_DISEASE]
+    best_model = str(covid_summary["best_model"])
+    best_item = _select_best_comparison_item(covid_comparison)
     baseline_details = {
         "model": best_model,
         "data_mode": "real_local_multi_source",
         **{key: best_item.get(key) for key in ["mae", "rmse", "r2", "mape", "smape"]},
-        "scope": "COVID-19 daily t+7 test partition",
+        "scope": "COVID-19 daily test partition",
         "note": "Selected by lowest test MAE among the trained models and baselines.",
     }
     selected_metrics = dict(model_details.get(best_model, baseline_details))
@@ -1861,19 +2363,18 @@ def complete_model_training(
             "model": best_model,
             "best_model": best_model,
             "data_mode": "real_local_multi_source",
-            "mae": best_item.get("mae"),
-            "rmse": best_item.get("rmse"),
-            "r2": best_item.get("r2"),
-            "mape": best_item.get("mape"),
-            "smape": best_item.get("smape"),
+            **{key: covid_summary.get(key) for key in ["mae", "rmse", "r2", "mape", "smape"]},
             "models": model_details,
             "available_models": available_models,
+            "models_by_disease": models_by_disease,
+            "by_disease": disease_metric_summaries,
         }
     )
     if show_progress:
         print(
-            f"[MODEL] Best test MAE: {best_model} ({float(best_item.get('mae') or 0.0):.4f}); "
-            f"available={','.join(available_models)}",
+            f"[MODEL] COVID best test MAE: {best_model} ({float(best_item.get('mae') or 0.0):.4f}); "
+            f"disease LSTMs trained={sum(1 for details in model_details.values() if details.get('status') == 'trained' and str(details.get('model', '')).startswith('local_pytorch_lstm'))}/"
+            f"{len(LSTM_DISEASE_CONFIGS)}",
             flush=True,
         )
     return data, selected_metrics, comparison, available_models
@@ -1962,6 +2463,174 @@ def series_summaries(features: pd.DataFrame) -> list[dict[str, Any]]:
     return summaries
 
 
+def build_model_data_coverage(
+    features: pd.DataFrame,
+    metrics: dict[str, Any],
+    quality_parts: dict[str, Any],
+) -> dict[str, Any]:
+    model_details = metrics.get("models", {})
+    models_by_disease = metrics.get("models_by_disease", {})
+    disease_rows: list[dict[str, Any]] = []
+    for disease, group in features.groupby("disease", sort=True):
+        frequency_values = sorted(group["frequency"].dropna().astype(str).unique().tolist())
+        disease_models = models_by_disease.get(disease, ["naive_last_value", MOVING_AVERAGE_MODEL])
+        disease_lstm_models = [model for model in disease_models if str(model).startswith("local_pytorch_lstm")]
+        disease_rows.append(
+            {
+                "disease": disease,
+                "frequency": frequency_values[0] if len(frequency_values) == 1 else frequency_values,
+                "feature_rows": int(len(group)),
+                "location_count": int(group["location_code"].nunique()),
+                "date_start": iso_date(group["date"].min()),
+                "date_end": iso_date(group["date"].max()),
+                "weather_matched_rows": int(group["has_weather"].fillna(False).astype(bool).sum()),
+                "population_matched_rows": int(group["population"].notna().sum()),
+                "target_rows": int(group["target_t_plus_7"].notna().sum()),
+                "available_models": disease_models,
+                "learned_model_scope": bool(disease_lstm_models) or disease == COVID_DISEASE,
+                "disease_lstm_model": disease_lstm_models[0] if disease_lstm_models else None,
+                "model_policy": (
+                    "An independent native-frequency LSTM is trained for this disease; baselines remain available."
+                    if disease_lstm_models
+                    else "No reliable LSTM artifact was produced; frequency-specific baselines are used."
+                ),
+            }
+        )
+
+    diseases = sorted(features["disease"].unique().tolist())
+    model_rows: list[dict[str, Any]] = [
+        {
+            "model": "naive_last_value",
+            "kind": "frequency-aware baseline",
+            "status": "ready",
+            "diseases": diseases,
+            "input_rows": int(len(features)),
+            "input_features": ["current frequency-specific observed value"],
+            "uses_weather": False,
+            "uses_population": False,
+        },
+        {
+            "model": MOVING_AVERAGE_MODEL,
+            "kind": "frequency-aware baseline",
+            "status": "ready",
+            "diseases": diseases,
+            "input_rows": int(len(features)),
+            "input_features": ["daily 7-point, weekly 4-point, or annual 3-point rolling mean"],
+            "uses_weather": False,
+            "uses_population": False,
+        },
+    ]
+    for model_name, details in model_details.items():
+        is_lstm = str(model_name).startswith("local_pytorch_lstm")
+        if model_name != MODEL_NAME and not is_lstm:
+            continue
+        partitions = {
+            "train": int(details.get("train_rows", 0)),
+            "validation": int(details.get("validation_rows", 0)),
+            "test": int(details.get("test_rows", 0)),
+        }
+        model_rows.append(
+            {
+                "model": model_name,
+                "kind": "PyTorch LSTM" if is_lstm else "HistGradientBoostingRegressor",
+                "status": details.get("status", "trained"),
+                "diseases": [details.get("disease", COVID_DISEASE)],
+                "frequency": details.get("frequency", "daily"),
+                "input_rows": sum(partitions.values()),
+                "partitions": partitions,
+                "date_start": details.get("train_start"),
+                "date_end": details.get("test_end"),
+                "input_features": details.get("feature_list") or details.get("input_features", []),
+                "uses_weather": not is_lstm,
+                "uses_population": not is_lstm,
+                "epochs_requested": details.get("epochs_requested"),
+                "epochs_trained": details.get("epochs_trained"),
+                "early_stopped": details.get("early_stopped"),
+                "model_path": details.get("model_path"),
+                "mae": details.get("mae"),
+                "beats_baseline": details.get("beats_baseline"),
+                "window": details.get("window"),
+                "calendar_rows_inserted": details.get("calendar_rows_inserted"),
+                "input_values_imputed": details.get("input_values_imputed"),
+                "reason": details.get("reason"),
+            }
+        )
+
+    covid_scope = features[features["model_eligible"]].copy()
+    trained_lstm_models = [
+        details
+        for model_name, details in model_details.items()
+        if str(model_name).startswith("local_pytorch_lstm") and details.get("status") == "trained"
+    ]
+    return {
+        "data_mode": "real_local_multi_source",
+        "summary": {
+            "gold_feature_rows": int(len(features)),
+            "disease_count": int(features["disease"].nunique()),
+            "covid_learned_model_eligible_rows": int(len(covid_scope)),
+            "covid_weather_feature_rows": int(covid_scope["has_weather"].fillna(False).astype(bool).sum()),
+            "covid_population_feature_rows": int(covid_scope["population"].notna().sum()),
+            "best_covid_model": metrics.get("best_model"),
+            "disease_lstm_models_trained": len(trained_lstm_models),
+            "expected_disease_lstm_models": len(LSTM_DISEASE_CONFIGS),
+            "all_diseases_have_independent_lstm": len(trained_lstm_models) == len(LSTM_DISEASE_CONFIGS),
+            "all_diseases_share_one_learned_model": False,
+        },
+        "per_disease": disease_rows,
+        "models": model_rows,
+        "source_usage": [
+            {
+                "source": "OWID COVID-19 daily",
+                "role": "COVID target and lag features",
+                "used_by": ["naive_last_value", MOVING_AVERAGE_MODEL, MODEL_NAME, LSTM_MODEL_NAME],
+                "clean_rows": quality_parts.get("owid", {}).get("output_rows", 0),
+            },
+            {
+                "source": "Open-Meteo daily weather",
+                "role": "Optional same-date COVID GBDT covariates and visualization",
+                "used_by": [MODEL_NAME],
+                "clean_rows": quality_parts.get("weather", {}).get("output_rows", 0),
+            },
+            {
+                "source": "World Bank and Kaggle population",
+                "role": "Year/location socioeconomic GBDT covariates and rate denominators",
+                "used_by": [MODEL_NAME],
+                "clean_rows": quality_parts.get("population", {}).get("output_rows", 0),
+            },
+            {
+                "source": "Kaggle historical hourly weather",
+                "role": "Daily Silver preservation plus same-year USA Tuberculosis exploration",
+                "used_by": [],
+                "clean_rows": quality_parts.get("historical_weather", {}).get("daily_output_rows", 0),
+                "annual_join_rows": quality_parts.get("historical_weather", {}).get("annual_output_rows", 0),
+            },
+            {
+                "source": "Tuberculosis, respiratory, and WHO disease series",
+                "role": "Separate annual/weekly targets with independent native-frequency LSTMs and baselines; WHO TB fields are auxiliary",
+                "used_by": [
+                    "naive_last_value",
+                    MOVING_AVERAGE_MODEL,
+                    *[
+                        config["model"]
+                        for disease, config in LSTM_DISEASE_CONFIGS.items()
+                        if disease != COVID_DISEASE
+                    ],
+                ],
+                "clean_rows": int(
+                    quality_parts.get("tuberculosis", {}).get("output_rows", 0)
+                    + quality_parts.get("respiratory", {}).get("output_rows", 0)
+                    + quality_parts.get("who", {}).get("hiv_observation_rows", 0)
+                ),
+            },
+        ],
+        "explanation": (
+            "Every disease uses a separate LSTM artifact, scaler, chronological split, native frequency, and target unit. "
+            "Daily, weekly, and annual values are never mixed into one training target. Bounded interpolation is allowed "
+            "for past inputs only; every evaluated future target must be an observed source value."
+        ),
+    }
+
+
 def build_source_status(quality_parts: dict[str, Any], generated_at: str) -> list[dict[str, Any]]:
     cdc_quality = quality_parts.get("china_cdc", {})
     who_quality = quality_parts.get("who", {})
@@ -1992,36 +2661,56 @@ def build_source_status(quality_parts: dict[str, Any], generated_at: str) -> lis
             "rows": who_rows,
             "raw_rows": who_quality.get("input_rows", 0),
             "detail": (
-                f"{who_files} 个本地 CSV 已清洗（{who_quality.get('empty_file_count', 0)} 个接口返回空表）；"
-                f"HIV 年度主序列 {who_hiv_rows} 行，WHO 结核病指标作为辅助字段。"
+                f"{who_files} 个 CSV、{who_quality.get('indicator_count', 0)} 个指标；"
+                f"合并 {who_quality.get('duplicate_rows_removed', 0)} 条跨主题完全重复副本，"
+                f"冲突 {who_quality.get('duplicate_content_conflict_groups', 0)} 组；"
+                f"HIV 主序列 {who_hiv_rows} 行，结核病辅助指标 {who_quality.get('tb_auxiliary_indicator_count', 0)} 个。"
                 if who_rows
                 else "未发现可用 WHO CSV；需要先采集或放入 data/raw/who。"
             ),
         },
         {
             "name": "Kaggle 2012-2017 historical weather",
-            "status": "ok" if historical_quality.get("output_rows", 0) else "warn",
+            "status": "ok" if historical_quality.get("daily_output_rows", 0) else "warn",
             "updated_at": generated_at,
-            "rows": historical_quality.get("output_rows", 0),
+            "rows": historical_quality.get("daily_output_rows", 0),
             "raw_rows": historical_quality.get("input_rows", 0),
-            "detail": "小时数据已聚合为美国 2012-2017 年天气，用于同年结核病探索性关联，不与 COVID 强行拼接。",
+            "detail": (
+                f"27 个美国城市的小时观测聚合为 {historical_quality.get('daily_output_rows', 0):,} 条国家日记录；"
+                f"另派生 {historical_quality.get('annual_output_rows', historical_quality.get('output_rows', 0))} 条年度记录，"
+                "仅用于同年结核病探索性关联，不与 COVID 强行拼接。"
+            ),
         },
     ]
-    model_labels = {
-        MODEL_NAME: "Local sklearn GBDT model",
-        LSTM_MODEL_NAME: "Local PyTorch LSTM model",
-    }
     for model_name, details in quality_parts.get("models", {}).items():
-        if model_name not in model_labels:
+        is_lstm = str(model_name).startswith("local_pytorch_lstm")
+        if model_name != MODEL_NAME and not is_lstm:
             continue
         rows = int(details.get("train_rows", 0)) + int(details.get("validation_rows", 0)) + int(details.get("test_rows", 0))
+        if is_lstm:
+            disease = details.get("disease", COVID_DISEASE)
+            frequency = details.get("frequency", "daily")
+            model_label = f"{disease} PyTorch LSTM ({frequency})"
+            detail = (
+                f"{disease} 独立 {frequency} 窗口；train/validation/test={details.get('train_rows', 0):,}/"
+                f"{details.get('validation_rows', 0):,}/{details.get('test_rows', 0):,}，"
+                f"轮次={details.get('epochs_trained', 0)}/{details.get('epochs_requested', 0)}，"
+                f"窗口={details.get('window', 0)}。"
+            )
+        else:
+            model_label = "Local sklearn GBDT model"
+            detail = (
+                f"COVID 日频特征已训练；train/validation/test={details.get('train_rows', 0):,}/"
+                f"{details.get('validation_rows', 0):,}/{details.get('test_rows', 0):,}，"
+                f"输入特征={len(details.get('feature_list', []))} 个。"
+            )
         items.append(
             {
-                "name": model_labels[model_name],
-                "status": "ok" if details.get("status", "trained") == "trained" else "warn",
+                "name": model_label,
+                "status": "ok" if details.get("status", "trained") == "trained" else "info",
                 "updated_at": generated_at,
                 "rows": rows,
-                "detail": "模型已训练并导出预测结果。" if details.get("status", "trained") == "trained" else "模型训练状态需要检查。",
+                "detail": detail if details.get("status", "trained") == "trained" else details.get("reason", "模型数据不足，已回退基线。"),
             }
         )
     return items
@@ -2034,6 +2723,7 @@ def export_serving(
     quality_parts: dict[str, Any],
     serving_dir: Path,
     available_models: list[str],
+    who_indicator_summary: pd.DataFrame | None = None,
 ) -> None:
     serving_dir.mkdir(parents=True, exist_ok=True)
     generated_at = datetime.now(timezone.utc).isoformat()
@@ -2078,6 +2768,11 @@ def export_serving(
             prediction = numeric_or_none(row.get("prediction_t_plus_7"))
             point = {
                 "date": iso_date(row["date"]),
+                "forecast_target_date": forecast_target_date(
+                    row["date"],
+                    str(row.get("frequency") or "daily"),
+                    row.get("horizon_steps"),
+                ),
                 "actual": numeric_or_none(row.get("value")),
                 "rolling_7": numeric_or_none(row.get("rolling_mean_7")),
                 "prediction": prediction,
@@ -2095,6 +2790,11 @@ def export_serving(
                 "who_estimate_high": numeric_or_none(row.get("who_estimate_high")),
                 "hiv_prevalence_adults_percent": numeric_or_none(row.get("hiv_prevalence_adults_percent")),
             }
+            if disease == TUBERCULOSIS_DISEASE:
+                for output_column in WHO_TB_AUXILIARY_INDICATORS.values():
+                    point[output_column] = numeric_or_none(row.get(output_column))
+                    point[f"{output_column}_low"] = numeric_or_none(row.get(f"{output_column}_low"))
+                    point[f"{output_column}_high"] = numeric_or_none(row.get(f"{output_column}_high"))
             for model_name in available_models:
                 prediction_column = f"prediction_{model_name}"
                 if prediction_column in row:
@@ -2185,42 +2885,32 @@ def export_serving(
     )
     location_by_code = {row["code"]: row for row in locations}
     availability: dict[str, Any] = {}
+    models_by_disease = metrics.get("models_by_disease", {})
+    metrics_by_disease = metrics.get("by_disease", {})
     disease_names = [name for name in DISEASE_ORDER if name in set(features["disease"])]
     disease_names.extend(sorted(set(features["disease"]) - set(disease_names)))
     for disease in disease_names:
         subset = features[features["disease"].eq(disease)]
         codes = sorted(subset["location_code"].dropna().unique().tolist())
         first = subset.iloc[0]
-        models = available_models if disease == COVID_DISEASE else ["naive_last_value", MOVING_AVERAGE_MODEL]
+        models = models_by_disease.get(disease, ["naive_last_value", MOVING_AVERAGE_MODEL])
+        default_model = metrics_by_disease.get(disease, {}).get("best_model", models[0])
+        if default_model not in models:
+            default_model = models[0]
         location_date_ranges: dict[str, Any] = {}
         for code, series in subset.groupby("location_code", sort=True):
             series = series.sort_values("date")
             full_start = pd.Timestamp(series["date"].min())
             full_end = pd.Timestamp(series["date"].max())
-            default_start = full_start
-            default_end = full_end
             last_nonzero_date = None
-            if disease == COVID_DISEASE and str(series["frequency"].iloc[0]) == "daily":
-                signal_columns = [
-                    "value",
-                    "rolling_mean_7",
-                    "prediction_error",
-                ]
-                informative = pd.Series(False, index=series.index)
-                for column in signal_columns:
-                    if column in series:
-                        informative = informative | pd.to_numeric(series[column], errors="coerce").abs().gt(1e-9)
-                nonzero_actual = pd.to_numeric(series["value"], errors="coerce").abs().gt(1e-9)
-                if nonzero_actual.any():
-                    last_nonzero_date = pd.Timestamp(series.loc[nonzero_actual, "date"].max())
-                if informative.any():
-                    default_end = pd.Timestamp(series.loc[informative, "date"].max())
-                    default_start = max(full_start, default_end - pd.Timedelta(days=365))
+            nonzero_actual = pd.to_numeric(series["value"], errors="coerce").abs().gt(1e-9)
+            if nonzero_actual.any():
+                last_nonzero_date = pd.Timestamp(series.loc[nonzero_actual, "date"].max())
             location_date_ranges[str(code)] = {
                 "full_start": iso_date(full_start),
                 "full_end": iso_date(full_end),
-                "default_start": iso_date(default_start),
-                "default_end": iso_date(default_end),
+                "default_start": iso_date(full_start),
+                "default_end": iso_date(full_end),
                 "last_nonzero_date": iso_date(last_nonzero_date),
             }
         availability[disease] = {
@@ -2230,6 +2920,7 @@ def export_serving(
             "metric": first["metric"],
             "metric_label": first["metric_label"],
             "models": models,
+            "default_model": default_model,
             "location_date_ranges": location_date_ranges,
         }
     options = {
@@ -2274,6 +2965,7 @@ def export_serving(
     )
 
     source_status = build_source_status(quality_parts, generated_at)
+    model_coverage = build_model_data_coverage(features, metrics, quality_parts)
     write_json(serving_dir / "metadata.json", {"data_mode": "real_local_multi_source", "generated_at": generated_at, "generator": "scripts/build_local_serving_from_raw.py"})
     write_json(serving_dir / "overview.json", overview)
     write_json(serving_dir / "trend.json", {"data_mode": "real_local_multi_source", "items": trend_items})
@@ -2297,6 +2989,14 @@ def export_serving(
     write_json(serving_dir / "source_status.json", {"data_mode": "real_local_multi_source", "items": source_status})
     write_json(serving_dir / "weather_correlation.json", {"data_mode": "real_local_multi_source", "items": weather_sample.to_dict("records")})
     write_json(serving_dir / "disease_share.json", {"data_mode": "real_local_multi_source", "items": disease_share})
+    write_json(
+        serving_dir / "who_indicator_summary.json",
+        {
+            "data_mode": "real_local_multi_source",
+            "items": who_indicator_summary.to_dict("records") if who_indicator_summary is not None else [],
+        },
+    )
+    write_json(serving_dir / "model_data_coverage.json", model_coverage)
     write_json(serving_dir / "local_real_pipeline_manifest.json", quality_parts)
 
 
@@ -2307,12 +3007,21 @@ def main() -> None:
     parser.add_argument("--silver-dir", default="data/silver/local")
     parser.add_argument("--gold-dir", default="data/gold/local")
     parser.add_argument("--model-dir", default="data/models/local")
-    parser.add_argument("--lstm", action="store_true", help="Train the optional real-data PyTorch LSTM and export it to Flask serving.")
+    parser.add_argument(
+        "--lstm",
+        action="store_true",
+        help="Train one independent native-frequency PyTorch LSTM for every available disease and export all predictions.",
+    )
     parser.add_argument("--lstm-window", type=int, default=28)
     parser.add_argument("--lstm-epochs", type=int, default=20)
     parser.add_argument("--lstm-batch-size", type=int, default=128)
     parser.add_argument("--lstm-hidden-size", type=int, default=32)
-    parser.add_argument("--lstm-patience", type=int, default=5)
+    parser.add_argument(
+        "--lstm-patience",
+        type=int,
+        default=5,
+        help="Stop after this many non-improving validation epochs; use 0 to force all requested epochs.",
+    )
     parser.add_argument("--lstm-no-batch-progress", action="store_true")
     parser.add_argument("--print-json", action="store_true", help="Print the full manifest JSON after the concise summary.")
     parser.add_argument("--no-progress", action="store_true", help="Disable step progress output.")
@@ -2382,9 +3091,14 @@ def main() -> None:
     progress.done(f"rows={weather_quality['output_rows']}, countries={weather_quality['country_count']}")
 
     progress.start("Aggregate Kaggle 2012-2017 hourly weather without forcing COVID joins")
-    historical_weather, historical_weather_quality = clean_historical_weather(historical_weather_root, selected_codes)
+    historical_weather, historical_weather_daily, historical_weather_quality = clean_historical_weather(
+        historical_weather_root,
+        selected_codes,
+    )
     progress.done(
-        f"raw_rows={historical_weather_quality['input_rows']}, annual_rows={historical_weather_quality['output_rows']}, "
+        f"raw_rows={historical_weather_quality['input_rows']}, "
+        f"daily_rows={historical_weather_quality['daily_output_rows']}, "
+        f"annual_rows={historical_weather_quality['annual_output_rows']}, "
         f"countries={historical_weather_quality['country_count']}"
     )
 
@@ -2401,6 +3115,7 @@ def main() -> None:
         selected_codes,
         location_catalog,
     )
+    who_indicator_summary = summarize_who_indicators(who_catalog)
     who_tb_columns = [
         column
         for column in who_tb_auxiliary.columns
@@ -2420,7 +3135,8 @@ def main() -> None:
     }
     progress.done(
         f"catalog={who_quality['output_rows']}, HIV={who_quality['hiv_observation_rows']}, "
-        f"TB_aux={who_quality['tb_auxiliary_rows']}, false_matches={len(who_quality['false_keyword_match_files'])}"
+        f"TB_aux_indicators={who_quality['tb_auxiliary_indicator_count']}, "
+        f"dedup_conflicts={who_quality['duplicate_content_conflict_groups']}"
     )
 
     progress.start("Build canonical multi-disease observation table")
@@ -2438,7 +3154,7 @@ def main() -> None:
     )
     progress.done(f"rows={feature_quality['feature_rows']}, weather_matches={feature_quality['weather_matched_rows']}")
 
-    progress.start("Train COVID daily GBDT/LSTM models and frequency-aware baselines")
+    progress.start("Train COVID GBDT plus six native-frequency disease LSTMs and baselines")
     features, gbdt_metrics, comparison = fit_predict(
         features,
         seed,
@@ -2478,9 +3194,31 @@ def main() -> None:
     observations.to_csv(silver_dir / "epidemic_observations_clean.csv", index=False, encoding="utf-8-sig")
     population.to_csv(silver_dir / "population_yearly_clean.csv", index=False, encoding="utf-8-sig")
     weather.to_csv(silver_dir / "weather_daily_clean.csv", index=False, encoding="utf-8-sig")
+    historical_weather_daily.to_csv(silver_dir / "historical_weather_daily_clean.csv", index=False, encoding="utf-8-sig")
     historical_weather.to_csv(silver_dir / "historical_weather_annual_clean.csv", index=False, encoding="utf-8-sig")
     china_cdc.to_csv(silver_dir / "china_cdc_metadata_clean.csv", index=False, encoding="utf-8-sig")
     who_catalog.to_csv(silver_dir / "who_indicators_clean.csv", index=False, encoding="utf-8-sig")
+    who_duplicate_audit_columns = [
+        "indicator_code",
+        "indicator_name",
+        "who_record_id",
+        "location_type",
+        "location_code",
+        "year",
+        "numeric_value_clean",
+        "unit",
+        "duplicate_source_count",
+        "duplicate_source_files",
+        "duplicate_collector_topics",
+        "duplicate_content_variant_count",
+        "duplicate_content_conflict",
+        "quality_flag",
+    ]
+    who_catalog.loc[
+        who_catalog["duplicate_source_count"].gt(1),
+        who_duplicate_audit_columns,
+    ].to_csv(silver_dir / "who_duplicate_audit.csv", index=False, encoding="utf-8-sig")
+    who_indicator_summary.to_csv(silver_dir / "who_indicator_summary.csv", index=False, encoding="utf-8-sig")
     who_hiv.to_csv(silver_dir / "who_hiv_annual_clean.csv", index=False, encoding="utf-8-sig")
     who_tb_auxiliary.to_csv(silver_dir / "who_tuberculosis_auxiliary_clean.csv", index=False, encoding="utf-8-sig")
     features.to_csv(gold_dir / "forecast_features.csv", index=False, encoding="utf-8-sig")
@@ -2509,7 +3247,10 @@ def main() -> None:
             "kaggle_covid": "cross-check only to prevent duplicate COVID rows",
             "tuberculosis": "annual incidence per 100,000; auxiliary death/detection/treatment/HIV fields retained",
             "respiratory": "provided USA national weekly row; state rows are not re-summed",
-            "historical_kaggle_weather": "aggregated to USA annual means and joined only to same-year Tuberculosis rows; never joined to COVID",
+            "historical_kaggle_weather": (
+                "hourly city observations retained as USA country-day Silver rows; exact annual means join only "
+                "same-year Tuberculosis rows and are never forced onto non-overlapping COVID dates"
+            ),
             "china_cdc": "clean metadata and high-confidence text summaries; original HTML/PDF retained, complex PDF tables excluded from model labels",
             "who": "HIV_0000000026 is an annual HIV/AIDS observation; selected TB indicators are auxiliary; prison and keyword false-positive indicators remain catalog-only",
         },
@@ -2522,7 +3263,15 @@ def main() -> None:
     }
 
     progress.start("Export Flask serving JSON files")
-    export_serving(features, metrics, comparison, quality_parts, serving_dir, available_models)
+    export_serving(
+        features,
+        metrics,
+        comparison,
+        quality_parts,
+        serving_dir,
+        available_models,
+        who_indicator_summary,
+    )
     progress.done(f"serving={safe_relative(serving_dir)}, mode=real_local_multi_source")
     progress.finish("refresh http://127.0.0.1:5000 after Flask starts")
 
