@@ -35,6 +35,55 @@ function chartModelName(model) {
   return names[model] || model;
 }
 
+const preferredTrendWindows = {
+  'COVID-19:CHN': { start: '2020-12-11', end: '2021-05-14' }
+};
+
+function initialTrendZoom(trend, dates) {
+  if (dates.length < 2) return { start: 0, end: 100 };
+
+  const key = `${trend.disease || ''}:${trend.location_code || ''}`;
+  const preferred = preferredTrendWindows[key];
+  if (!preferred) return { start: 0, end: 100 };
+
+  const startValue = dates.find(date => date >= preferred.start);
+  const endValue = [...dates].reverse().find(date => date <= preferred.end);
+  const startIndex = dates.indexOf(startValue);
+  const endIndex = dates.indexOf(endValue);
+  if (startIndex < 0 || endIndex <= startIndex || endIndex - startIndex < 30) {
+    return { start: 0, end: 100 };
+  }
+
+  return { startValue, endValue };
+}
+
+function timeSeriesDataZoom(context, dates) {
+  const initialZoom = initialTrendZoom(context, dates);
+  return [
+    { type: 'inside', filterMode: 'filter', ...initialZoom },
+    {
+      type: 'slider',
+      filterMode: 'filter',
+      ...initialZoom,
+      bottom: 8,
+      height: 17,
+      borderColor: 'rgba(57,213,255,.28)',
+      fillerColor: 'rgba(57,213,255,.14)',
+      handleStyle: { color: palette.cyan, borderColor: '#d9f8ff' },
+      moveHandleStyle: { color: palette.cyan },
+      dataBackground: {
+        lineStyle: { color: 'rgba(136,170,188,.72)' },
+        areaStyle: { color: 'rgba(67,135,255,.18)' }
+      },
+      selectedDataBackground: {
+        lineStyle: { color: palette.cyan },
+        areaStyle: { color: 'rgba(57,213,255,.22)' }
+      },
+      textStyle: { color: palette.muted }
+    }
+  ];
+}
+
 function lineTrendOption(trend) {
   const points = trend.points || [];
   const actualByDate = new Map(points.map(point => [point.date, point]));
@@ -53,6 +102,8 @@ function lineTrendOption(trend) {
   const sparseReporting = Boolean(trend.reporting_profile?.sparse_reporting);
   return {
     ...chartBase(),
+    animationDuration: 550,
+    grid: { left: 64, right: 24, top: 48, bottom: 66, containLabel: true },
     legend: {
       type: 'scroll',
       top: 6,
@@ -64,12 +115,19 @@ function lineTrendOption(trend) {
       pageIconInactiveColor: palette.grid,
       data: [actualName, rollingName, predictionName, '参考下界', '参考上界']
     },
-    xAxis: { type: 'category', data: dates, axisLabel: { color: palette.muted, hideOverlap: true } },
-    yAxis: { type: 'value', scale: true, axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
-    dataZoom: [
-      { type: 'inside', start: 0, end: 100 },
-      { type: 'slider', start: 0, end: 100, bottom: 8, height: 16, textStyle: { color: palette.muted } }
-    ],
+    xAxis: {
+      type: 'category',
+      data: dates,
+      boundaryGap: sparseReporting,
+      axisLabel: { color: palette.muted, hideOverlap: true }
+    },
+    yAxis: {
+      type: 'value',
+      scale: true,
+      axisLabel: { color: palette.muted },
+      splitLine: { lineStyle: { color: palette.grid } }
+    },
+    dataZoom: timeSeriesDataZoom(trend, dates),
     series: [
       {
         name: actualName,
@@ -80,8 +138,8 @@ function lineTrendOption(trend) {
         lineStyle: { width: 1, opacity: .55 },
         itemStyle: { color: '#9ab4c5', opacity: sparseReporting ? .7 : 1 }
       },
-      { name: rollingName, type: 'line', showSymbol: false, smooth: true, data: dates.map(date => actualByDate.get(date)?.rolling_7 ?? null), lineStyle: { width: 2 }, itemStyle: { color: palette.cyan }, areaStyle: { opacity: .08 } },
-      { name: predictionName, type: 'line', showSymbol: false, smooth: true, connectNulls: false, data: dates.map(date => forecastByDate.get(date)?.prediction ?? null), lineStyle: { width: 2, type: 'dashed' }, itemStyle: { color: palette.red } },
+      { name: rollingName, type: 'line', showSymbol: false, smooth: 0.18, sampling: 'lttb', data: dates.map(date => actualByDate.get(date)?.rolling_7 ?? null), lineStyle: { width: 2 }, itemStyle: { color: palette.cyan }, areaStyle: { opacity: .08 } },
+      { name: predictionName, type: 'line', showSymbol: false, smooth: 0.12, sampling: 'lttb', connectNulls: false, data: dates.map(date => forecastByDate.get(date)?.prediction ?? null), lineStyle: { width: 2, type: 'dashed' }, itemStyle: { color: palette.red } },
       { name: '参考下界', type: 'line', showSymbol: false, data: dates.map(date => forecastByDate.get(date)?.lower ?? null), lineStyle: { opacity: 0 }, stack: 'reference-range', itemStyle: { color: 'transparent' } },
       { name: '参考上界', type: 'line', showSymbol: false, data: dates.map(date => { const point = forecastByDate.get(date); return Number.isFinite(point?.upper) && Number.isFinite(point?.lower) ? point.upper - point.lower : null; }), lineStyle: { opacity: 0 }, areaStyle: { color: 'rgba(255,107,107,.12)' }, stack: 'reference-range', itemStyle: { color: 'transparent' } }
     ]
@@ -90,11 +148,25 @@ function lineTrendOption(trend) {
 
 function avgOption(trend) {
   const points = trend.points || [];
+  const dates = points.map(point => point.date);
   return {
     ...chartBase(),
-    xAxis: { type: 'category', data: points.map(p => p.date), axisLabel: { color: palette.muted, hideOverlap: true } },
+    animationDuration: 450,
+    grid: { left: 64, right: 22, top: 18, bottom: 66, containLabel: true },
+    xAxis: { type: 'category', data: dates, boundaryGap: false, axisLabel: { color: palette.muted, hideOverlap: true } },
     yAxis: { type: 'value', scale: true, axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
-    series: [{ name: trend.rolling_label || '移动平均', type: 'line', smooth: true, showSymbol: points.length < 80, data: points.map(p => p.rolling_7), areaStyle: { opacity: .25 }, itemStyle: { color: palette.green } }]
+    dataZoom: timeSeriesDataZoom(trend, dates),
+    series: [{
+      name: trend.rolling_label || '移动平均',
+      type: 'line',
+      smooth: 0.18,
+      sampling: 'lttb',
+      showSymbol: false,
+      data: points.map(point => point.rolling_7),
+      lineStyle: { width: 2 },
+      areaStyle: { opacity: .18 },
+      itemStyle: { color: palette.green }
+    }]
   };
 }
 
@@ -168,16 +240,118 @@ function weatherOption(data) {
 
 function modelOption(metrics) {
   const items = metrics.comparison?.items || [];
+  const metricRows = [
+    { key: 'mae', label: 'MAE', lowerIsBetter: true, description: '平均绝对误差，单位与当前疾病指标相同' },
+    { key: 'rmse', label: 'RMSE', lowerIsBetter: true, description: '均方根误差，对较大的预测偏差更敏感' },
+    { key: 'r2', label: 'R²', lowerIsBetter: false, description: '相对均值基线的拟合优度，越接近 1 越好，也可能为负' },
+    { key: 'mape', label: 'MAPE', lowerIsBetter: true, description: '平均绝对百分比误差，真实值接近 0 时不稳定' },
+    { key: 'smape', label: 'sMAPE', lowerIsBetter: true, description: '对称平均绝对百分比误差，仍需结合 MAE 阅读' }
+  ];
+  const formatMetric = (key, value) => {
+    if (!Number.isFinite(value)) return '--';
+    if (key === 'mape' || key === 'smape') {
+      const percentage = value * 100;
+      const digits = Math.abs(percentage) >= 1000 ? 0 : 2;
+      return `${percentage.toLocaleString('zh-CN', { maximumFractionDigits: digits })}%`;
+    }
+    if (key === 'r2') return value.toLocaleString('zh-CN', { maximumFractionDigits: 3 });
+    return value.toLocaleString('zh-CN', { maximumFractionDigits: 2 });
+  };
+  const metricValue = (item, key) => {
+    const rawValue = item[key];
+    if (rawValue === null || rawValue === undefined || rawValue === '') return Number.NaN;
+    return Number(rawValue);
+  };
+  const rankScores = new Map();
+  metricRows.forEach(metric => {
+    const rankedValues = Array.from(new Set(
+      items.map(item => metricValue(item, metric.key)).filter(Number.isFinite)
+    )).sort((left, right) => left - right);
+    items.forEach(item => {
+      const value = metricValue(item, metric.key);
+      if (!Number.isFinite(value)) return;
+      if (rankedValues.length <= 1) {
+        rankScores.set(`${item.model}:${metric.key}`, 100);
+        return;
+      }
+      const rank = rankedValues.indexOf(value);
+      const denominator = rankedValues.length - 1;
+      const ascendingScore = rank * 100 / denominator;
+      rankScores.set(`${item.model}:${metric.key}`, metric.lowerIsBetter ? 100 - ascendingScore : ascendingScore);
+    });
+  });
+  const heatmapData = [];
+  items.forEach((item, modelIndex) => {
+    metricRows.forEach((metric, metricIndex) => {
+      const value = metricValue(item, metric.key);
+      const available = Number.isFinite(value);
+      heatmapData.push({
+        value: [modelIndex, metricIndex, available ? rankScores.get(`${item.model}:${metric.key}`) : 50],
+        rawValue: available ? value : null,
+        formatted: formatMetric(metric.key, value),
+        model: item.model,
+        metricLabel: metric.label,
+        description: metric.description,
+        direction: metric.lowerIsBetter ? '越低越好' : '越高越好',
+        itemStyle: available ? undefined : { color: 'rgba(136, 170, 188, .18)' }
+      });
+    });
+  });
   return {
-    tooltip: { trigger: 'axis' },
-    legend: { top: 5, textStyle: { color: palette.text } },
-    grid: { left: 50, right: 18, top: 48, bottom: 38 },
-    xAxis: { type: 'category', data: items.map(x => chartModelName(x.model)), axisLabel: { color: palette.muted } },
-    yAxis: { type: 'value', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
-    series: [
-      { name: 'MAE', type: 'bar', data: items.map(x => x.mae), itemStyle: { color: palette.cyan } },
-      { name: 'RMSE', type: 'bar', data: items.map(x => x.rmse), itemStyle: { color: palette.amber } }
-    ]
+    animationDuration: 450,
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: 'rgba(5, 12, 24, .96)',
+      borderColor: palette.cyan,
+      textStyle: { color: '#eefaff' },
+      formatter: params => {
+        const item = params.data;
+        return `<strong>${chartModelName(item.model)}</strong><br/>${item.metricLabel}：${item.formatted}<br/>${item.description}<br/><span style="color:${palette.amber}">${item.direction}</span>`;
+      }
+    },
+    grid: { left: 70, right: 12, top: 8, bottom: 64 },
+    xAxis: {
+      type: 'category',
+      data: items.map(item => chartModelName(item.model)),
+      splitArea: { show: true, areaStyle: { color: ['rgba(10, 28, 45, .28)', 'rgba(7, 20, 35, .28)'] } },
+      axisLine: { lineStyle: { color: palette.grid } },
+      axisLabel: { color: palette.text, interval: 0, fontSize: 10 }
+    },
+    yAxis: {
+      type: 'category',
+      inverse: true,
+      data: metricRows.map(metric => metric.label),
+      splitArea: { show: true, areaStyle: { color: ['rgba(10, 28, 45, .28)', 'rgba(7, 20, 35, .28)'] } },
+      axisLine: { lineStyle: { color: palette.grid } },
+      axisLabel: { color: palette.text, fontWeight: 700 }
+    },
+    visualMap: {
+      min: 0,
+      max: 100,
+      calculable: false,
+      orient: 'horizontal',
+      left: 'center',
+      bottom: 5,
+      itemWidth: 10,
+      itemHeight: 100,
+      text: ['同项较优', '同项较弱'],
+      textStyle: { color: palette.muted, fontSize: 10 },
+      inRange: { color: [palette.red, palette.amber, palette.green] }
+    },
+    series: [{
+      name: '测试集指标',
+      type: 'heatmap',
+      data: heatmapData,
+      label: {
+        show: true,
+        color: '#06131f',
+        fontSize: 10,
+        fontWeight: 700,
+        formatter: params => params.data.formatted
+      },
+      itemStyle: { borderColor: 'rgba(5, 18, 31, .8)', borderWidth: 2 },
+      emphasis: { itemStyle: { borderColor: '#eefaff', borderWidth: 2 } }
+    }]
   };
 }
 
@@ -200,11 +374,24 @@ function qualityOption(report) {
 
 function growthOption(trend) {
   const points = trend.points || [];
+  const dates = points.map(point => point.date);
   return {
     ...chartBase(),
-    xAxis: { type: 'category', data: points.map(p => p.date), axisLabel: { color: palette.muted, hideOverlap: true } },
-    yAxis: { type: 'value', axisLabel: { color: palette.muted, formatter: value => `${(value * 100).toFixed(0)}%` }, splitLine: { lineStyle: { color: palette.grid } } },
-    series: [{ type: 'line', showSymbol: false, data: points.map(p => p.growth_rate_7), itemStyle: { color: palette.amber }, areaStyle: { opacity: .12 } }]
+    animationDuration: 450,
+    grid: { left: 64, right: 22, top: 18, bottom: 66, containLabel: true },
+    xAxis: { type: 'category', data: dates, boundaryGap: false, axisLabel: { color: palette.muted, hideOverlap: true } },
+    yAxis: { type: 'value', scale: true, axisLabel: { color: palette.muted, formatter: value => `${(value * 100).toFixed(0)}%` }, splitLine: { lineStyle: { color: palette.grid } } },
+    dataZoom: timeSeriesDataZoom(trend, dates),
+    series: [{
+      name: '增长率',
+      type: 'line',
+      showSymbol: false,
+      sampling: 'lttb',
+      data: points.map(point => point.growth_rate_7),
+      lineStyle: { width: 2 },
+      itemStyle: { color: palette.amber },
+      areaStyle: { opacity: .12 }
+    }]
   };
 }
 
@@ -253,12 +440,11 @@ function errorOption(predictions) {
   const dates = items.map(item => String(item.date || '').slice(0, 10));
   return {
     ...chartBase(),
+    animationDuration: 450,
+    grid: { left: 64, right: 22, top: 18, bottom: 66, containLabel: true },
     xAxis: { type: 'category', data: dates, axisLabel: { color: palette.muted, hideOverlap: true } },
     yAxis: { type: 'value', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
-    dataZoom: [
-      { type: 'inside', start: 0, end: 100 },
-      { type: 'slider', start: 0, end: 100, bottom: 8, height: 16, textStyle: { color: palette.muted } }
-    ],
-    series: [{ name: '预测误差', type: 'bar', data: items.map(x => x.error), itemStyle: { color: value => value.data >= 0 ? palette.red : palette.green } }]
+    dataZoom: timeSeriesDataZoom(predictions, dates),
+    series: [{ name: '预测误差', type: 'bar', barMaxWidth: 8, data: items.map(item => item.error), itemStyle: { color: value => value.data >= 0 ? palette.red : palette.green } }]
   };
 }

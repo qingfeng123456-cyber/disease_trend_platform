@@ -34,7 +34,8 @@ def test_dashboard_contains_contextual_terminology_and_panel_notes():
     assert 'id="terminologyDisclaimer"' in html
     assert 'id="trendPanelNote"' in html
     assert 'id="weatherPanelNote"' in html
-    assert "MAE/RMSE 越低越好" in html
+    assert "模型五项测试指标" in html
+    assert "R² 越高越好" in html
     assert "预测值减实际目标" in html
     assert "不代表感染人数或真实疾病负担占比" in html
 
@@ -226,6 +227,11 @@ def test_every_disease_lstm_reaches_trend_predictions_and_metrics_apis():
         metrics = unwrap(client.get("/api/model-metrics", query_string={"disease": disease}))
         assert model in metrics["models"]
         assert any(item["model"] == model for item in metrics["comparison"]["items"])
+        assert all(
+            metric_name in item
+            for item in metrics["comparison"]["items"]
+            for metric_name in ("mae", "rmse", "r2", "mape", "smape")
+        )
 
 
 def test_trend_validation_error():

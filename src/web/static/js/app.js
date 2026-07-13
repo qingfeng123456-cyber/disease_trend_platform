@@ -95,7 +95,7 @@ function renderTerminology(overview, trend) {
     },
     {
       term: `模型与误差（当前：${selectedModel}）`,
-      definition: '最近值和移动平均是基线，GBDT 是树模型，LSTM 是序列神经网络。最佳模型按同病种测试集 MAE 选择，MAE 越低越好；不同疾病单位不同，不可直接比较。'
+      definition: '最近值和移动平均是基线，GBDT 是树模型，LSTM 是序列神经网络。MAE 是最佳模型的主要选择标准；RMSE、R²、MAPE 和 sMAPE 用于辅助诊断。五项指标只在同一疾病内比较。'
     }
   ];
   const list = document.getElementById('terminologyList');
