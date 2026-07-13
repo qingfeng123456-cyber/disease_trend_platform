@@ -1633,3 +1633,240 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2026-07-13 16:29:02,487 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:29:02] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
 2026-07-13 16:29:02,568 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:29:02] "GET /api/source-status HTTP/1.1" 200 -
 2026-07-13 16:29:02,583 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:29:02] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 16:46:07,603 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.85:5000
+2026-07-13 16:46:07,603 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-13 16:46:08,845 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:08] "GET / HTTP/1.1" 200 -
+2026-07-13 16:46:09,049 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-13 16:46:09,053 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-13 16:46:09,056 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-13 16:46:09,056 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-13 16:46:09,057 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-13 16:46:09,105 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/options HTTP/1.1" 200 -
+2026-07-13 16:46:09,383 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 16:46:09,385 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 16:46:09,387 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 16:46:09,387 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 16:46:09,804 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 16:46:09,831 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 16:46:09,832 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 16:46:09,836 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 16:46:09,837 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 16:46:09,931 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 16:46:09] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:36,652 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.85:5000
+2026-07-13 17:17:36,652 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-13 17:17:37,970 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:37] "GET / HTTP/1.1" 200 -
+2026-07-13 17:17:38,284 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-13 17:17:38,285 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-13 17:17:38,286 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-13 17:17:38,287 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-13 17:17:38,289 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-13 17:17:38,343 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "GET /api/options HTTP/1.1" 200 -
+2026-07-13 17:17:38,724 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:38,816 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:38] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:39,048 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:39,313 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:39,313 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:17:39,315 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:17:39,315 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:17:39,323 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:39,325 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:17:39,446 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:39] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,204 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/trend?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,204 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/risk-map?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,205 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/rankings?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,206 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/overview?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,208 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/weather-correlation?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,210 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/model-metrics?disease=COVID-19+Hospital+Admissions HTTP/1.1" 200 -
+2026-07-13 17:17:57,213 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/predictions?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:17:57,214 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:17:57,214 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:17:57,214 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:17:57] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:03,317 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/trend?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:03,318 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/model-metrics?disease=HIV/AIDS HTTP/1.1" 200 -
+2026-07-13 17:18:03,320 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/risk-map?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:03,321 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/overview?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:03,321 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/rankings?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:03,323 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/weather-correlation?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:03,324 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:03,325 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:03,327 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:03,332 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:03] "GET /api/predictions?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:11,871 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:11] "GET /api/risk-map?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:11,873 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:11] "GET /api/rankings?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:11,876 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:11] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:11,887 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:11] "GET /api/model-metrics?disease=Tuberculosis HTTP/1.1" 200 -
+2026-07-13 17:18:11,927 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:11] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:12,031 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:12] "GET /api/weather-correlation?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:12,380 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:12] "GET /api/trend?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:12,459 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:12] "GET /api/predictions?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:12,459 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:12] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:12,466 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:12] "GET /api/overview?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,451 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/trend?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,453 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/risk-map?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,453 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/rankings?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,456 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/weather-correlation?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,459 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/overview?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,461 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:13,462 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:13,462 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/model-metrics?disease=HIV/AIDS HTTP/1.1" 200 -
+2026-07-13 17:18:13,468 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/predictions?disease=HIV/AIDS&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:13,468 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:13] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:19,936 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/trend?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:19,936 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/risk-map?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:19,938 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/rankings?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:19,940 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/weather-correlation?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:19,942 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/overview?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:19,943 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:19,946 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:19,946 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/model-metrics?disease=Tuberculosis HTTP/1.1" 200 -
+2026-07-13 17:18:19,953 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/predictions?disease=Tuberculosis&location=AUS&start_date=2000-12-31&end_date=2022-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:19,954 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:19] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:23,710 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/trend?disease=RSV&location=USA&start_date=2023-10-07&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:23,712 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/risk-map?disease=RSV&location=USA&start_date=2023-10-07&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:23,713 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/rankings?disease=RSV&location=USA&start_date=2023-10-07&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:23,715 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/overview?disease=RSV&location=USA&start_date=2023-10-07&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:23,718 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/weather-correlation?disease=RSV&location=USA&start_date=2023-10-07&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:23,722 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:23,724 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/model-metrics?disease=RSV HTTP/1.1" 200 -
+2026-07-13 17:18:23,728 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:23,728 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/predictions?disease=RSV&location=USA&start_date=2023-10-07&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:23,729 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:23] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:27,338 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/trend?disease=Influenza&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:27,339 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/risk-map?disease=Influenza&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:27,339 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/rankings?disease=Influenza&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:27,340 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/model-metrics?disease=Influenza HTTP/1.1" 200 -
+2026-07-13 17:18:27,343 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/overview?disease=Influenza&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:27,343 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:27,345 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/weather-correlation?disease=Influenza&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:27,345 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:27,350 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:27,352 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:27] "GET /api/predictions?disease=Influenza&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,074 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/risk-map?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,110 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/rankings?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,112 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/trend?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,113 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/weather-correlation?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,114 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:31,114 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/overview?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,115 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:18:31,115 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:31,131 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/predictions?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:31,133 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:31] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:32,537 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/trend?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:32,540 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/risk-map?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:32,542 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/rankings?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:32,544 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/overview?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:32,548 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/weather-correlation?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:32,551 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:32,551 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:18:32,552 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:32,557 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:32,574 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:32] "GET /api/predictions?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:40,373 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:40,374 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:40,376 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:40,378 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:40,389 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:40,391 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:40,391 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:18:40,392 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:40,396 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:40,411 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:40] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:45,959 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:45] "GET /api/risk-map?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:45,961 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:45] "GET /api/rankings?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:46,478 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/trend?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:46,499 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/weather-correlation?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:46,499 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:18:46,500 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:18:46,500 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:18:46,502 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/overview?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:18:46,505 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:18:46,623 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:18:46] "GET /api/predictions?disease=COVID-19&location=USA&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:31:50,380 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.85:5000
+2026-07-13 17:31:50,380 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-13 17:31:51,785 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:51] "GET / HTTP/1.1" 200 -
+2026-07-13 17:31:51,965 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:51] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-13 17:31:51,970 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:51] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-13 17:31:51,974 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:51] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-13 17:31:51,975 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:51] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-13 17:31:51,976 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:51] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-13 17:31:52,038 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/options HTTP/1.1" 200 -
+2026-07-13 17:31:52,261 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:31:52,262 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:31:52,264 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:31:52,265 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:31:52,738 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:31:52,755 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:31:52,756 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:31:52,757 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:31:52,758 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:31:52,786 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "[36mGET /static/flutter-fill.png HTTP/1.1[0m" 304 -
+2026-07-13 17:31:52,864 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:31:52] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:24,368 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/risk-map?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:24,369 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/rankings?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:24,461 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/weather-correlation?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:24,659 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/trend?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:24,807 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:33:24,808 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:33:24,808 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:33:24,809 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:33:24,811 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/overview?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:24,909 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:24] "GET /api/predictions?disease=COVID-19&location=AUS&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,897 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/trend?disease=COVID-19&location=JPN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,897 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/risk-map?disease=COVID-19&location=JPN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,898 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/rankings?disease=COVID-19&location=JPN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,900 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/overview?disease=COVID-19&location=JPN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,905 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/weather-correlation?disease=COVID-19&location=JPN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,919 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:33:38,920 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/predictions?disease=COVID-19&location=JPN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:38,920 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:33:38,921 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:33:38,922 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:38] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:33:50,915 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:50,934 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:50,935 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:50,940 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:50,940 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:50,941 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:33:50,943 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:33:50,943 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:33:50,947 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:33:50,959 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:50] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:57,876 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:57] "GET /api/risk-map?disease=COVID-19&location=GBR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:57,877 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:57] "GET /api/rankings?disease=COVID-19&location=GBR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:58,051 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/weather-correlation?disease=COVID-19&location=GBR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:58,187 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:33:58,187 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:33:58,355 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/trend?disease=COVID-19&location=GBR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:58,358 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:33:58,386 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/overview?disease=COVID-19&location=GBR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:33:58,454 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 17:33:58,476 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:33:58] "GET /api/predictions?disease=COVID-19&location=GBR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,371 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/risk-map?disease=COVID-19&location=KOR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,389 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/trend?disease=COVID-19&location=KOR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,389 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/rankings?disease=COVID-19&location=KOR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,393 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/weather-correlation?disease=COVID-19&location=KOR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,394 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/overview?disease=COVID-19&location=KOR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,396 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-13 17:34:05,409 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/predictions?disease=COVID-19&location=KOR&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-13 17:34:05,410 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-13 17:34:05,411 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-13 17:34:05,411 | werkzeug | INFO | 127.0.0.1 - - [13/Jul/2026 17:34:05] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-13 18:45:02,306 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.85:5000
+2026-07-13 18:45:02,306 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-13 19:39:03,829 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.85:5000
+2026-07-13 19:39:03,829 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
