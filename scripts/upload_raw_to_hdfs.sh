@@ -24,7 +24,7 @@ upload_if_exists() {
 
 upload_if_exists "data/raw/owid/*.csv" "$ROOT/raw/owid"
 upload_if_exists "data/raw/world_bank/*.csv" "$ROOT/raw/world_bank"
-upload_if_exists "data/raw/open_meteo/*.csv" "$ROOT/raw/open_meteo"
+upload_if_exists "data/raw/open_meteo/*/*.csv" "$ROOT/raw/open_meteo"
 upload_if_exists "data/raw/who/*.csv" "$ROOT/raw/who"
 upload_if_exists "data/raw/china_cdc/*.jsonl" "$ROOT/raw/china_cdc"
 upload_if_exists "data/raw/demo/*.csv" "$ROOT/raw/demo"
