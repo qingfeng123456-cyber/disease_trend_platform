@@ -39,7 +39,7 @@
     "KOR",
     "USA"
   ],
-  "training_seconds": 16.254,
+  "training_seconds": 15.078,
   "input_features": [
     "previous 28 daily new_cases_smoothed values",
     "location embedding"

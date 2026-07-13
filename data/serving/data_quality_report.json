@@ -43,7 +43,7 @@
     "WHO GHO HIV_0000000026": 96
   },
   "latest_data_date": "2025-12-31",
-  "run_time": "2026-07-12T08:42:53.522817+00:00",
+  "run_time": "2026-07-13T00:31:04.979117+00:00",
   "is_demo_data": false,
   "warnings": [
     "当前为 Windows 本地 Pandas 流水线，未使用 Spark/HDFS。",

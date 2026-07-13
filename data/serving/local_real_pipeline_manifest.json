@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-12T08:42:53.520101+00:00",
+  "generated_at": "2026-07-13T00:31:04.977038+00:00",
   "mode": "real_local_multi_source",
   "country_scope": [
     "AUS",
@@ -565,7 +565,7 @@
         "KOR",
         "USA"
       ],
-      "training_seconds": 16.254,
+      "training_seconds": 15.078,
       "input_features": [
         "previous 28 daily new_cases_smoothed values",
         "location embedding"
@@ -639,7 +639,7 @@
       "location_codes": [
         "USA"
       ],
-      "training_seconds": 0.521,
+      "training_seconds": 0.524,
       "input_features": [
         "previous 12 weekly value values",
         "location embedding"
@@ -713,7 +713,7 @@
       "location_codes": [
         "USA"
       ],
-      "training_seconds": 0.332,
+      "training_seconds": 0.338,
       "input_features": [
         "previous 8 weekly value values",
         "location embedding"
@@ -796,7 +796,7 @@
         "KOR",
         "USA"
       ],
-      "training_seconds": 0.525,
+      "training_seconds": 0.464,
       "input_features": [
         "previous 5 annual value values",
         "location embedding"
@@ -875,7 +875,7 @@
         "GBR",
         "IND"
       ],
-      "training_seconds": 0.524,
+      "training_seconds": 0.439,
       "input_features": [
         "previous 3 annual value values",
         "location embedding"
@@ -949,7 +949,7 @@
       "location_codes": [
         "USA"
       ],
-      "training_seconds": 0.682,
+      "training_seconds": 0.54,
       "input_features": [
         "previous 12 weekly value values",
         "location embedding"
