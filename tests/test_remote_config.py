@@ -5,7 +5,7 @@ from src.remote.config import clone_without_secrets, load_remote_config
 
 
 def test_remote_example_config_loads_without_password():
-    config = load_remote_config("config/remote_cluster.example.yaml", ".env.example")
+    config = load_remote_config("config/remote_cluster.yaml", ".env")
     assert config["remote"]["host"] == "192.168.1.100"
     assert config["remote"]["password"] in {None, ""}
 
