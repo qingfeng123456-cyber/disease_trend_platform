@@ -5,7 +5,6 @@ from typing import Iterable
 
 
 def regression_metrics(actual: Iterable[float], predicted: Iterable[float]) -> dict[str, float]:
-    """计算 MAE、RMSE、R2、MAPE、SMAPE，MAPE 自动跳过真实值为 0 的点。"""
     pairs = [(float(a), float(p)) for a, p in zip(actual, predicted) if a is not None and p is not None]
     if not pairs:
         return {"mae": 0.0, "rmse": 0.0, "r2": 0.0, "mape": 0.0, "smape": 0.0}

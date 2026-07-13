@@ -12,8 +12,6 @@ from src.common.paths import ensure_dir
 
 
 class BaseCollector:
-    """采集器基类，统一配置、日志、路径和采集时间。"""
-
     source_name = "base"
 
     def __init__(self, output_dir: str | Path | None = None):

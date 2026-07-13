@@ -9,7 +9,6 @@ from src.models.metrics import regression_metrics
 
 
 def run_baseline(input_csv: str | Path, output: str | Path, horizon: int = 7) -> dict:
-    """运行朴素基线：未来值等于当天值、未来值等于最近 7 日均值。"""
     rows = list(csv.DictReader(Path(input_csv).open("r", encoding="utf-8-sig")))
     rows.sort(key=lambda row: (row.get("location_code", ""), row.get("disease", ""), row["date"]))
     actual, last_value, rolling = [], [], []
