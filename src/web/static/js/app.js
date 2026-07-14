@@ -251,7 +251,7 @@ function renderKpis(overview, metrics, quality) {
     ? '当前序列的原生时间频率'
     : `${overview.selected_frequency === 'daily' ? '来源累计' : '同年度'}死亡辅助指标，不是当前预测目标`;
   document.getElementById('kpiHighRisk').textContent = fmtNumber(overview.high_risk_regions);
-  document.getElementById('kpiHighRiskHint').textContent = '0-100 课程合成分，非官方预警等级';
+  document.getElementById('kpiHighRiskHint').textContent = '仅供项目评分，非官方预警等级';
   const bestModelText = `${modelDisplayName(overview.best_model)} / ${fmtNumber(metrics.mae, 2)}`;
   document.getElementById('kpiBestModel').textContent = bestModelText;
   document.getElementById('kpiBestModel').title = `${overview.best_model || '--'} / MAE ${fmtNumber(metrics.mae, 2)}`;

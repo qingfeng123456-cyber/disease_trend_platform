@@ -1,23 +1,15 @@
 {
-<<<<<<< Updated upstream
-  "run_id": "20260712T035102Z",
-  "started_at": "2026-07-12T03:51:02.135941+00:00",
-  "finished_at": "2026-07-12T03:51:02.146942+00:00",
+  "run_id": "20260714T120801Z",
+  "started_at": "2026-07-14T12:08:01.599682+00:00",
+  "finished_at": null,
   "remote_host": null,
   "remote_project_dir": null,
-=======
-  "run_id": "20260711T064705Z",
-  "started_at": "2026-07-11T06:47:05.159932+00:00",
-  "finished_at": "2026-07-11T06:47:05.247988+00:00",
-  "remote_host": "192.168.136.136",
-  "remote_project_dir": "/home/student/disease_trend_platform",
->>>>>>> Stashed changes
   "steps": [],
   "uploaded_files": 0,
   "downloaded_files": [],
   "hdfs_raw_status": null,
   "hdfs_silver_status": null,
   "spark_job_status": null,
-  "status": "failed",
-  "error": "SSH 连接失败: host=192.168.136.136, port=22, user=hanawind; Authentication failed."
+  "status": "running",
+  "error": null
 }
