@@ -2406,13 +2406,22 @@ def build_risk_rows(features: pd.DataFrame) -> list[dict[str, Any]]:
         group["recent_cases_per_million"] = group["cases_per_million"].fillna(group["value"])
         group["forecast_cases"] = group["prediction_t_plus_7"].fillna(group["rolling_mean_7"]).fillna(group["value"])
         forecast_normalized = normalize(group["forecast_cases"])
-        score = 100.0 * (
+        composite = (
             0.55 * normalize(group["recent_cases_per_million"])
             + 0.25 * normalize(group["growth_rate_7"].clip(lower=0))
             + 0.20 * forecast_normalized
         )
-        group["risk_score"] = score.round(2)
-        group["risk_level"] = group["risk_score"].map(risk_level)
+        comparable = len(group) >= 2 and not math.isclose(float(composite.min()), float(composite.max()))
+        group["risk_region_count"] = len(group)
+        group["risk_comparable"] = comparable
+        if comparable:
+            # Component weights define relative importance. Rescaling the final
+            # composite is required so the documented 0-100 thresholds remain reachable.
+            group["risk_score"] = (100.0 * normalize(composite)).round(2)
+            group["risk_level"] = group["risk_score"].map(risk_level)
+        else:
+            group["risk_score"] = 0.0
+            group["risk_level"] = "不可比较"
         output.append(group)
     risk = pd.concat(output, ignore_index=True, sort=False) if output else latest
     columns = [
@@ -2426,6 +2435,8 @@ def build_risk_rows(features: pd.DataFrame) -> list[dict[str, Any]]:
         "metric_label",
         "risk_score",
         "risk_level",
+        "risk_region_count",
+        "risk_comparable",
         "recent_cases_per_million",
         "growth_rate_7",
         "forecast_cases",
@@ -2439,6 +2450,15 @@ def series_summaries(features: pd.DataFrame) -> list[dict[str, Any]]:
     for (code, disease), group in features.groupby(["location_code", "disease"], sort=False):
         group = group.sort_values("date")
         latest = group.iloc[-1]
+        numeric_values = pd.to_numeric(group["value"], errors="coerce")
+        nonzero_mask = numeric_values.abs().gt(1e-12)
+        last_nonzero = group.loc[nonzero_mask].iloc[-1] if nonzero_mask.any() else None
+        trailing_zero_periods = 0
+        for value in reversed(numeric_values.tolist()):
+            if pd.isna(value) or not math.isclose(float(value), 0.0, abs_tol=1e-12):
+                break
+            trailing_zero_periods += 1
+        stale_threshold = {"daily": 28, "weekly": 8, "annual": 2}.get(str(latest["frequency"]), 8)
         summaries.append(
             {
                 "location_code": code,
@@ -2456,6 +2476,10 @@ def series_summaries(features: pd.DataFrame) -> list[dict[str, Any]]:
                 "current_rolling_value": numeric_or_none(latest["rolling_mean_7"]),
                 "current_total_cases": numeric_or_none(latest.get("total_cases")),
                 "current_total_deaths": numeric_or_none(latest.get("total_deaths")),
+                "last_nonzero_date": iso_date(last_nonzero["date"]) if last_nonzero is not None else None,
+                "last_nonzero_value": numeric_or_none(last_nonzero["value"]) if last_nonzero is not None else None,
+                "trailing_zero_periods": trailing_zero_periods,
+                "reporting_stale": trailing_zero_periods >= stale_threshold,
                 "weather_points": int(group["has_weather"].sum()),
                 "source": latest["source"],
             }
@@ -2739,6 +2763,10 @@ def export_serving(
     latest_covid = features[features["disease"].eq(COVID_DISEASE)].sort_values("date").groupby("location_code", as_index=False).tail(1)
     required_columns = ["date", "location_code", "disease", "frequency", "metric", "value"]
     required_completeness = 1.0 - float(features[required_columns].isna().mean().mean())
+    covid_risk_rows = [row for row in risk_rows if row["disease"] == COVID_DISEASE]
+    covid_risk_comparable = bool(covid_risk_rows) and any(
+        bool(row.get("risk_comparable")) for row in covid_risk_rows
+    )
     overview = {
         "data_mode": "real_local_multi_source",
         "demo_mode": False,
@@ -2752,7 +2780,13 @@ def export_serving(
         "current_total_cases": float(latest_covid["total_cases"].sum(min_count=1)) if latest_covid["total_cases"].notna().any() else None,
         "current_total_deaths": float(latest_covid["total_deaths"].sum(min_count=1)) if latest_covid["total_deaths"].notna().any() else None,
         "current_new_cases": float(latest_covid["value"].sum(min_count=1)) if not latest_covid.empty else None,
-        "high_risk_regions": int(sum(1 for row in risk_rows if row["disease"] == COVID_DISEASE and row["risk_level"] == "高风险")),
+        "high_risk_regions": (
+            int(sum(1 for row in covid_risk_rows if row["risk_level"] == "高风险"))
+            if covid_risk_comparable
+            else None
+        ),
+        "risk_comparable": covid_risk_comparable,
+        "risk_comparison_regions": len(covid_risk_rows),
         "best_model": comparison.get("best_model"),
         "best_model_mae": metrics.get("mae"),
         "data_completeness": round(required_completeness, 4),

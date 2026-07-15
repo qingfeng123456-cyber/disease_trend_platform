@@ -1,4 +1,5 @@
 from datetime import date
+import json
 
 from src.web.app import app
 from src.web.services.data_service import DataService
@@ -38,6 +39,21 @@ def test_dashboard_contains_contextual_terminology_and_panel_notes():
     assert "R² 越高越好" in html
     assert "预测值减实际目标" in html
     assert "不代表感染人数或真实疾病负担占比" in html
+
+
+def test_dashboard_serves_and_registers_local_world_map():
+    client = app.test_client()
+    response = client.get("/static/data/world_countries.geojson")
+    assert response.status_code == 200
+    world = json.loads(response.get_data(as_text=True))
+    assert world["type"] == "FeatureCollection"
+    assert len(world["features"]) >= 170
+
+    charts = client.get("/static/js/charts.js").get_data(as_text=True)
+    application = client.get("/static/js/app.js").get_data(as_text=True)
+    assert "coordinateSystem: 'geo'" in charts
+    assert "type: 'effectScatter'" in charts
+    assert "echarts.registerMap(WORLD_RISK_MAP_NAME" in application
 
 
 def test_trend_api():

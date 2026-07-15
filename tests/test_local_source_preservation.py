@@ -6,12 +6,43 @@ import pandas as pd
 
 from scripts.build_local_serving_from_raw import (
     add_time_features,
+    build_risk_rows,
     build_source_status,
     clean_china_cdc_metadata,
     clean_historical_weather,
     clean_who,
     summarize_who_indicators,
 )
+
+
+def test_risk_score_rescales_composite_and_marks_single_region_unavailable():
+    common = {
+        "date": pd.Timestamp("2025-12-31"),
+        "latitude": 0.0,
+        "longitude": 0.0,
+        "metric": "new_cases",
+        "metric_label": "Daily cases",
+        "quality_flag": "ok",
+    }
+    frame = pd.DataFrame(
+        [
+            {**common, "location": "A", "location_code": "AAA", "disease": "COVID-19", "cases_per_million": 1.0, "value": 1.0, "prediction_t_plus_7": 1.0, "rolling_mean_7": 1.0, "growth_rate_7": 0.0},
+            {**common, "location": "B", "location_code": "BBB", "disease": "COVID-19", "cases_per_million": 3.0, "value": 3.0, "prediction_t_plus_7": 4.0, "rolling_mean_7": 3.0, "growth_rate_7": 0.2},
+            {**common, "location": "C", "location_code": "CCC", "disease": "COVID-19", "cases_per_million": 8.0, "value": 8.0, "prediction_t_plus_7": 10.0, "rolling_mean_7": 8.0, "growth_rate_7": 0.5},
+            {**common, "location": "Only", "location_code": "USA", "disease": "Influenza", "cases_per_million": 2.0, "value": 2.0, "prediction_t_plus_7": 2.0, "rolling_mean_7": 2.0, "growth_rate_7": 0.1},
+        ]
+    )
+
+    rows = build_risk_rows(frame)
+    covid = [row for row in rows if row["disease"] == "COVID-19"]
+    influenza = next(row for row in rows if row["disease"] == "Influenza")
+
+    assert max(row["risk_score"] for row in covid) == 100.0
+    assert any(row["risk_level"] == "高风险" for row in covid)
+    assert all(row["risk_comparable"] for row in covid)
+    assert influenza["risk_score"] == 0.0
+    assert influenza["risk_level"] == "不可比较"
+    assert influenza["risk_comparable"] is False
 
 
 def test_annual_forecast_target_uses_raw_observation_not_rolling_mean():

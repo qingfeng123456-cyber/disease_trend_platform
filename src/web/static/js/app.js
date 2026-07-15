@@ -12,7 +12,8 @@ const chartIds = [
 ];
 
 const charts = {};
-const state = { options: null };
+const state = { options: null, worldMapReady: false };
+let worldMapLoadPromise = null;
 
 const diseaseTerminology = {
   'COVID-19': {
@@ -131,6 +132,34 @@ function initCharts() {
   });
 }
 
+async function ensureWorldRiskMap() {
+  if (!window.echarts) return false;
+  if (echarts.getMap?.(WORLD_RISK_MAP_NAME)) return true;
+  if (!worldMapLoadPromise) {
+    worldMapLoadPromise = fetch('/static/data/world_countries.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(geoJson => {
+        if (!Array.isArray(geoJson?.features) || !geoJson.features.length) {
+          throw new Error('GeoJSON 中没有国家边界');
+        }
+        geoJson.features.forEach(feature => {
+          const properties = feature.properties || (feature.properties = {});
+          properties.name = properties.NAME_ZH || properties.NAME || properties.ADMIN || properties.ISO_A3;
+        });
+        echarts.registerMap(WORLD_RISK_MAP_NAME, geoJson);
+        return true;
+      })
+      .catch(error => {
+        console.error('世界地图加载失败', error);
+        return false;
+      });
+  }
+  return worldMapLoadPromise;
+}
+
 function setMessage(text = '') {
   document.getElementById('message').textContent = text;
 }
@@ -244,14 +273,26 @@ function renderKpis(overview, metrics, quality) {
     overview.current_rolling_value ?? overview.current_new_cases,
     metricDigits
   );
-  document.getElementById('kpiNewCasesHint').textContent = `${frequencyNames[overview.selected_frequency] || '--'} · ${overview.latest_date || '--'} · 平滑已有观测`;
+  const rollingValue = overview.current_rolling_value ?? overview.current_new_cases;
+  const trailingZeroPeriods = Number(overview.trailing_zero_periods || 0);
+  const rollingWindowIsZero = Number(rollingValue) === 0 && trailingZeroPeriods > 0;
+  const latestNonzeroText = overview.last_nonzero_date ? `，最近非零报告 ${overview.last_nonzero_date}` : '';
+  const rollingHint = rollingWindowIsZero
+    ? `${frequencyNames[overview.selected_frequency] || '--'} · ${overview.latest_date || '--'} · 当前平滑窗口来源均为0${latestNonzeroText}`
+    : `${frequencyNames[overview.selected_frequency] || '--'} · ${overview.latest_date || '--'} · 平滑已有观测`;
+  document.getElementById('kpiNewCasesHint').textContent = rollingHint;
+  document.getElementById('kpiNewCasesHint').title = overview.reporting_stale
+    ? `来源已连续 ${trailingZeroPeriods} 个观测周期为0；这可能表示停止或批量上报，不等于真实没有病例。`
+    : rollingHint;
   document.getElementById('kpiDeathsLabel').textContent = overview.current_total_deaths == null ? '数据频率' : '累计/年度死亡';
   document.getElementById('kpiDeaths').textContent = overview.current_total_deaths == null ? (frequencyNames[overview.selected_frequency] || '--') : fmtNumber(overview.current_total_deaths);
   document.getElementById('kpiDeathsHint').textContent = overview.current_total_deaths == null
     ? '当前序列的原生时间频率'
     : `${overview.selected_frequency === 'daily' ? '来源累计' : '同年度'}死亡辅助指标，不是当前预测目标`;
   document.getElementById('kpiHighRisk').textContent = fmtNumber(overview.high_risk_regions);
-  document.getElementById('kpiHighRiskHint').textContent = '0-100 课程合成分，非官方预警等级';
+  document.getElementById('kpiHighRiskHint').textContent = overview.risk_comparable === false
+    ? `仅 ${overview.risk_comparison_regions || 0} 个地区，无法进行同病种横向分级`
+    : `${overview.risk_comparison_regions || 0} 个地区的0-100相对分，非官方预警等级`;
   const bestModelText = `${modelDisplayName(overview.best_model)} / ${fmtNumber(metrics.mae, 2)}`;
   document.getElementById('kpiBestModel').textContent = bestModelText;
   document.getElementById('kpiBestModel').title = `${overview.best_model || '--'} / MAE ${fmtNumber(metrics.mae, 2)}`;
@@ -358,6 +399,7 @@ async function refreshDashboard() {
 async function bootstrap() {
   startClock();
   initCharts();
+  state.worldMapReady = await ensureWorldRiskMap();
   await loadOptions();
   await refreshDashboard();
   document.getElementById('diseaseSelect').addEventListener('change', async () => {

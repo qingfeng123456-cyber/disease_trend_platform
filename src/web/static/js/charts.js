@@ -9,6 +9,8 @@ const palette = {
   red: '#ff6b6b'
 };
 
+const WORLD_RISK_MAP_NAME = 'natural-earth-world';
+
 function chartBase() {
   return {
     textStyle: { color: palette.text },
@@ -172,17 +174,76 @@ function avgOption(trend) {
 
 function riskMapOption(risk) {
   const items = risk.items || [];
+  const mapRegistered = Boolean(window.echarts?.getMap?.(WORLD_RISK_MAP_NAME));
+  if (!mapRegistered) {
+    return {
+      title: {
+        text: '世界地图资源未加载',
+        subtext: '请检查 /static/data/world_countries.geojson',
+        left: 'center',
+        top: '38%',
+        textStyle: { color: palette.text, fontSize: 15 },
+        subtextStyle: { color: palette.muted, fontSize: 11 }
+      },
+      xAxis: { show: false },
+      yAxis: { show: false },
+      series: []
+    };
+  }
   return {
-    tooltip: { trigger: 'item', formatter: p => `${p.data.location}<br/>风险分：${p.data.value[2]}<br/>等级：${p.data.risk_level}` },
-    grid: { left: 38, right: 20, top: 20, bottom: 34 },
-    visualMap: { min: 0, max: 100, right: 8, top: 10, textStyle: { color: palette.text }, inRange: { color: [palette.green, palette.amber, palette.red] } },
-    xAxis: { type: 'value', min: -180, max: 180, name: '经度', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
-    yAxis: { type: 'value', min: -60, max: 80, name: '纬度', axisLabel: { color: palette.muted }, splitLine: { lineStyle: { color: palette.grid } } },
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: 'rgba(5, 12, 24, .96)',
+      borderColor: palette.cyan,
+      textStyle: { color: '#eefaff' },
+      formatter: p => `${p.data.location}<br/>风险分：${p.data.value[2]}<br/>等级：${p.data.risk_level}`
+    },
+    visualMap: {
+      type: 'continuous',
+      min: 0,
+      max: 100,
+      dimension: 2,
+      seriesIndex: 0,
+      right: 4,
+      top: 'middle',
+      itemWidth: 10,
+      itemHeight: 88,
+      text: ['高', '低'],
+      textGap: 5,
+      calculable: false,
+      textStyle: { color: palette.muted, fontSize: 10 },
+      inRange: { color: [palette.green, palette.amber, palette.red] }
+    },
+    geo: {
+      map: WORLD_RISK_MAP_NAME,
+      left: 8,
+      right: 38,
+      top: 8,
+      bottom: 8,
+      roam: true,
+      scaleLimit: { min: 0.9, max: 8 },
+      itemStyle: {
+        areaColor: '#0b2b3d',
+        borderColor: 'rgba(88, 190, 224, .55)',
+        borderWidth: 0.7
+      },
+      emphasis: {
+        disabled: false,
+        itemStyle: { areaColor: '#12445a', borderColor: palette.cyan, borderWidth: 1 }
+      },
+      select: { disabled: true },
+      silent: true
+    },
     series: [{
-      type: 'scatter',
-      symbolSize: item => Math.max(10, item[2] / 3),
+      name: '地区风险',
+      type: 'effectScatter',
+      coordinateSystem: 'geo',
+      showEffectOn: 'render',
+      rippleEffect: { brushType: 'stroke', scale: 2.4, period: 5 },
+      symbolSize: value => Math.max(7, Math.min(20, 7 + Number(value[2] || 0) * 0.13)),
       data: items.map(item => ({ name: item.location_code, location: item.location, risk_level: item.risk_level, value: [item.longitude, item.latitude, item.risk_score] })),
-      itemStyle: { shadowBlur: 12, shadowColor: 'rgba(57,213,255,.4)' }
+      itemStyle: { shadowBlur: 10, shadowColor: 'rgba(57,213,255,.5)' },
+      emphasis: { scale: 1.35 }
     }]
   };
 }

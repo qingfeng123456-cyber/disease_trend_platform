@@ -117,6 +117,29 @@ class DataService:
         first_point = selected_points[0] if selected_points else None
         risk_items = self.risk_map(disease=disease_name).get("items", [])
         disease_metrics = self.model_metrics(disease=disease_name)
+        risk_comparable = len(risk_items) >= 2 and any(
+            bool(item.get("risk_comparable", True)) for item in risk_items
+        )
+        reporting_points = selected_points
+        last_nonzero_point = next(
+            (
+                point
+                for point in reversed(reporting_points)
+                if isinstance(point.get("actual"), (int, float))
+                and not math.isclose(float(point["actual"]), 0.0, abs_tol=1e-12)
+            ),
+            None,
+        )
+        trailing_zero_periods = 0
+        for point in reversed(reporting_points):
+            value = point.get("actual")
+            if not isinstance(value, (int, float)) or not math.isclose(float(value), 0.0, abs_tol=1e-12):
+                break
+            trailing_zero_periods += 1
+        if not reporting_points:
+            trailing_zero_periods = int(summary.get("trailing_zero_periods") or 0)
+        frequency = str(summary.get("frequency") or "daily")
+        stale_threshold = {"daily": 28, "weekly": 8, "annual": 2}.get(frequency, 8)
         return {
             **payload,
             "selected_location_code": location_code,
@@ -133,7 +156,21 @@ class DataService:
             "current_total_deaths": latest_point.get("total_deaths") if latest_point else summary.get("current_total_deaths"),
             "current_new_cases": latest_point.get("actual") if latest_point else summary.get("current_value"),
             "current_rolling_value": latest_point.get("rolling_7") if latest_point else summary.get("current_rolling_value"),
-            "high_risk_regions": sum(1 for item in risk_items if item.get("risk_level") == "高风险"),
+            "last_nonzero_date": (
+                last_nonzero_point.get("date") if last_nonzero_point else summary.get("last_nonzero_date")
+            ),
+            "last_nonzero_value": (
+                last_nonzero_point.get("actual") if last_nonzero_point else summary.get("last_nonzero_value")
+            ),
+            "trailing_zero_periods": trailing_zero_periods,
+            "reporting_stale": trailing_zero_periods >= stale_threshold,
+            "high_risk_regions": (
+                sum(1 for item in risk_items if item.get("risk_level") == "高风险")
+                if risk_comparable
+                else None
+            ),
+            "risk_comparable": risk_comparable,
+            "risk_comparison_regions": len(risk_items),
             "best_model": disease_metrics.get("best_model"),
             "best_model_mae": disease_metrics.get("mae"),
         }
