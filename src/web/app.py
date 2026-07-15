@@ -4,7 +4,7 @@ import os
 from typing import Any
 
 from flask import Flask, jsonify, render_template, request
-
+from waitress import serve
 from src.common.config import get_setting, load_settings
 from src.common.exceptions import DataNotReadyError, PlatformError, ValidationError
 from src.common.logger import get_logger, setup_logging
@@ -168,7 +168,8 @@ def main():
     host = os.getenv("FLASK_HOST", str(get_setting(settings, "web.host", "0.0.0.0")))
     port = int(os.getenv("FLASK_PORT", str(get_setting(settings, "web.port", 5000))))
     debug = os.getenv("FLASK_DEBUG", "1" if get_setting(settings, "web.debug", False) else "0") == "1"
-    app.run(host=host, port=port, debug=debug)
+    serve(app, host=host, port=port)
+    # app.run(host=host, port=port, debug=debug)
 
 
 if __name__ == "__main__":

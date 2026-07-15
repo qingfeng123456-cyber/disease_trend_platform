@@ -13,7 +13,6 @@ from src.common.config import get_setting, load_settings
 from src.common.exceptions import DataNotReadyError, ValidationError
 from src.common.paths import project_path, safe_relative
 
-
 @dataclass
 class CacheEntry:
     mtime: float

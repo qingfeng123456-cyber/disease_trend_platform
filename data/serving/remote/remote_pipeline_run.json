@@ -1,13 +1,10 @@
 {
-<<<<<<< HEAD
   "run_id": "20260713T080241Z",
   "started_at": "2026-07-13T08:02:41.529041+00:00",
   "finished_at": "2026-07-13T08:02:41.536977+00:00",
-=======
   "run_id": "20260714T120801Z",
   "started_at": "2026-07-14T12:08:01.599682+00:00",
   "finished_at": null,
->>>>>>> f67094a0affde5abcc1024ff0a550042455f473a
   "remote_host": null,
   "remote_project_dir": null,
   "steps": [],

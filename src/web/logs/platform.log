@@ -2059,3 +2059,385 @@ werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on 
 2026-07-14 20:34:23,415 | werkzeug | INFO | 127.0.0.1 - - [14/Jul/2026 20:34:23] "GET /api/disease-share HTTP/1.1" 200 -
 2026-07-14 20:34:23,420 | werkzeug | INFO | 127.0.0.1 - - [14/Jul/2026 20:34:23] "GET /api/source-status HTTP/1.1" 200 -
 2026-07-14 20:34:23,422 | werkzeug | INFO | 127.0.0.1 - - [14/Jul/2026 20:34:23] "GET /api/predictions?disease=COVID-19+Hospital+Admissions&location=USA&start_date=2020-08-08&end_date=2024-11-16&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:03,952 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.87:5000
+2026-07-15 20:23:03,952 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-15 20:23:05,817 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:05] "GET / HTTP/1.1" 200 -
+2026-07-15 20:23:06,032 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:06] "GET /static/css/dashboard.css HTTP/1.1" 200 -
+2026-07-15 20:23:06,032 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:06] "GET /static/js/app.js HTTP/1.1" 200 -
+2026-07-15 20:23:06,034 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:06] "GET /static/js/api.js HTTP/1.1" 200 -
+2026-07-15 20:23:06,036 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:06] "GET /static/js/charts.js HTTP/1.1" 200 -
+2026-07-15 20:23:06,042 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:06] "GET /static/js/particles.js HTTP/1.1" 200 -
+2026-07-15 20:23:08,615 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:08] "GET /api/options HTTP/1.1" 200 -
+2026-07-15 20:23:08,921 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:08] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:08,922 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:08] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:08,923 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:08] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:09,000 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-15 20:23:09,198 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-15 20:23:09,219 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:09,279 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-15 20:23:09,280 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:09,425 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:23:09,431 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:23:09] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-15 20:46:30,517 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 20:47:08,994 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 20:48:14,655 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 20:48:19,129 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 20:53:26,391 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:53:39,848 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:54:32,383 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.87:5000
+2026-07-15 20:54:32,384 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-15 20:54:34,146 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:54:34] "GET / HTTP/1.1" 200 -
+2026-07-15 20:54:34,391 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:54:34] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-15 20:54:34,393 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:54:34] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-15 20:54:34,394 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:54:34] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-15 20:54:34,395 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:54:34] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-15 20:54:34,396 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:54:34] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-15 20:56:18,493 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 20:56:21,170 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:56:32,209 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 20:56:35,956 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:56:36,267 | web | ERROR | 未处理异常: CacheEntry() takes no arguments
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\app.py", line 94, in options
+    return api_ok(service.options())
+                  ^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\services\data_service.py", line 177, in options
+    return self._read_json("options.json")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\services\data_service.py", line 50, in _read_json
+    self._cache[filename] = CacheEntry(stat.st_mtime, now, data)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: CacheEntry() takes no arguments
+2026-07-15 20:57:18,762 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 20:57:21,297 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:57:21,937 | web | ERROR | 未处理异常: CacheEntry() takes no arguments
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\app.py", line 94, in options
+    return api_ok(service.options())
+                  ^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\services\data_service.py", line 177, in options
+    return self._read_json("options.json")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\services\data_service.py", line 50, in _read_json
+    self._cache[filename] = CacheEntry(stat.st_mtime, now, data)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: CacheEntry() takes no arguments
+2026-07-15 20:57:35,371 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.87:5000
+2026-07-15 20:57:35,371 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-15 20:57:37,041 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "GET / HTTP/1.1" 200 -
+2026-07-15 20:57:37,286 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-15 20:57:37,289 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-15 20:57:37,290 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "GET /static/js/app.js HTTP/1.1" 200 -
+2026-07-15 20:57:37,291 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-15 20:57:37,293 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-15 20:57:37,356 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "GET /static/data/world_countries.geojson HTTP/1.1" 200 -
+2026-07-15 20:57:37,703 | web | ERROR | 未处理异常: CacheEntry() takes no arguments
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\app.py", line 94, in options
+    return api_ok(service.options())
+                  ^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\services\data_service.py", line 177, in options
+    return self._read_json("options.json")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\PyCharmProjects\disease_trend_platform_5\src\web\services\data_service.py", line 50, in _read_json
+    self._cache[filename] = CacheEntry(stat.st_mtime, now, data)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: CacheEntry() takes no arguments
+2026-07-15 20:57:37,705 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:57:37] "[35m[1mGET /api/options HTTP/1.1[0m" 500 -
+2026-07-15 20:58:45,671 | werkzeug | INFO | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.62.87:5000
+2026-07-15 20:58:45,671 | werkzeug | INFO | [33mPress CTRL+C to quit[0m
+2026-07-15 20:58:47,170 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "GET / HTTP/1.1" 200 -
+2026-07-15 20:58:47,411 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-15 20:58:47,416 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:47,419 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:47,420 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:47,421 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:47,482 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "[36mGET /static/data/world_countries.geojson HTTP/1.1[0m" 304 -
+2026-07-15 20:58:47,967 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:47] "GET /api/options HTTP/1.1" 200 -
+2026-07-15 20:58:48,031 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:48,032 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:48,067 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-15 20:58:48,082 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:48,305 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:48,305 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-15 20:58:48,306 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-15 20:58:48,390 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-15 20:58:48,635 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:48,636 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:48] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:57,755 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:57] "GET / HTTP/1.1" 200 -
+2026-07-15 20:58:57,822 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:57] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-15 20:58:57,824 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:57] "[36mGET /static/js/api.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:57,825 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:57] "[36mGET /static/js/charts.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:57,827 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:57] "[36mGET /static/js/particles.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:57,827 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:57] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2026-07-15 20:58:58,047 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "[36mGET /static/data/world_countries.geojson HTTP/1.1[0m" 304 -
+2026-07-15 20:58:58,352 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/options HTTP/1.1" 200 -
+2026-07-15 20:58:58,389 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:58,409 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:58,410 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:58,414 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:58,415 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:58:58,417 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-15 20:58:58,418 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-15 20:58:58,418 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-15 20:58:58,422 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-15 20:58:58,436 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:58:58] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:59:19,538 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:19] "[36mGET /static/css/dashboard.css HTTP/1.1[0m" 304 -
+2026-07-15 20:59:19,578 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:59:19,581 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:19] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-15 20:59:36,895 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "GET / HTTP/1.1" 200 -
+2026-07-15 20:59:36,947 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 20:59:36,948 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "[35m[1mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 500 -
+2026-07-15 20:59:36,951 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "GET /static/css/dashboard.css HTTP/1.1" 200 -
+2026-07-15 20:59:36,951 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "GET /static/js/api.js HTTP/1.1" 200 -
+2026-07-15 20:59:36,953 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "GET /static/js/charts.js HTTP/1.1" 200 -
+2026-07-15 20:59:36,954 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "GET /static/js/particles.js HTTP/1.1" 200 -
+2026-07-15 20:59:36,955 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:36] "GET /static/js/app.js HTTP/1.1" 200 -
+2026-07-15 20:59:38,155 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /static/data/world_countries.geojson HTTP/1.1" 200 -
+2026-07-15 20:59:38,424 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/options HTTP/1.1" 200 -
+2026-07-15 20:59:38,425 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /static/flutter-fill.png HTTP/1.1" 200 -
+2026-07-15 20:59:38,465 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/risk-map?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:59:38,465 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/rankings?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:59:38,467 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/model-metrics?disease=COVID-19 HTTP/1.1" 200 -
+2026-07-15 20:59:38,881 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/weather-correlation?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:59:38,900 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/trend?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:59:38,901 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/data-quality HTTP/1.1" 200 -
+2026-07-15 20:59:38,915 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/disease-share HTTP/1.1" 200 -
+2026-07-15 20:59:38,918 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/overview?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 20:59:38,918 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:38] "GET /api/source-status HTTP/1.1" 200 -
+2026-07-15 20:59:39,022 | werkzeug | INFO | 127.0.0.1 - - [15/Jul/2026 20:59:39] "GET /api/predictions?disease=COVID-19&location=CHN&start_date=2020-01-04&end_date=2025-12-31&model=naive_last_value HTTP/1.1" 200 -
+2026-07-15 21:00:01,101 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 21:00:14,841 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 21:00:16,584 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:00:16,618 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:00:16,620 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:00:16,621 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:00:16,629 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:00:48,313 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 21:00:51,522 | web | ERROR | 未处理异常: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+Traceback (most recent call last):
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 854, in dispatch_request
+    self.raise_routing_exception(req)
+  File "F:\Anaconda\Lib\site-packages\flask\app.py", line 463, in raise_routing_exception
+    raise request.routing_exception  # type: ignore[misc]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\flask\ctx.py", line 362, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Anaconda\Lib\site-packages\werkzeug\routing\map.py", line 629, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2026-07-15 21:00:57,535 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:00:57,536 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:00:57,540 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:00:57,690 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:00:58,027 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:35,670 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:35,670 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:35,674 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:35,674 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:35,675 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:36,259 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:41,839 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:41,840 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:41,841 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:41,845 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:41,848 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:47,566 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:47,569 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:47,571 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:47,572 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:47,572 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:53,733 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:53,736 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:53,737 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:53,737 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:53,740 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:53,740 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:54,901 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:54,902 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:54,938 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:54,939 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:57,163 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:57,164 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:57,193 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:57,198 | waitress.queue | WARNING | Task queue depth is 3
+2026-07-15 21:01:57,200 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:57,204 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:59,128 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:59,156 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:01:59,166 | waitress.queue | WARNING | Task queue depth is 3
+2026-07-15 21:01:59,169 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:59,172 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:01:59,176 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:02:02,695 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:02,695 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:02:02,697 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:02:02,699 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:02,701 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:02,703 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:04,944 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:04,946 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:02:04,949 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:04,951 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:02:59,941 | waitress | INFO | Serving on http://0.0.0.0:5000
+2026-07-15 21:03:07,648 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:03:08,120 | waitress.queue | WARNING | Task queue depth is 1
+2026-07-15 21:03:08,122 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:03:08,123 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:03:08,124 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:03:08,251 | waitress.queue | WARNING | Task queue depth is 2
+2026-07-15 21:03:08,661 | waitress.queue | WARNING | Task queue depth is 2
