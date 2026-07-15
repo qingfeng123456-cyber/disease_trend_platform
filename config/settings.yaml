@@ -2,7 +2,7 @@ project:
   name: disease_trend_platform
   display_name: 基于机器学习的传染病趋势预测与可视化分析平台
   environment: local
-  demo_mode: true
+  demo_mode: false
   root_detection: auto
   timezone: Asia/Shanghai
   version: 1.0.0

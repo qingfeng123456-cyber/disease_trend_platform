@@ -290,9 +290,13 @@ function renderKpis(overview, metrics, quality) {
     ? '当前序列的原生时间频率'
     : `${overview.selected_frequency === 'daily' ? '来源累计' : '同年度'}死亡辅助指标，不是当前预测目标`;
   document.getElementById('kpiHighRisk').textContent = fmtNumber(overview.high_risk_regions);
+<<<<<<< HEAD
   document.getElementById('kpiHighRiskHint').textContent = overview.risk_comparable === false
     ? `仅 ${overview.risk_comparison_regions || 0} 个地区，无法进行同病种横向分级`
     : `${overview.risk_comparison_regions || 0} 个地区的0-100相对分，非官方预警等级`;
+=======
+  document.getElementById('kpiHighRiskHint').textContent = '仅供项目评分，非官方预警等级';
+>>>>>>> f67094a0affde5abcc1024ff0a550042455f473a
   const bestModelText = `${modelDisplayName(overview.best_model)} / ${fmtNumber(metrics.mae, 2)}`;
   document.getElementById('kpiBestModel').textContent = bestModelText;
   document.getElementById('kpiBestModel').title = `${overview.best_model || '--'} / MAE ${fmtNumber(metrics.mae, 2)}`;

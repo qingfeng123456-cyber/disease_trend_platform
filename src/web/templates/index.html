@@ -15,7 +15,7 @@
     <div class="brand-mark">DT</div>
     <div>
       <h1>基于机器学习的传染病发病趋势预测系统</h1>
-      <p>HDFS 分层存储 · Spark 清洗建模 · Flask API · ECharts 大屏</p>
+      <p>HDFS 分层存储 · Spark 清洗建模 · Flask API · ECharts 图表可视化</p>
     </div>
     <div class="top-meta">
       <span id="dataMode">数据模式：--</span>
@@ -67,7 +67,11 @@
     <section class="panel">
       <div class="panel-header">
         <div class="panel-title"><span class="dot danger"></span><span>风险地图</span></div>
+<<<<<<< HEAD
         <small class="panel-note">0-100 课程合成分，仅用于同病种地区相对比较；地图支持拖拽和缩放，并非官方风险等级。</small>
+=======
+        <small class="panel-note">仅用于同病种地区相对比较，非官方风险等级。</small>
+>>>>>>> f67094a0affde5abcc1024ff0a550042455f473a
       </div>
       <div id="riskMapChart" class="chart"></div>
     </section>
@@ -83,7 +87,7 @@
     <section class="panel">
       <div class="panel-header">
         <div class="panel-title"><span class="dot danger"></span><span>高风险地区排行榜</span></div>
-        <small class="panel-note">与风险地图使用同一教学评分，不可跨疾病比较绝对分值。</small>
+        <small class="panel-note">与风险地图使用同一评分，不可跨疾病比较绝对分值。</small>
       </div>
       <div id="rankingChart" class="chart"></div>
     </section>
@@ -145,7 +149,7 @@
     </section>
   </main>
 
-  <footer id="footerDisclaimer">课程教学与数据工程演示，不构成诊断、医疗建议或官方疫情风险等级。</footer>
+  <footer id="footerDisclaimer">项目工程演示，不构成诊断、医疗建议或官方疫情风险等级。</footer>
 
   <script src="{{ url_for('static', filename='js/api.js') }}"></script>
   <script src="{{ url_for('static', filename='js/charts.js') }}"></script>

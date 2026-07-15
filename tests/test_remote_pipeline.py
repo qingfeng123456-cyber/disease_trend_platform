@@ -7,7 +7,7 @@ from src.remote.config import load_remote_config
 
 
 def test_remote_pipeline_dry_run_plan_does_not_need_ssh():
-    config = load_remote_config("config/remote_cluster.example.yaml", ".env.example")
+    config = load_remote_config("config/remote_cluster.yaml", ".env")
     args = argparse.Namespace(
         no_start_services=False,
         no_upload_raw=False,

@@ -12,7 +12,7 @@ from src.web.services.data_service import DataService
 
 try:
     from flask_cors import CORS
-except ImportError:  # pragma: no cover - CORS 是同源部署时的可选增强
+except ImportError:
     CORS = None
 
 setup_logging()
